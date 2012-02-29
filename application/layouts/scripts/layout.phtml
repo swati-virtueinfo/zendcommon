@@ -1,0 +1,30 @@
+<?php
+	$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+	$this->headTitle()->setSeparator(' - ');
+	$this->headTitle('ZEND COMMON PROJECT');
+?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<?php echo $this->headMeta(); ?>
+		<?php echo $this->headTitle(); ?>
+		<?php echo $this->headLink(); ?>
+		<?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css');?>
+		<?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/pagelink.css');?>			
+		<?php echo $this->headScript()->appendFile($this->baseUrl().'/js/function.js'); ?>
+	</head>
+<body>
+	<div id="header">
+		<!--Header File -->
+		<?php echo $this->partial('partials/_header.phtml'); ?>
+	</div>
+	<div id="content" align="center">
+		<h1><?php echo $this->escape($this->title); ?></h1>
+			<?php echo $this->layout()->content; ?>
+	</div>	
+	<br/><br/>
+	<div id="footer">
+		<!--Footer File -->
+		<?php echo $this->partial('partials/_footer.phtml'); ?>
+	</div>
+</body>
+</html>

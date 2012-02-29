@@ -1,0 +1,71 @@
+options:
+    type: INNODB
+    collate: utf8_general_ci
+    charset: utf8
+Admin:
+  connection: doctrine
+  tableName: admin
+  actAs:
+    Timestampable: ~
+  columns:
+    id:
+      type: integer(11)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    email:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    password:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+Language:
+  tableName: language
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(55)
+      unique: true
+    lang:
+      type: string(2)
+      unique: true
+    is_default:
+      type: boolean
+      default: 0
+    is_active:
+      type: boolean
+      default: 1
+    flag:
+      type: string(55)
+  actAs:
+    Timestampable: true
+Variable:
+  tableName: variable
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+    value:
+      type: text
+    is_active:
+      type: boolean
+      default: 1
+  actAs:
+    Timestampable: true
+    I18n:
+      fields: [value]

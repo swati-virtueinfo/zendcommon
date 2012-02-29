@@ -1,0 +1,52 @@
+Model_Admin:
+  Admin_1:
+    id: 1
+    email: admin@virtueinfo.com
+    password: 0caacf712cbd45c4dc974f3026dd1fe05d6a265a
+    created_at: '2012-02-18 03:15:00'
+    updated_at: '2012-02-18 04:31:53'
+Model_Language:
+  Language_1:
+    id: 1
+    name: English
+    lang: en
+    is_default: 1
+    is_active: 1
+    flag: 735c1ba13ad25bb0489395477fb58eae9d138a1b.gif
+    created_at: '2012-02-18 03:15:00'
+    updated_at: '2012-02-18 04:31:53'
+  Language_2:
+    id: 2
+    name: Finnish
+    lang: fi
+    is_default: 0
+    is_active: 1
+    flag: f77437a6ef633039a9ea6593714c06122f2bb0e4.gif
+    created_at: '2012-02-18 03:15:00'
+    updated_at: '2012-02-18 04:31:53'
+Model_Variable:
+  Variable_1:
+    name: lnk_add_new_variable
+    is_active: true
+    created_at: '2012-02-24 11:59:41'
+    updated_at: '2012-02-24 11:59:41'
+  Variable_2:
+    name: lbl_delete
+    is_active: true
+    created_at: '2012-02-24 11:59:41'
+    updated_at: '2012-02-24 11:59:41'
+  Variable_3:
+    name: lbl_serach_by_value
+    is_active: false
+    created_at: '2012-02-24 11:59:41'
+    updated_at: '2012-02-24 11:59:41'
+  Variable_4:
+    name: lnk_value
+    is_active: true
+    created_at: '2012-02-24 11:59:41'
+    updated_at: '2012-02-24 11:59:41'
+  Variable_5:
+    name: lnk_status
+    is_active: true
+    created_at: '2012-02-24 11:59:41'
+    updated_at: '2012-02-24 11:59:41'
