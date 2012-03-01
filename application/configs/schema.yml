@@ -69,3 +69,36 @@ Variable:
     Timestampable: true
     I18n:
       fields: [value]
+Category:
+  actAs:
+    Timestampable: ~
+    I18n:
+      fields: [name]
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    name:
+      type: string(100)
+      notnull: true
+    image_name:
+      type: string(100)
+      notnull: false
+    is_active:
+      type: boolean
+      default: 1
+    parentid:
+      type: integer(4)
+      notnull: true
+    level:
+      type: integer(4)
+      notnull: true
+    site_id:
+      type: integer(4)
+      notnull: true
+    banner_image:
+      type: string(100)
+      notnull: false
+    is_promote:
+      type: boolean
