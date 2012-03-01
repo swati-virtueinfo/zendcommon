@@ -4,13 +4,15 @@
 	$this->headTitle('ZEND COMMON PROJECT');
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
+	<head> 
 		<?php echo $this->headMeta(); ?>
 		<?php echo $this->headTitle(); ?>
 		<?php echo $this->headLink(); ?>
 		<?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css');?>
 		<?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/pagelink.css');?>			
 		<?php echo $this->headScript()->appendFile($this->baseUrl().'/js/function.js'); ?>
+		<!-- Include function file -->
+		<?php echo $this->headScript()->appendFile($this->baseUrl().'/js/jquery.js'); ?>
 	</head>
 <body>
 	<div id="header">
