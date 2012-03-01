@@ -43,8 +43,8 @@ class Language_Form_Addedit extends Zend_Form
 		//Set flag file control 
 		$oFlagImage = new Zend_Form_Element_File("flag");
        	$oFlagImage->setLabel("Flag * ")
-       			->setDestination(UPLOAD_DIR_PATH);
-       			
+       			->setDestination(UPLOAD_DIR_PATH.'/language/');
+
        	//put condition for validation set required
        	if(isset($snIdLanguage) ? $oFlagImage->setRequired(false) : $oFlagImage->setRequired(true));
 	   	$oFlagImage->addValidator('Extension', false, 'jpg,jpeg,png,gif');

@@ -149,11 +149,10 @@ class Model_LanguageTable extends Doctrine_Table
 						->update("Model_Language L")
 						->set("L.name", "?", $asLanguageUpdateData['name'])
 						->set("L.lang", "?", $asLanguageUpdateData['lang'])
-						->set("L.is_default", "?", $asLanguageUpdateData['is_default'])
 						->set("L.is_active", "?", $asLanguageUpdateData['is_active']);
 						
 			if(!empty($asLanguageUpdateData['flag']))
-				$asLanguageUpdate->set("L.flag", "?" , $asLanguageUpdateData['flag']);
+			$asLanguageUpdate->set("L.flag", "?" , $asLanguageUpdateData['flag']);
 			$asLanguageUpdate->set("updated_at", "?" , date('Y-m-d H:i:s'));	
 			$asLanguageUpdate->where("L.id = ?", $asLanguageUpdateData['id']);
 			$asLanguageUpdate->execute();

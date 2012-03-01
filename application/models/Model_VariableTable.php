@@ -35,6 +35,33 @@ class Model_VariableTable extends Doctrine_Table
 	}
 	
 	/**
+	* For Fetch Record of Given Variable Id From Variable Table
+	*
+	* @author Bhaskar joshi
+	* @param  number $snVariableEditId for Edit Id
+	* @access public
+	* @return array of Variable table records 
+	*/
+	public function getVariableById($snVariableEditId)
+	{
+		try
+		{
+			$oSelectQuery = Doctrine_Query::create();
+			$oSelectQuery->select('v.*, T.*');
+			$oSelectQuery->from("Model_Variable v " );
+			$oSelectQuery->leftjoin("v.Translation T");
+			$oSelectQuery->where("v.id = ?", $snVariableEditId);
+	
+			return $oSelectQuery->fetchArray();
+		}
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}
+	}
+	
+	/**
 	* For Insert Variable data
 	*
 	* @author Bhaskar joshi
@@ -68,5 +95,100 @@ class Model_VariableTable extends Doctrine_Table
 			echo $oException->getMessage();
 			return false;
 		}
+	}
+	
+	/**
+	* For Update Variable data
+	*
+	* @author Bhaskar joshi
+	* @access public
+	* @param  array $asVariableData is form Data array
+	* @return boolean
+	*/
+	public function UpdateVariable($asVariableData = array())
+	{
+		if( !is_array( $asVariableData ) || empty( $asVariableData ) ) return false;
+		try
+		{   
+			//Update Model Variable Table
+			$oUpdateVariable = Doctrine::getTable('Model_Variable')->find($asVariableData['id']);			
+			$oUpdateVariable->set("name",$asVariableData['name']);		
+			$oUpdateVariable->set("is_active", $asVariableData['is_active']);
+			$oUpdateVariable->set("updated_at", date('Y-m-d H:i:s'));
+			
+			//Updateing Transaction Table 
+			$asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();
+			foreach($asLanguageList as $snKey => $amValues) {
+				$oUpdateVariable->Translation[$amValues['lang']]->value = $asVariableData['value_' . $amValues['lang']];
+			}			
+			$oUpdateVariable->save();
+			return true;
+		}
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}
+	}
+	
+	/**
+	* For Delete Variable
+	*
+	* @author Bhaskar joshi
+	* @access public
+	* @param  $snVariableId for Which Variable Id is Delete
+	* @return boolean
+	*/
+	public function deleteVariable($snVariableId = 0)
+	{
+		if( $snVariableId == "" || !is_numeric($snVariableId) || $snVariableId == 0 ) return false;
+		try
+		{
+			//delete data from Varible table
+			Doctrine_Query::create()
+						->delete("Model_Variable V")
+						->where("V.id = ?", $snVariableId)
+						->execute();
+			return true;
+		}
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}		
+	}
+	
+	/**
+	* For change Active Variable Or Not
+	*
+	* @author Bhaskar joshi
+	* @access public
+	* @param  number  $snVariableId is id of Variable to set active
+	* @param  boolean $b__isActive for check the value of is_active on click
+	* @return boolean
+	*/
+	public function changeActiveVariable($snVariableId = 0,$b__isActive)
+	{
+		
+		if( $snVariableId == "" || !is_numeric($snVariableId) || $snVariableId == 0) return false;
+		try
+		{
+			//change the value of is_active of Given Row Id
+			$bIsActive = ($b__isActive) ? 0 : 1;
+			
+			//Update Language table
+			$asLanguageUpdate = Doctrine_Query::create()
+					->update("Model_Variable V")
+					->set("V.is_active", "?", $bIsActive)
+					->set("updated_at", "?", date('Y-m-d H:i:s'))
+					->where("V.id = ?", $snVariableId)
+					->execute();
+			return true;
+		}
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}		
 	}
 }
