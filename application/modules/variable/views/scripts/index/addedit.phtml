@@ -1,10 +1,10 @@
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
-<?php $snIdLanguage = $oRequest->getParam('id');  ?>
-<?php echo (isset($snIdLanguage) ? $this->headTitle('Edit-Variable') : $this->headTitle('Add-Variable')); ?>
+<?php $snIdVariable = $oRequest->getParam('id');  ?>
+<?php echo (isset($snIdVariable) ? $this->headTitle('Edit-Variable') : $this->headTitle('Add-Variable')); ?>
 
 <form name="addeditvariable" method="post" enctype="multipart/form-data">
 	<table width="100%" border="0"  align="left">
-        <caption class="tblheader"><?php echo (isset($snIdLanguage) ? "Edit Variable" : "Add New Variable"); ?></caption>
+        <caption class="tblheader"><?php echo (isset($snIdVariable) ? "Edit Variable" : "Add New Variable"); ?></caption>
 		<tr>
 			<td class=""><?php echo strip_tags($this->form->name->renderLabel()); ?></td>
 			<td>
@@ -38,7 +38,7 @@
 			<td id="error" class=""><?php echo strip_tags($this->form->is_active->renderErrors());	?></td>
 		</tr>				
 		<tr>
-			<td></td>
+			<td><?php if(isset($snIdVariable)): ?><input type="hidden" name="id" id="id" value="<?php echo $snIdVariable; ?>" /><?php endif; ?></td>
 			<td >
 				<input type="submit" name="submit" value="Save" class='but'>
 				<input type="reset" name="cancel" value="Cancel" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index'; ?>'">

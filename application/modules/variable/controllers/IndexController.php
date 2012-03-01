@@ -63,7 +63,7 @@ class Variable_IndexController extends Zend_Controller_Action
 				if ($oRequest->getParam('id') > 0 )
 				{
 					// For updating Variable detail
-					Doctrine::getTable('Model_Variable')->InsertVariable($oForm->getValues());
+					Doctrine::getTable('Model_Variable')->UpdateVariable($oForm->getValues());
 
 					// For assigning success massage to flashMessenger
 					$this->_helper->flashMessenger->addMessage('Variable updated successfully');
@@ -89,19 +89,59 @@ class Variable_IndexController extends Zend_Controller_Action
 		//For Populate Variable Edit Form Data
 		if($this->getRequest()->getParam('id') != '' )
 		{
-			// For getting Language detail of given id
 			$amVariableFormData = Doctrine::getTable('Model_Variable')->getVariableById($this->getRequest()->getParam('id'));
+			
+			//set Name Text box value
+			$amVariableFormData['name'] = $amVariableFormData[0]['name'];
+			
+			// Populate Languages Textboxes
 			$asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();
-			foreach ( $asLanguageList as $asLanguage) {
-    			$amVariableFormData['value_' . $asLanguage['lang']] = $amVariableFormData['Translation'][$asLanguage['lang']]['value'];
-    		}
-    		// For filling Variable Data to form
+			foreach($asLanguageList as $asLanguage)
+			{
+				$amVariableFormData['value_' . $asLanguage['lang']] = $amVariableFormData[0]['Translation'][$asLanguage['lang']]['value'];
+			}
+			
+			//set Active checkbox value
+			$amVariableFormData['is_active'] = $amVariableFormData[0]['is_active'];
+			
+			//Poupulate Form Data
     		$oForm->populate($amVariableFormData);
 		}
 		//Assign Form to View
 		$this->view->form = $oForm;
     }
+
+    public function deleteAction()
+    {
+        if( $this->getRequest()->getParam('id') != '' )
+		{
+			// For deleting Variable detail of given id
+			Doctrine::getTable('Model_Variable')->deleteVariable( $this->getRequest()->getParam('id') );
+
+			// For assigning success massage to flashMessenger
+			$this->_helper->flashMessenger->addMessage('Record deleted successfully');
+			
+			// Redirectes to Variale listing Page
+			$this->_redirect('/variable/index');
+		}
+    }
+
+    public function changeactiveAction()
+    {
+    	if($this->getRequest()->getParam('id') != '')
+		{
+			$amVariableData = Doctrine::getTable('Model_Variable')->find($this->getRequest()->getParam('id'));
+		
+			$bIsActive = $amVariableData['is_active'];
+
+			// For Change Default Variable as given id
+			Doctrine::getTable('Model_Variable')->changeActiveVariable($this->getRequest()->getParam('id'),$bIsActive);
+
+			// For assigning success massage to flashMessenger
+			$this->_helper->flashMessenger->addMessage('Record Edited');
+			
+			// Redirectes to Variable listing Page
+			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
+		}		
+    }
 }
-
-
-

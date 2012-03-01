@@ -8,6 +8,12 @@ class Variable_Form_Addedit extends Zend_Form
 		$snIdVariable = $oRequest->getParam('id'); 
 		$asElementArray=array();
 		
+		//set id hidden field at Edit
+		$oVariableId = new Zend_Form_Element_Hidden("id");
+		$oVariableId->setRequired(false);
+		
+		array_push($asElementArray, $oVariableId);
+		
 		 //Set name textbox
         $oTextBoxName = new Zend_Form_Element_Text("name");
         $oTextBoxName->setLabel("Name * ")

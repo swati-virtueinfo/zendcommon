@@ -31,7 +31,7 @@
 			<?php foreach($this->asFieldName as $snKey => $ssFieldName): ?>
 				<td align="<?php echo $this->asColumnAlign[$snKey]; ?>" class="tblrow">
 					<?php if($ssFieldName == "flag"): ?>
-						<img src="/upload/<?php echo $asList[$ssFieldName]; ?>" height="20" width="20"/>
+						<img src="/upload/language/<?php echo $asList[$ssFieldName]; ?>" height="20" width="20"/>
 					<?php elseif($ssFieldName == "is_default"): ?>	
 						<a href="<?php echo $this->url(array('module'=> $oRequest->getParam('module'),'controller'=> $oRequest->getParam('controller'),'action'=>'changedefault','id' => $asList['id']))?>">
 							<img src="/images/<?php echo ($asList[$ssFieldName] == 1) ? 'active_radio.gif' : 'deactive_radio.gif';?>">
