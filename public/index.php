@@ -18,6 +18,9 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
+defined('UPLOAD_DIR_PATH')
+    || define('UPLOAD_DIR_PATH', 'upload/');
+
 /** Zend_Application */
 require_once 'Zend/Application.php';
 

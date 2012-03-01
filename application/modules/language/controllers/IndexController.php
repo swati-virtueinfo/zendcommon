@@ -46,7 +46,7 @@ class Language_IndexController extends Zend_Controller_Action
 				$asLanguageList[$snKey]['delete'] = "<a><img src='/images/delete_gray.gif'></a>";
 			}
 			else{
-				$asLanguageList[$snKey]['delete'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$asLanguage['id']."' title='Delete' onclick='return deleteConfirm()'><img src='/images/delete.gif'></a>";
+				$asLanguageList[$snKey]['delete'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$asLanguage['id']."' title='Delete' onclick='return deleteMsg()'><img src='/images/delete.gif'></a>";
 			}	
 		}
 		

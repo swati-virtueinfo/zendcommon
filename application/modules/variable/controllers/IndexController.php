@@ -38,7 +38,7 @@ class Variable_IndexController extends Zend_Controller_Action
 		foreach($amVariableList  as $snKey => $asLanguage)
 		{
 			$amVariableList[$snKey]['edit'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/addedit/id/".$asLanguage['id']."' title='Edit'><img src='/images/edit_icon.gif' ></a>";
-			$amVariableList[$snKey]['delete'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$asLanguage['id']."' title='Delete' onclick='return deleteConfirm()'><img src='/images/delete.gif'></a>";
+			$amVariableList[$snKey]['delete'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$asLanguage['id']."' title='Delete' onclick='return deleteMsg()'><img src='/images/delete.gif'></a>";
 		}
 		
 		// Get paging

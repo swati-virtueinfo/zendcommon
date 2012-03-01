@@ -1,0 +1,31 @@
+<div>
+	<div class="addcategory"><a href="<?php echo $this->url(array('controller' => 'index' , 'action' => 'addcategory'))?>">Add Category</a></div>
+	<div class="addcategory">&nbsp;</div>
+</div>
+<div class="listparent">
+	<?php getContent($this->amCatListing); ?>
+</div>
+<?php function getContent($amCategories = array(), $snCategoryId = 0) { ?>
+	<?php foreach ($amCategories as $amCategory) : ?>
+		<?php $ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString(); ?>
+		<div class="listchild" >
+		<?php echo str_repeat("&nbsp;", ($amCategory['level'] * 5) ). $amCategory['Translation'][$ssCurrentLocale]['name']; ?>
+		</div>
+		<div class="listCatAction" >
+			<div class="checkbox"  id="<?php echo $amCategory['id']; ?>_checkbox">
+				<?php if($amCategory['is_active'] == 1): ?>
+					<input type="checkbox" id="<?php echo "id-".$amCategory['id']."-status-".$amCategory['is_active']; ?>" checked="checked" onclick="catStatus(this);"></input> |
+				<?php else:?>
+					<input type="checkbox" id="<?php echo "id-".$amCategory['id']."-status-0" ?>"  onclick="catStatus(this);"></input> |
+				<?php endif;?>
+			</div>
+			<div>
+				<a href="addcategory/editid/<?php echo $amCategory['id']; ?>">Edit</a>&nbsp;|&nbsp;
+				<a href="deletecategory/id/<?php echo $amCategory['id']; ?>" onclick="return deleteMsg();">Delete</a>&nbsp;|&nbsp;
+			</div>			
+		</div>
+		<?php unset($amCategory['id'], $amCategory['level'], $amCategory['parentid'], $amCategory['is_active'], $amCategory['Translation']); ?>
+		<?php getContent($amCategory);	?>
+	<?php endforeach; ?>
+<?php } ?>
+<div class="addcategory">&nbsp;</div>
