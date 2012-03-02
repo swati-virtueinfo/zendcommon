@@ -109,6 +109,8 @@
             <controllerFile controllerName="Index">
               <actionMethod actionName="index"/>
               <actionMethod actionName="addedit"/>
+              <actionMethod actionName="delete"/>
+              <actionMethod actionName="changeactive"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory>
@@ -125,6 +127,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">
                 <viewScriptFile forActionName="addedit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="delete"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="changeactive"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -184,26 +192,26 @@
               <testApplicationControllerFile forControllerName="Index">
                 <testApplicationActionMethod forActionName="index"/>
               </testApplicationControllerFile>
-			  <testApplicationControllerFile forControllerName="Login">
+              <testApplicationControllerFile forControllerName="Login">
                 <testApplicationActionMethod forActionName="index"/>
-				<testApplicationActionMethod forActionName="changepassword"/>
-				<testApplicationActionMethod forActionName="changepasscheck"/>
-              </testApplicationControllerFile>	
+                <testApplicationActionMethod forActionName="changepassword"/>
+                <testApplicationActionMethod forActionName="changepasscheck"/>
+              </testApplicationControllerFile>
             </testApplicationControllerDirectory>
           </testApplicationModuleDirectory>
-		  <testApplicationModuleDirectory forModuleName="language">
+          <testApplicationModuleDirectory forModuleName="language">
             <testApplicationControllerDirectory>
               <testApplicationControllerFile forControllerName="Index">
                 <testApplicationActionMethod forActionName="index"/>
                 <testApplicationActionMethod forActionName="addedit"/>
                 <testApplicationActionMethod forActionName="delete"/>
                 <testApplicationActionMethod forActionName="changelanguage"/>
-				<testApplicationActionMethod forActionName="changeactive"/>
-				<testApplicationActionMethod forActionName="changedefault"/>
+                <testApplicationActionMethod forActionName="changeactive"/>
+                <testApplicationActionMethod forActionName="changedefault"/>
               </testApplicationControllerFile>
             </testApplicationControllerDirectory>
           </testApplicationModuleDirectory>
-		  <testApplicationModuleDirectory forModuleName="variable">
+          <testApplicationModuleDirectory forModuleName="variable">
             <testApplicationControllerDirectory>
               <testApplicationControllerFile forControllerName="Index">
                 <testApplicationActionMethod forActionName="index"/>
