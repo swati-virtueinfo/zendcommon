@@ -14,11 +14,17 @@ class Language_IndexController extends Zend_Controller_Action
 
 		/********** Optional Part Start FOR getList()**********/			
 		// Assigning sortOn value
-		$oCommon->ssSortOn = $this->_getParam('sortOn', 'id');
+		$this->ssSortOn = $this->_getParam('sortOn', 'id');
 
 		// Assigning sortBy value
-		$oCommon->ssSortBy = $this->_getParam('sortBy', 'ASC');
+		$this->ssSortBy = $this->_getParam('sortBy', 'ASC');
 		/********** Optional Part End FOR getList()************/
+		
+		// Assigning search field
+		$this->view->ssSearchField =$this->ssSearchField = $this->_getParam('searchSelect');
+
+		// Assigning search keyword
+		$this->view->ssSearchKeyword =$this->ssSearchKeyword = $this->_getParam('searchKeyword');
 
 		/********** Optional Part Start FOR paginate()**********/
 		// Assigning current page value
@@ -28,14 +34,15 @@ class Language_IndexController extends Zend_Controller_Action
 		
 		
 		//Fetch All Data From Language Table
-		$asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();
+		$asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList($this->ssSortOn,$this->ssSortBy,$this->ssSearchField,$this->ssSearchKeyword);
 		
 		// Get list
 		$this->view->asHeading = array("Language","Flag","Default","Active","Action");
 		$this->view->asFieldName = $asFieldList = array("name", "flag","is_default","is_active","edit","delete");
 		$this->view->asColumnSort = array(true,false,false,false,false,false);
 		$this->view->asColumnWidth = array("40%", "15%", "10%", "10%","10%","15%");
-		$this->view->asColumnAlign = array("left", "center", "center", "center","center","center");	
+		$this->view->asColumnAlign = array("left", "center", "center", "center","center","center");
+		$this->view->asSearchOption = array('name' => 'Language');	
 		
 		//For Edit/Delete Link In Listing
 		foreach($asLanguageList  as $snKey => $asLanguage)
@@ -129,9 +136,20 @@ class Language_IndexController extends Zend_Controller_Action
     {
         if( $this->getRequest()->getParam('id') != '' )
 		{
+			$oLanguage = Doctrine::getTable('Model_Language')->find($this->getRequest()->getParam('id'));
+			$amLanguageData =$oLanguage->toArray();
+			
 			// For deleting language detail of given id
-			Doctrine::getTable('Model_Language')->deleteLanguage( $this->getRequest()->getParam('id') );
-
+			$bResultDelete = Doctrine::getTable('Model_Language')->deleteLanguage( $this->getRequest()->getParam('id') );
+			
+			if($bResultDelete)
+			{
+				//Delete Language File & Image
+				$ssLogfile = LANGUAGE_PATH.'/'.$amLanguageData['lang'].'.php';	
+				$ssLanguageImageName =  UPLOAD_DIR_PATH.'/language/'.$amLanguageData['flag'];
+				if(!empty($ssLogfile) ? unlink($ssLogfile) : '');
+				if(!empty($ssLanguageImageName) ? unlink($ssLanguageImageName) : '');				
+			}
 			// For assigning success massage to flashMessenger
 			$this->_helper->flashMessenger->addMessage('Record deleted successfully');
 			
@@ -190,15 +208,3 @@ class Language_IndexController extends Zend_Controller_Action
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
