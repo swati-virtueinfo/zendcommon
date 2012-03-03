@@ -26,7 +26,9 @@ class Admin_IndexController extends Zend_Controller_Action
         $this->view->admin_name = $ss__adminname;
         $this->view->aid = $ss__adminid;
     }
-
+	
 
 }
+
+
 

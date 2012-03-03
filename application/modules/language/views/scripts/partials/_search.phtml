@@ -1,0 +1,14 @@
+<?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
+<br/><br/>
+<form action="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => $oRequest->getParam('action'), 'sortOn' => $oRequest->getParam('sortOn'), 'sortBy' => $oRequest->getParam('sortBy'), 'id' => $oRequest->getParam('id'), 'page' => $oRequest->getParam('page')), $name = null, $reset = true);?>" method="post" name="searchForm">
+	<font class="">Search By :</font>
+		<select name="searchSelect" class="but">
+			<?php foreach( $this->asSearchOption as $ssField => $ssDisplayname ): ?>
+				<option value="<?php echo $ssField;?>" <?php echo ($oRequest->getParam('searchSelect') && $oRequest->getParam('searchSelect') == $ssField) ? 'selected=selected' : ''; ?>><?php echo $ssDisplayname; ?></option>
+			<?php endforeach; ?>
+		</select>&nbsp;&nbsp;&nbsp;
+	<font class="but">Search keyword :</font>
+	<input type="text" name="searchKeyword" value="<?php echo ($oRequest->getParam('searchKeyword')) ? $oRequest->getParam('searchKeyword') : ''; ?>" />
+	<input type="submit" name="search" value="<?php echo 'Search'; ?>" style="cursor: pointer;" title="<?php 'Search'; ?>" class="but"/>
+	<input type="reset" name="reset" value="<?php echo 'Reset'; ?>" style="cursor: pointer;" title="<?php echo 'Reset'; ?>" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/'.$oRequest->getParam('controller').'/'.$oRequest->getParam('action'); ?>'" class="but" />
+</form>

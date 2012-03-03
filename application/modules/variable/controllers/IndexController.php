@@ -5,7 +5,7 @@ class Variable_IndexController extends Zend_Controller_Action
 
     public function init()
     {
-        /* Initialize action controller here */
+        
     }
 
     public function indexAction()
@@ -96,7 +96,7 @@ class Variable_IndexController extends Zend_Controller_Action
 		if($this->getRequest()->getParam('id') != '' )
 		{
 			$amVariableFormData = Doctrine::getTable('Model_Variable')->getVariableById($this->getRequest()->getParam('id'));
-			
+		
 			//set Name Text box value
 			$amVariableFormData['name'] = $amVariableFormData[0]['name'];
 			
@@ -130,7 +130,6 @@ class Variable_IndexController extends Zend_Controller_Action
 			// Redirectes to Variale listing Page
 			$this->_redirect('/variable/index');
 		}
-    	
     }
 
     public function changeactiveAction()
@@ -151,6 +150,7 @@ class Variable_IndexController extends Zend_Controller_Action
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
 		}		
     }
+
 
     public function generatefileAction()
     {
@@ -185,22 +185,3 @@ class Variable_IndexController extends Zend_Controller_Action
     	$this->_redirect('/variable/index');
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

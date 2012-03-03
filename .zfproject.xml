@@ -110,6 +110,8 @@
               <actionMethod actionName="index"/>
               <actionMethod actionName="addedit"/>
               <actionMethod actionName="generatefile"/>
+              <actionMethod actionName="delete"/>
+              <actionMethod actionName="changeactive"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory>
@@ -128,7 +130,14 @@
                 <viewScriptFile forActionName="addedit"/>
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">
+<<<<<<< HEAD
                 <viewScriptFile forActionName="generatefile"/>
+=======
+                <viewScriptFile forActionName="delete"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="changeactive"/>
+>>>>>>> 7935731ce516b5e06aed8e0d841b44f226be1ff5
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
