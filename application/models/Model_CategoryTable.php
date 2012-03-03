@@ -2,6 +2,31 @@
 
 class Model_CategoryTable extends Doctrine_Table
 {
+	
+	/**
+	* For Fetch All Record From Category Table
+	*
+	* @author Bhaskar joshi
+	* @access public
+	* @return array of Category table records 
+	*/
+	public function getAllCategoryData()
+	{
+		try
+		{
+			$oSelectQuery = Doctrine_Query::create();
+			$oSelectQuery->select('c.*, T.*');
+			$oSelectQuery->from("Model_Category c" );
+			return $oSelectQuery->fetchArray();
+		}
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}
+	}
+	
+	
 	/**
 	* For inserting category detail
 	*

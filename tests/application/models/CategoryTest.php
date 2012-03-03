@@ -1,6 +1,6 @@
 <?php 
 
- /**
+/**
  * Tests_CategoryTable
  *
  * Unit test case for CategoryTable 

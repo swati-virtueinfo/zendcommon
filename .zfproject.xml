@@ -109,6 +109,7 @@
             <controllerFile controllerName="Index">
               <actionMethod actionName="index"/>
               <actionMethod actionName="addedit"/>
+              <actionMethod actionName="generatefile"/>
               <actionMethod actionName="delete"/>
               <actionMethod actionName="changeactive"/>
             </controllerFile>
@@ -129,6 +130,7 @@
                 <viewScriptFile forActionName="addedit"/>
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="generatefile"/>
                 <viewScriptFile forActionName="delete"/>
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">
@@ -174,8 +176,7 @@
               <viewControllerScriptsDirectory forControllerName="Index">
                 <viewScriptFile forActionName="isactive"/>
               </viewControllerScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="Index">
-              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index"/>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
             <viewFiltersDirectory/>
@@ -259,6 +260,7 @@
               <testApplicationControllerFile forControllerName="Index">
                 <testApplicationActionMethod forActionName="index"/>
                 <testApplicationActionMethod forActionName="addedit"/>
+                <testApplicationActionMethod forActionName="generatefile"/>
               </testApplicationControllerFile>
             </testApplicationControllerDirectory>
           </testApplicationModuleDirectory>

@@ -1,0 +1,7 @@
+<?php 
+	$oRequest = Zend_Controller_Front::getInstance()->getRequest();
+	$ssAlphabet = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); ?> 
+	<?php  foreach ($ssAlphabet as $ssLetter) : ?>
+		<a href="<?php echo  $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => $oRequest->getParam('action'),'searchSelect'=>'name','searchKeyword'=>$ssLetter) )?>"><?php echo $ssLetter ?></a>&nbsp;¦&nbsp;
+	<?php endforeach; ?>
+		<a href="<?php echo $this->url(array('module' => 'variable'));?>" >View All</a>	 	
