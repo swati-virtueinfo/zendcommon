@@ -13,11 +13,17 @@ class Variable_IndexController extends Zend_Controller_Action
         $oCommon = new ZendX_Common();
 
 		// Assigning sortOn value
-		$oCommon->ssSortOn = $this->_getParam('sortOn', 'id');
+		$this->view->ssSortOn = $ssSortOn = $this->_getParam('sortOn', 'id');
 
 		// Assigning sortBy value
-		$oCommon->ssSortBy = $this->_getParam('sortBy', 'ASC');
+		$this->view->ssSortBy = $ssSortBy = $this->_getParam('sortBy', 'ASC');
 
+		// Assigning search field
+		$this->view->ssSearchField = $ssSearchField = $this->_getParam('searchSelect');
+
+		// Assigning search keyword
+		$this->view->ssSearchKeyword =  $ssSearchKeyword = strtolower($this->_getParam('searchKeyword'));
+		
 		/********** Optional Part Start FOR paginate()**********/
 		// Assigning current page value
 		$oCommon->snPage = $this->_getParam('page', 1);
@@ -25,8 +31,8 @@ class Variable_IndexController extends Zend_Controller_Action
 		/********** Optional Part End FOR paginate()************/
 
 		//Fetch All Data From Language Table
-		$amVariableList = Doctrine::getTable('Model_Variable')->getVariableList();
-
+		$amVariableList = Doctrine::getTable('Model_Variable')->getVariableList($ssSortOn, $ssSortBy, $ssSearchField, $ssSearchKeyword,Zend_Registry::get('Zend_Locale'));
+		
 		// Get list
 		$this->view->asHeading = array("Variable Name","Value","Active","Action");
 		$this->view->asFieldName = $asFieldList = array("name", "value","is_active","edit","delete");
@@ -124,6 +130,7 @@ class Variable_IndexController extends Zend_Controller_Action
 			// Redirectes to Variale listing Page
 			$this->_redirect('/variable/index');
 		}
+    	
     }
 
     public function changeactiveAction()
@@ -144,4 +151,56 @@ class Variable_IndexController extends Zend_Controller_Action
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
 		}		
     }
+
+    public function generatefileAction()
+    {
+   		$ssLanguageDir = LANGUAGE_PATH.'/';
+		foreach(glob($ssLanguageDir.'*.*') as $ssLagFile){
+    		unlink($ssLagFile);
+		}
+		
+    	$amLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();
+    	foreach ($amLanguageList as $snKey => $ssLang) {
+    		$ssLogfile = LANGUAGE_PATH.'/'.$amLanguageList[$snKey]['lang'].'.php';
+			$handle = fopen($ssLogfile, 'w+') or die("can't open file");
+			$ssFileStringData  = '';
+			$ssFileStringData .= '<?php' . "\n";
+			$ssFileStringData .= 'return array(' . "\n";
+			$amLanguageList[$snKey]['lang'];
+			$amVariableList = Doctrine::getTable('Model_Variable')->getAllVariableList($amLanguageList[$snKey]['lang']);
+
+			foreach ($amVariableList as $snVarKey => $ssVarValues) {
+	    		$ssVarName = $ssVarValues['name'];
+    			$ssVarValue = $ssVarValues['Translation'][$amLanguageList[$snKey]['lang']]['value'];
+    			$ssFileStringData .= '	'."'$ssVarName'".' => '."'$ssVarValue'".',' . "\n";
+	    	}
+
+	    	$ssFileStringData .= ');' . "\n";		
+			fwrite($handle, $ssFileStringData);
+			fclose($handle);
+			chmod($ssLogfile,0777);
+			$amLanguageList[$snKey]['lang'];
+    	}
+    	$this->_helper->flashMessenger->addMessage("Successfully Generate languages files");
+    	$this->_redirect('/variable/index');
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

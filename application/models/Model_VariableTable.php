@@ -10,7 +10,38 @@ class Model_VariableTable extends Doctrine_Table
 	* @access public
 	* @return array of Variable table records 
 	*/
-	public function getVariableList($ssSortOn = '', $ssSortBy = '', $ssSearchField = '', $ssSearchKeyword = '')
+	public function getVariableList($ssSortOn = '', $ssSortBy = '', $ssSearchField = '', $ssSearchKeyword = '',$ssLang = 'en')
+	{
+		
+		try
+		{
+			$oSelectQuery = Doctrine_Query::create();
+			$oSelectQuery->select('v.id, v.name,v.is_active, T.*');
+			$oSelectQuery->from("Model_Variable v " );
+			$oSelectQuery->leftjoin("v.Translation T");
+			$oSelectQuery->andwhere("T.lang = ?", $ssLang);
+			if( !empty($ssSearchField) && !empty($ssSearchKeyword) )
+				$oSelectQuery->where($ssSearchField . " LIKE '" . $ssSearchKeyword . "%'" );
+		
+			if( !empty($ssSortOn) && !empty($ssSortBy) )
+				 $oSelectQuery->orderBy( $ssSortOn . ' ' . $ssSortBy );
+	
+			return $oSelectQuery->fetchArray();
+		}
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}
+	}
+	/**
+	* For Fetch All Record From Variable Table
+	*
+	* @author suresh chikani
+	* @access public
+	* @return boolean | array of Variable table records 
+	*/
+	public function getAllVariableList($ssLang = '')
 	{
 		try
 		{
@@ -18,13 +49,9 @@ class Model_VariableTable extends Doctrine_Table
 			$oSelectQuery->select('v.id, v.name,v.is_active, T.*');
 			$oSelectQuery->from("Model_Variable v " );
 			$oSelectQuery->leftjoin("v.Translation T");
-			$oSelectQuery->andwhere("T.lang = ?", Zend_Registry::get('Zend_Locale'));
-			if( !empty($ssSearchField) && !empty($ssSearchKeyword) )
-				$oSelectQuery->where($ssSearchField . " LIKE '%" . $ssSearchKeyword . "%'" );
-		
-			if( !empty($ssSortOn) && !empty($ssSortBy) )
-				 $oSelectQuery->orderBy( $ssSortOn . ' ' . $ssSortBy );
-	
+			$oSelectQuery->andwhere("T.lang = ?", $ssLang);
+			$oSelectQuery->orderBy('v.name ASC');
+			
 			return $oSelectQuery->fetchArray();
 		}
 		catch( Exception $oException )
@@ -50,6 +77,7 @@ class Model_VariableTable extends Doctrine_Table
 			$oSelectQuery->select('v.*, T.*');
 			$oSelectQuery->from("Model_Variable v " );
 			$oSelectQuery->leftjoin("v.Translation T");
+			
 			$oSelectQuery->where("v.id = ?", $snVariableEditId);
 	
 			return $oSelectQuery->fetchArray();
