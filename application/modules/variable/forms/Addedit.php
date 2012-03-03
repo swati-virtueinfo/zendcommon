@@ -12,7 +12,7 @@ class Variable_Form_Addedit extends Zend_Form
 		$oVariableId = new Zend_Form_Element_Hidden("id");
 		$oVariableId->setRequired(false);
 		
-		array_push($asElementArray, $oVariableId);
+		if(isset($snIdVariable) ? array_push($asElementArray, $oVariableId) : "");		
 		
 		 //Set name textbox
         $oTextBoxName = new Zend_Form_Element_Text("name");

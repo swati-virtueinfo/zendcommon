@@ -1,3 +1,4 @@
 <?php
-array(
+return array(
+	'test' => 'test_fi'
 );

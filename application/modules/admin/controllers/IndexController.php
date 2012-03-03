@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Admin_IndexController supports features like 
+ * displaying home Page
+ *
+ * @category   Zend
+ * @package    zendcommon
+ * @subpackage admin
+ * @author     Bhaskar Joshi
+ * @uses       Zend_Controller_Action
+ */
 class Admin_IndexController extends Zend_Controller_Action
 {
 

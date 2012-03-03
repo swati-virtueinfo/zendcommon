@@ -12,6 +12,7 @@ class Model_LanguageTable extends Doctrine_Table
 	*/
 	public function getLanguageList($ssSortOn = '', $ssSortBy = '', $ssSearchField = '', $ssSearchKeyword = '')
 	{
+		
 		try
 		{
 			$oSelectQuery = Doctrine_Query::create();
@@ -91,7 +92,7 @@ class Model_LanguageTable extends Doctrine_Table
 	* @param  array $asLanguageData is form Data array
 	* @return boolean
 	*/
-	public function InsertUser($asLanguageData = array())
+	public function InsertLanguage($asLanguageData = array())
 	{
 		if(!is_array($asLanguageData) || empty($asLanguageData)) return false;
 
@@ -152,7 +153,9 @@ class Model_LanguageTable extends Doctrine_Table
 						->set("L.is_active", "?", $asLanguageUpdateData['is_active']);
 						
 			if(!empty($asLanguageUpdateData['flag']))
-			$asLanguageUpdate->set("L.flag", "?" , $asLanguageUpdateData['flag']);
+			{
+				$asLanguageUpdate->set("L.flag", "?" , $asLanguageUpdateData['flag']);
+			}
 			$asLanguageUpdate->set("updated_at", "?" , date('Y-m-d H:i:s'));	
 			$asLanguageUpdate->where("L.id = ?", $asLanguageUpdateData['id']);
 			$asLanguageUpdate->execute();
@@ -270,5 +273,5 @@ class Model_LanguageTable extends Doctrine_Table
 			return false;
 		}		
 	}
-
+	
 }

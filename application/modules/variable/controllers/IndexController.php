@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * Variable_IndexController supports features like 
+ * list of Variables with Language value
+ * Add Variable with Exists Languges Value,
+ * Edit variable with Exists Languages value 
+ * Delete Variable, Change Active Variable
+ *
+ * @category   Zend
+ * @package    zendcommon
+ * @subpackage admin
+ * @author     Bhaskar Joshi
+ * @uses       Zend_Controller_Action
+ */
 class Variable_IndexController extends Zend_Controller_Action
 {
 
@@ -13,19 +25,25 @@ class Variable_IndexController extends Zend_Controller_Action
         $oCommon = new ZendX_Common();
 
 		// Assigning sortOn value
-		$oCommon->ssSortOn = $this->_getParam('sortOn', 'id');
+		$this->ssSortOn = $this->_getParam('sortOn', 'id');
 
 		// Assigning sortBy value
-		$oCommon->ssSortBy = $this->_getParam('sortBy', 'ASC');
+		$this->ssSortBy = $this->_getParam('sortBy', 'ASC');
 
 		/********** Optional Part Start FOR paginate()**********/
 		// Assigning current page value
 		$oCommon->snPage = $this->_getParam('page', 1);
-		$oCommon->snRecordPerPage = 10;
+		$oCommon->snRecordPerPage = 4;
 		/********** Optional Part End FOR paginate()************/
+		
+		// Assigning search field
+		$this->view->ssSearchField =$this->ssSearchField = $this->_getParam('searchSelect');
+
+		// Assigning search keyword
+		$this->view->ssSearchKeyword =$this->ssSearchKeyword = $this->_getParam('searchKeyword');
 
 		//Fetch All Data From Language Table
-		$amVariableList = Doctrine::getTable('Model_Variable')->getVariableList();
+		$amVariableList = Doctrine::getTable('Model_Variable')->getVariableList($this->ssSortOn,$this->ssSortBy,$this->ssSearchField,$this->ssSearchKeyword,Zend_Registry::get('Zend_Locale'));
 
 		// Get list
 		$this->view->asHeading = array("Variable Name","Value","Active","Action");
@@ -33,6 +51,7 @@ class Variable_IndexController extends Zend_Controller_Action
 		$this->view->asColumnSort = array(true,false,false,false,false,false);
 		$this->view->asColumnWidth = array("40%", "15%", "10%", "10%","10%","15%");
 		$this->view->asColumnAlign = array("left", "center", "center", "center","center","center");	
+		$this->view->asSearchOption = array('name' => 'Variable','value' => 'Value');	
 		
 		//For Edit/Delete Link In Listing
 		foreach($amVariableList  as $snKey => $asLanguage)
@@ -132,17 +151,17 @@ class Variable_IndexController extends Zend_Controller_Action
 		{
 			$amVariableData = Doctrine::getTable('Model_Variable')->find($this->getRequest()->getParam('id'));
 		
-			$bIsActive = $amVariableData['is_active'];
+			$bIsActive=$amVariableData['is_active'];
 
 			// For Change Default Variable as given id
-			Doctrine::getTable('Model_Variable')->changeActiveVariable($this->getRequest()->getParam('id'),$bIsActive);
+			$bResult = Doctrine::getTable('Model_Variable')->changeActiveVariable($this->getRequest()->getParam('id'),$bIsActive);
 
-			// For assigning success massage to flashMessenger
-			$this->_helper->flashMessenger->addMessage('Record Edited');
+			// On Success assigning success massage to flashMessenger
+			if($bResult)
+				$this->_helper->flashMessenger->addMessage('Record Edited');
 			
 			// Redirectes to Variable listing Page
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
 		}		
     }
 }
-

@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Admin_LoginController supports features like 
+ * displaying Login Page,Check Admin Authentication
+ * Admin Logout,Admin Change Password.
+ * @category   Zend
+ * @package    zendcommon
+ * @subpackage admin
+ * @author     Bhaskar Joshi
+ * @uses       Zend_Controller_Action
+ */
 class Admin_LoginController extends Zend_Controller_Action
 {
 
@@ -161,13 +170,19 @@ class Admin_LoginController extends Zend_Controller_Action
 	            }
 	            else
 	            {
-	            	$asFetchedOldpassword = Doctrine::getTable('Model_Admin')->CheckOldPassword($snAdminId);
+	            	$asFetchedOldpassword = Doctrine::getTable('Model_Admin')->getAdminRecordById($snAdminId);
 					
 	            	if($asFetchedOldpassword['password'] == $smOldPassword)	
 	            	{
 	            		$bResult = Doctrine::getTable('Model_Admin')->ChangePassword($smNewPassword,$snAdminId);
-	            		$this->_helper->flashMessenger->addMessage(array('Your password changed successfully.'));
-	                	$this->_redirect('admin/login/changepassword/id/'.$snAdminId);
+	            		if($bResult){
+	            			$this->_helper->flashMessenger->addMessage(array('Your password changed successfully.'));	
+	            		}
+	            		else
+	            		{
+	            			$this->_helper->flashMessenger->addMessage(array('Password Not Changed Pls Try Again'));
+	            		}
+	            		$this->_redirect('admin/login/changepassword/id/'.$snAdminId);
 	            	}
 	            	else
 	            	{

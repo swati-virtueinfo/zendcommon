@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * Language_IndexController supports features like 
+ * list of Languages,Add Languages with creating 
+ * Language wise php file ,Edit Languages 
+ * Change Default Language,Change Active Language
+ * Delete Languages & Language Session Management.
+ *
+ * @category   Zend
+ * @package    zendcommon
+ * @subpackage admin
+ * @author     Bhaskar Joshi
+ * @uses       Zend_Controller_Action
+ */
 class Language_IndexController extends Zend_Controller_Action
 {
 
@@ -78,9 +90,30 @@ class Language_IndexController extends Zend_Controller_Action
 				//If Id variable is get in request then Edit Record else Add Record
 				if ($oRequest->getParam('id') > 0 )
 				{
+					//Fetch Record From Database 
+					$oLanguage = Doctrine::getTable('Model_Language')->find($this->getRequest()->getParam('id'));
+					$amLanguageData = $oLanguage->toArray();
+					$ssOldLanguageName = $amLanguageData['lang'];
+					
+					//Store form Data in Variable 
+					$amUpdateLanguageData = $oForm->getValues();
+					$ssNewLanguageName = $amUpdateLanguageData['lang'];
+					
 					// For updating Language detail
 					Doctrine::getTable('Model_Language')->UpdateLanguage($oForm->getValues());
-
+					
+					//create Language File when changes Lang value at Update
+					if($ssOldLanguageName != $ssNewLanguageName)
+					{
+						//for Store file name with Path
+						$ssLogfile = LANGUAGE_PATH.'/'.$ssNewLanguageName.'.php';
+						
+						if(!is_file($ssLogfile))
+						{
+							//call function to create Language File in Languages Folder
+							$bResult = $this->_createLanguageFile($ssLogfile);
+						}
+					}	
 					// For assigning success massage to flashMessenger
 					$this->_helper->flashMessenger->addMessage('Language updated successfully');
 					
@@ -91,18 +124,14 @@ class Language_IndexController extends Zend_Controller_Action
 				{
 					$amAddLanguageData = $oForm->getValues();
 					// Insert Language Record
-					Doctrine::getTable('Model_Language')->InsertUser($oForm->getValues());
+					Doctrine::getTable('Model_Language')->InsertLanguage($amAddLanguageData);
 					
-					//Create Language file in the Language Folder
+					//for Store file name with Path
 					$ssLogfile = LANGUAGE_PATH.'/'.$amAddLanguageData['lang'].'.php';
-					$handle = fopen($ssLogfile, 'w+') or die("can't open file");
-					$ssFileStringData  = '';
-					$ssFileStringData .= '<?php' . "\n";
-					$ssFileStringData .= 'array(' . "\n";
-					$ssFileStringData .= ');' . "\n";		
-					fwrite($handle, $ssFileStringData);
-					fclose($handle);
-					chmod($ssLogfile,0777);
+					
+					//call function to create Language File in Languages Folder
+					$bResult = $this->_createLanguageFile($ssLogfile);
+					
 					// For assigning success massage to flashMessenger
 					$this->_helper->flashMessenger->addMessage('Language Add Successfully.');
 					
@@ -206,5 +235,26 @@ class Language_IndexController extends Zend_Controller_Action
         	// Redirectes to Language listing Page
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
         }
+    }
+    
+    //For Create Language File in Language Folder
+    public function _createLanguageFile($ssFilenameWithPath = '')
+    {
+		$ssLogfile = $ssFilenameWithPath;
+		//Create File Using fopen
+		$handle = fopen($ssLogfile, 'w+') or die("can't open file");
+		
+		//Put Content In the file
+		$ssFileStringData  = '';
+		$ssFileStringData .= '<?php' . "\n";
+		$ssFileStringData .= 'return array(' . "\n";
+		$ssFileStringData .= ');' . "\n";
+			
+		//Save File 	
+		fwrite($handle, $ssFileStringData);
+		fclose($handle);
+		//Change File Mode 
+		chmod($ssLogfile,0777);
+		return true;
     }
 }

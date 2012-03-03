@@ -4,14 +4,16 @@
 class Model_AdminTable extends Doctrine_Table
 {
 	/**
-	* For Check Old Password in Change Password
+	* For Fetch Record From Table By Given ID
 	*
 	* @author Bhaskar joshi
+	* @param number $snAdminId for Admin Id
 	* @access public
 	* @return array 
 	*/
-	public function CheckOldPassword($snAdminId = '')
+	public function getAdminRecordById($snAdminId = '')
 	{
+		if( $snAdminId == "" || !is_numeric($snAdminId) ) return false;
 		try
 		{
 			$asCategoryList = Doctrine_Query::create()
@@ -28,7 +30,7 @@ class Model_AdminTable extends Doctrine_Table
 	}
 	
 	/**
-	* For Change Password
+	* For Change Admin Password
 	*
 	* @author Bhaskar joshi
 	* @access public
@@ -38,7 +40,9 @@ class Model_AdminTable extends Doctrine_Table
 	*/
 	public function ChangePassword($smPassword = '',$snAdminId = '')
 	{
-		if(empty($smPassword ) || empty($snAdminId)) return false;
+		
+		if((empty($smPassword)) && (empty($snAdminId)) || !is_numeric($snAdminId)) return false;
+		
 		try
 		{
 			//update Password in admin table

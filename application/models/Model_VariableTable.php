@@ -10,7 +10,7 @@ class Model_VariableTable extends Doctrine_Table
 	* @access public
 	* @return array of Variable table records 
 	*/
-	public function getVariableList($ssSortOn = '', $ssSortBy = '', $ssSearchField = '', $ssSearchKeyword = '')
+	public function getVariableList($ssSortOn = '', $ssSortBy = '', $ssSearchField = '', $ssSearchKeyword = '',$ssLang = 'en')
 	{
 		try
 		{
@@ -18,39 +18,40 @@ class Model_VariableTable extends Doctrine_Table
 			$oSelectQuery->select('v.id, v.name,v.is_active, T.*');
 			$oSelectQuery->from("Model_Variable v " );
 			$oSelectQuery->leftjoin("v.Translation T");
-			$oSelectQuery->andwhere("T.lang = ?", Zend_Registry::get('Zend_Locale'));
+			$oSelectQuery->andwhere("T.lang = ?", $ssLang);
 			if( !empty($ssSearchField) && !empty($ssSearchKeyword) )
 				$oSelectQuery->where($ssSearchField . " LIKE '%" . $ssSearchKeyword . "%'" );
 		
 			if( !empty($ssSortOn) && !empty($ssSortBy) )
 				 $oSelectQuery->orderBy( $ssSortOn . ' ' . $ssSortBy );
 	
-			return $oSelectQuery->fetchArray();
+			return $oSelectQuery->fetchArray();	
 		}
 		catch( Exception $oException )
 		{
 			echo $oException->getMessage();
 			return false;
-		}
+		}	
 	}
 	
 	/**
 	* For Fetch Record of Given Variable Id From Variable Table
 	*
 	* @author Bhaskar joshi
-	* @param  number $snVariableEditId for Edit Id
+	* @param  number $snVariableId for Variable Id
 	* @access public
 	* @return array of Variable table records 
 	*/
-	public function getVariableById($snVariableEditId)
+	public function getVariableById($snVariableId ='')
 	{
+		if( $snVariableId == "" || !is_numeric($snVariableId) || $snVariableId == 0 ) return false;
 		try
 		{
 			$oSelectQuery = Doctrine_Query::create();
 			$oSelectQuery->select('v.*, T.*');
 			$oSelectQuery->from("Model_Variable v " );
 			$oSelectQuery->leftjoin("v.Translation T");
-			$oSelectQuery->where("v.id = ?", $snVariableEditId);
+			$oSelectQuery->where("v.id = ?", $snVariableId);
 	
 			return $oSelectQuery->fetchArray();
 		}
@@ -167,14 +168,13 @@ class Model_VariableTable extends Doctrine_Table
 	* @param  boolean $b__isActive for check the value of is_active on click
 	* @return boolean
 	*/
-	public function changeActiveVariable($snVariableId = 0,$b__isActive)
+	public function changeActiveVariable($snVariableId = 0,$bIsActive)
 	{
-		
-		if( $snVariableId == "" || !is_numeric($snVariableId) || $snVariableId == 0) return false;
+		if((empty($snVariableId) && empty($bIsActive)) || !is_numeric($snVariableId) || $snVariableId == 0 ) return false;
 		try
 		{
 			//change the value of is_active of Given Row Id
-			$bIsActive = ($b__isActive) ? 0 : 1;
+			$bIsActive = ($bIsActive) ? 0 : 1;
 			
 			//Update Language table
 			$asLanguageUpdate = Doctrine_Query::create()
