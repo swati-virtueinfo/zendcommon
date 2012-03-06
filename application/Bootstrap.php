@@ -2,6 +2,7 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
+	
 	/** Execute _initDoctrine function to initialize Doctrine.
 	 *
 	 */
@@ -15,7 +16,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$asDoctrineConfig = $this->getOption('doctrine');
 
 		date_default_timezone_set("America/Los_Angeles");
-
+		
 		// Create instance of  Doctrine_Manager
 		$oManager = Doctrine_Manager::getInstance();
 		$oManager->setAttribute(Doctrine::ATTR_AUTO_ACCESSOR_OVERRIDE, true);
@@ -93,7 +94,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	    $amLangDefault = Doctrine::getTable('Model_Language')->getDefaultLanguage();
 	    
 	    //Set Default Language in Local Variable 
-	    $ssLan = $amLangDefault->lang;
+	    $ssLan = $amLangDefault['lang'];
 	   	
 	   	//Check if Session Variable Not Created then Create
 		if(!isset($session->ssSesLan))
