@@ -49,7 +49,7 @@ class Model_LanguageTable extends Doctrine_Table
 						->from("Model_Language")
 						->where('is_default = ? ', 1);
 			
-			return  $amLanguageData;
+			return $amLanguageData->fetchOne()->toArray();
 		}
 		catch( Exception $oException )
 		{

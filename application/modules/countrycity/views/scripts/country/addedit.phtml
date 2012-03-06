@@ -1,0 +1,41 @@
+<?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
+<?php $snIdVariable = $oRequest->getParam('id'); ?>
+<?php echo (isset($snIdVariable) ? $this->headTitle('Edit-Country') : $this->headTitle('Add-Country')); ?>
+
+<form name="addeditvariable" method="post" enctype="multipart/form-data">
+	<table width="100%" border="0"  align="left">
+        <caption class="tblheader"><?php echo (isset($snIdVariable) ? "Edit Country" : "Add New Country"); ?></caption>
+		<?php $asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();	?>
+		<tr>
+			<td class="">Name *</td>
+			<?php foreach($asLanguageList as $key => $amLanguage) : ?>
+			<?php $ssColmnName = 'name_' . $amLanguage['lang']; ?>
+			<td>
+				<table width='100%' cellpading="0" cellspacing="0">
+					<tr>
+						<td class=""><?php echo $amLanguage['name'];?></td>
+					</tr>
+					<tr>
+						<td id="error"><?php echo strip_tags($this->form->$ssColmnName->renderErrors());?></td>
+					</tr>
+					<tr>
+						<td style="width:auto;"><?php echo $this->form->$ssColmnName->renderViewHelper();?></td>
+					</tr>
+				</table>				
+			</td>
+			<?php endforeach;?>
+		</tr>
+		<tr>
+			<td class=""><?php echo strip_tags($this->form->is_active->renderLabel()); ?></td>
+			<td class=""><?php echo $this->form->is_active->renderViewHelper();?></td>
+			<td id="error" class=""><?php echo strip_tags($this->form->is_active->renderErrors());	?></td>
+		</tr>				
+		<tr>
+			<td><?php if(isset($snIdVariable)): ?><input type="hidden" name="id" id="id" value="<?php echo $snIdVariable; ?>" /><?php endif; ?></td>
+			<td >
+				<input type="submit" name="submit" value="Save" class='but'>
+				<input type="reset" name="cancel" value="Cancel" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/country'; ?>'">
+			</td>
+		</tr>
+	</table>		
+</form>

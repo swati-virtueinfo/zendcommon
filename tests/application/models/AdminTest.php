@@ -94,7 +94,7 @@ class Tests_AdminTable extends PHPUnit_Framework_TestCase
     public function testgetAdminRecordById()
     {
     	$bResult = Doctrine::getTable('Model_Admin')->getAdminRecordById($this->snAdminId);
-      	$this->assertTrue($bResult  ,"Record Found By Given Id");
+      	$this->assertInternalType('array',$bResult);    	
     }
     
     /**

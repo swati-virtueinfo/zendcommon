@@ -20,7 +20,7 @@ class Model_AdminTable extends Doctrine_Table
 							->select("*")
 							->from("Model_Admin A")
 							->where("A.id = ?", $snAdminId);
-			return $asCategoryList->fetchOne();
+			return $asCategoryList->fetchOne()->toArray();
 		}
 		catch( Exception $oException )
 		{

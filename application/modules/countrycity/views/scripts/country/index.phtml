@@ -1,0 +1,23 @@
+<table width='100%' border='0' >	
+	<tr>
+		<td align="center" colspan="8">
+			<?php $messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
+            $messages = array_merge($messenger->getCurrentMessages(),$messenger->getMessages());
+            if( $messages != ""):
+            foreach ($messages as $message) { ?>
+               <p><font color="#cd435d"><?php echo $this->escape($message); ?></font></p>
+            <?php }
+            endif;
+            $messenger->clearMessages(); ?>
+		</td>
+	</tr>
+</table>
+<div id="welcome">
+	<!-- Pagination Link Partial Set imageview = true to Show NEXT PREVIOUS Image & Need to giv folder name 'srcfoldername' => 'images' where images are  & include pagelink.css -->
+	<?php echo $this->paginationControl($this->user, 'Sliding', 'partials/_pagination.phtml', array('searchSelect' => $this->ssSearchField, 'searchKeyword' => $this->ssSearchKeyword, 'imageview' => 'false')); ?>
+	
+	<?php echo $this->partial('partials/_list.phtml',array('asList'=>$this->user, 'asHeading'=>$this->asHeading, 'asFieldName'=>$this->asFieldName, 'asColumnSort'=>$this->asColumnSort, 'asColumnWidth'=>$this->asColumnWidth, 'asColumnAlign'=>$this->asColumnAlign));?>
+	
+	<!-- Pagination Link Partial Set imageview = true to Show NEXT PREVIOUS Image & Need to giv folder name where images are  -->
+	<?php echo $this->paginationControl($this->user, 'Sliding', 'partials/_pagination.phtml', array('searchSelect' => $this->ssSearchField, 'searchKeyword' => $this->ssSearchKeyword, 'imageview' => 'false')); ?>
+</div>

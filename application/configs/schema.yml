@@ -102,3 +102,40 @@ Category:
       notnull: false
     is_promote:
       type: boolean
+Country:
+  tableName: country
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(100)
+      notnull: true
+    is_active:
+      type: boolean
+      default: 1
+  actAs:
+    Timestampable: true
+    I18n:
+      fields: [name]
+City:
+  tableName: city
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    country_id:
+      type: integer(4)
+      notnull: true
+    name:
+      type: string(100)
+      notnull: true
+    is_active:
+      type: boolean
+      default: 1
+  actAs:
+    Timestampable: true
+    I18n:
+      fields: [name]

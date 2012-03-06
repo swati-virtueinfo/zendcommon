@@ -1,0 +1,50 @@
+<?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
+<table border="0" width="100%" class="tblbg">
+	<tr>
+		<td colspan="6" align="right" class="tblrow">
+			<a href="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'addedit'));?>">
+				<img src="/images/add.gif">&nbsp;<?php echo $this->translate('Add Country');?>
+			</a>
+		</td>		
+	</tr>
+	<tr>
+	<?php foreach($this->asHeading as $snKey => $ssHeading): ?>
+	<th align="<?php echo $this->asColumnAlign[$snKey]; ?>" width="<?php echo $this->asColumnWidth[$snKey]; ?>" class="tblheading">
+	<?php if(count($this->asList) > 0): ?>
+		<?php if ($this->asColumnSort[$snKey]): ?>
+			<a href="<?php echo $this->url(array('sortOn' => $this->asFieldName[$snKey], 'sortBy' => (($oRequest->getParam('sortOn') == $this->asFieldName[$snKey]) ? (($oRequest->getParam('sortBy') == 'ASC') ? 'DESC' : 'ASC') : 'DESC')));?>">
+			<?php $imageName = (($oRequest->getParam('sortOn') == $this->asFieldName[$snKey]) ? (($oRequest->getParam('sortBy') == 'DESC') ? "ASC.png" : "DESC.png")  : "DESC.png"); ?>
+			<?php echo $this->translate($ssHeading) ?></a> <img src="/images/<?php echo $imageName; ?>" style="border:0" height="8" width="8" alt="sorting" />
+		<?php else: ?>
+			<?php echo $this->translate($ssHeading) ?>
+		<?php endif; ?>
+	<?php else: ?>
+		<?php echo $this->translate($ssHeading); ?>
+	<?php endif; ?>
+	</th>
+	<?php endforeach; ?>
+	</tr>
+	<pre>
+	<?php if( count( $this->asList ) > 0 ): ?>
+		<?php foreach($this->asList as $asList): ?>
+			<tr>
+			<?php foreach($this->asFieldName as $snKey => $ssFieldName): ?>
+				<td align="<?php echo $this->asColumnAlign[$snKey]; ?>" class="tblrow">
+					<?php $ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString(); ?>	
+					<?php if($ssFieldName == "name"): ?>
+							<?php echo $asList['Translation'][$ssCurrentLocale]['name'];?>
+					<?php elseif($ssFieldName == "is_active"): ?>
+						<a href="<?php echo $this->url(array('module'=> $oRequest->getParam('module'),'controller'=> $oRequest->getParam('controller'),'action'=>'changeactive','id' => $asList['id']))?>">
+							<img src="/images/<?php echo ($asList[$ssFieldName] == 1) ? 'active_check.gif' : 'deactive_check.gif';?>">
+						</a>
+					<?php else: ?>
+						<?php echo (!empty($ssFieldName)) ? $asList[$ssFieldName] : $asList[$snKey] ; ?>
+					<?php endif;?>
+				</td>
+			<?php endforeach; ?>			
+			</tr>
+		<?php endforeach; ?>
+	<?php else: ?>
+		<tr><th  colspan="<?php echo count( $this->asHeading );?>" class="tblrow"><?php echo $this->translate("No record found"); ?></th></tr>
+	<?php endif;?>
+</table>

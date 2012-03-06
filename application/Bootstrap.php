@@ -90,10 +90,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	    $session = new Zend_Session_Namespace('language');
 	    
 	    //Fetch Default Language From Database Table
-	    $amLangDefault = Doctrine::getTable('Model_Language')->getDefaultLanguage()->fetchOne();
+	    $amLangDefault = Doctrine::getTable('Model_Language')->getDefaultLanguage();
 	    
 	    //Set Default Language in Local Variable 
-	   	$ssLan = $amLangDefault->lang;
+	    $ssLan = $amLangDefault->lang;
 	   	
 	   	//Check if Session Variable Not Created then Create
 		if(!isset($session->ssSesLan))
@@ -137,4 +137,3 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		Zend_Registry::set('Zend_Translate', $oTranslate);
 	}
 }
-
