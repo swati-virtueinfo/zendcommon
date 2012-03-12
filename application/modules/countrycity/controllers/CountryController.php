@@ -21,11 +21,12 @@ class Countrycity_CountryController extends Zend_Controller_Action
 
     public function init()
     {
-        
+        $this->oTranslate = Zend_Registry::get('Zend_Translate');
     }
 
     public function indexAction()
     {
+    	
         $oCommon = new ZendX_Common();
 
 		$this->view->ssSortOn = $ssSortOn = $this->_getParam('sortOn', 'id');
@@ -41,7 +42,7 @@ class Countrycity_CountryController extends Zend_Controller_Action
 		
 		//Fetch All Data From Country Table
 		$amCountryList = Doctrine::getTable('Model_Country')->getCountryList($ssSortOn, $ssSortBy, Zend_Registry::get('Zend_Locale'));
-
+		
 		// Get list
 		$this->view->asHeading = array("Country Name", "Enable Or Disable","Action");
 		$this->view->asFieldName = $asFieldList = array("name", "is_active", "edit", "delete");

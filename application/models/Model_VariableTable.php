@@ -44,6 +44,9 @@ class Model_VariableTable extends Doctrine_Table
 	*/
 	public function getAllVariableList($ssLang = '')
 	{
+		
+		if(empty($ssLang) || is_numeric($ssLang) || is_array($ssLang) ) return false;
+		
 		try
 		{
 			$oSelectQuery = Doctrine_Query::create();
@@ -72,7 +75,7 @@ class Model_VariableTable extends Doctrine_Table
 	* @access public
 	* @return array of Variable table records 
 	*/
-	public function getVariableById($snVariableId ='')
+	public function getVariableById($snVariableId = '')
 	{
 		if( $snVariableId == "" || !is_numeric($snVariableId) || $snVariableId == 0 ) return false;
 		try
@@ -81,16 +84,7 @@ class Model_VariableTable extends Doctrine_Table
 			$oSelectQuery->select('v.*, T.*');
 			$oSelectQuery->from("Model_Variable v " );
 			$oSelectQuery->leftjoin("v.Translation T");
-
-
 			$oSelectQuery->where("v.id = ?", $snVariableId);
-
-			
-			$oSelectQuery->where("v.id = ?", $snVariableEditId);
-
-
-			$oSelectQuery->where("v.id = ?", $snVariableId);
-
 	
 			return $oSelectQuery->fetchArray();
 		}
@@ -112,7 +106,7 @@ class Model_VariableTable extends Doctrine_Table
 	public function InsertVariable($asVariableData = array())
 	{
 		if(!is_array($asVariableData) || empty($asVariableData)) return false;
-
+		
 		try
 		{
 			//Inserting Variable into table
@@ -148,6 +142,7 @@ class Model_VariableTable extends Doctrine_Table
 	public function UpdateVariable($asVariableData = array())
 	{
 		if( !is_array( $asVariableData ) || empty( $asVariableData ) ) return false;
+		
 		try
 		{   
 			//Update Model Variable Table
@@ -207,9 +202,10 @@ class Model_VariableTable extends Doctrine_Table
 	* @param  boolean $b__isActive for check the value of is_active on click
 	* @return boolean
 	*/
-	public function changeActiveVariable($snVariableId = 0,$bIsActive)
+	public function changeActiveVariable($snVariableId = 0, $bIsActive)
 	{
 		if((empty($snVariableId) && empty($bIsActive)) || !is_numeric($snVariableId) || $snVariableId == 0 ) return false;
+		
 		try
 		{
 			//change the value of is_active of Given Row Id

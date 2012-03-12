@@ -61,7 +61,7 @@ class Category_IndexController extends Zend_Controller_Action
     
     public function listcategoryAction()
     {
-	   	$amCatList = Doctrine::getTable('Model_Category')->getCatList();
+	   	$amCatList = Doctrine::getTable('Model_Category')->getCatList(Zend_Registry::get('Zend_Locale'));
 	   	ksort($amCatList);
     	$this->view->amCatListing = $amCatList;
     }
@@ -71,7 +71,7 @@ class Category_IndexController extends Zend_Controller_Action
     	$this->getRequest()->getParam('id');
     	// For deleting category detail of given id_category
       	if( $this->getRequest()->getParam('id') != '' )
-			Doctrine::getTable('Model_Category')->deletecat( $this->getRequest()->getParam('id') );
+			Doctrine::getTable('Model_Category')->deleteCatById( $this->getRequest()->getParam('id') );
 		
 		// Redirectes to category list
 		$this->_redirect('/category/index/listcategory');

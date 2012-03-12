@@ -1,5 +1,5 @@
 <div>
-	<div class="addcategory"><a href="<?php echo $this->url(array('controller' => 'index' , 'action' => 'addcategory'))?>">Add Category</a></div>
+	<div class="addcategory"><a href="<?php echo $this->url(array('controller' => 'index' , 'action' => 'addcategory'))?>"><?php echo $this->translate('Add Category');?></a></div>
 	<div class="addcategory">&nbsp;</div>
 </div>
 <div class="listparent">
@@ -20,8 +20,8 @@
 				<?php endif;?>
 			</div>
 			<div>
-				<a href="addcategory/editid/<?php echo $amCategory['id']; ?>">Edit</a>&nbsp;|&nbsp;
-				<a href="deletecategory/id/<?php echo $amCategory['id']; ?>" onclick="return deleteMsg();">Delete</a>&nbsp;|&nbsp;
+				<a href="addcategory/editid/<?php echo $amCategory['id']; ?>">Edit<?php  //echo $this->translate('Edit'); ?></a>&nbsp;|&nbsp;
+				<a href="deletecategory/id/<?php echo $amCategory['id']; ?>" onclick="return deleteMsg();">Delete<?php  //echo $this->translate('Delete'); ?></a>&nbsp;|&nbsp;
 			</div>			
 		</div>
 		<?php unset($amCategory['id'], $amCategory['level'], $amCategory['parentid'], $amCategory['is_active'], $amCategory['Translation']); ?>

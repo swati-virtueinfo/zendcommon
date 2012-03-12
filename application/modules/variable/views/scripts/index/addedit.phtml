@@ -4,9 +4,9 @@
 
 <form name="addeditvariable" method="post" enctype="multipart/form-data">
 	<table width="100%" border="0"  align="left">
-        <caption class="tblheader"><?php echo (isset($snIdVariable) ? "Edit Variable" : "Add New Variable"); ?></caption>
+        <caption class="tblheader"><?php echo (isset($snIdVariable) ? $this->translate("Edit Variable") : $this->translate("Add New Variable")); ?></caption>
 		<tr>
-			<td class=""><?php echo strip_tags($this->form->name->renderLabel()); ?></td>
+			<td class=""><?php echo strip_tags($this->translate($this->form->name->renderLabel())); ?></td>
 			<td>
 				<div id="error"><?php echo strip_tags($this->form->name->renderErrors());?></div>
 				<?php echo $this->form->name->renderViewHelper();?>
@@ -14,13 +14,13 @@
 		</tr>
 		<?php $asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();	?>
 		<tr>
-			<td class="">Value *</td>
+			<td class=""><?php echo $this->translate('Value *');?></td>
 			<?php foreach($asLanguageList as $key => $amLanguage) : ?>
 			<?php $ssColmnName = 'value_' . $amLanguage['lang']; ?>
 			<td>
 				<table width='100%' cellpading="0" cellspacing="0">
 					<tr>
-						<td class=""><?php echo $amLanguage['name'];?></td>
+						<td class=""><?php echo $this->translate($amLanguage['name']);?></td>
 					</tr>
 					<tr>
 						<td id="error"><?php echo strip_tags($this->form->$ssColmnName->renderErrors());?></td>
@@ -40,8 +40,8 @@
 		<tr>
 			<td><?php if(isset($snIdVariable)): ?><input type="hidden" name="id" id="id" value="<?php echo $snIdVariable; ?>" /><?php endif; ?></td>
 			<td >
-				<input type="submit" name="submit" value="Save" class='but'>
-				<input type="reset" name="cancel" value="Cancel" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index'; ?>'">
+				<input type="submit" name="submit" value="<?php echo $this->translate("Save"); ?>" class='but'>
+				<input type="reset" name="cancel" value="<?php echo $this->translate("Cancel"); ?>" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index'; ?>'">
 			</td>
 		</tr>
 	</table>		

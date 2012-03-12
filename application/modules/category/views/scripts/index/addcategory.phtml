@@ -9,14 +9,14 @@
 <table>
 	<tr>
 		<?php  if($snEditId): ?>
-			<th>Edit Category</th>
+			<th><?php echo $this->translate('Edit Category');?></th>
 		<?php else: ?>
-			<th>Add Category</th>
+			<th><?php echo $this->translate('Add Category');?></th>
 		<?php endif;?>	
 	</tr>
 	<?php if(empty($snEditId)): ?>
 	<tr>
-		<td><?php echo $this->oAddCateFrom->cat_name->renderLabel(); ?></td>
+		<td><?php echo $this->translate($this->oAddCateFrom->cat_name->renderLabel()); ?></td>
 		<td>
 			<?php echo $this->snParentId;?>
 			<select name="parentid">
@@ -27,12 +27,12 @@
 	</tr>
 	<?php endif; ?>
 	<tr>
-	<td><?php echo $this->oAddCateFrom->name->renderLabel(); ?></td>
+	<td><?php echo $this->translate( $this->oAddCateFrom->name->renderLabel() ); ?></td>
 	<?php foreach ($this->asLanguageList as $ssLanguageList): ?>
 		<td>
 			<table>
 				<tr>
-					<td><?php echo $ssLanguageList['name']; ?></td>
+					<td><?php echo $this->translate($ssLanguageList['name']); ?></td>
 				</tr>
 				<tr>
 					<td><?php $ssCatName = 'name_' . $ssLanguageList['lang']; echo $this->translate($this->oAddCateFrom->$ssCatName->renderErrors()); ?></td>
@@ -45,12 +45,12 @@
 	<?php endforeach;?>
 	</tr>
 	<tr>
-		<td><?php echo $this->oAddCateFrom->image_name->renderLabel(); ?></td>
+		<td><?php echo $this->translate($this->oAddCateFrom->image_name->renderLabel()); ?></td>
 		<td><?php echo $this->oAddCateFrom->image_name->renderfile();?></td>
 		<td><?php echo $this->oAddCateFrom->image_name->renderErrors(); ?></td>
 	</tr>
 	<tr>
-		<td><?php echo $this->oAddCateFrom->is_active->renderLabel(); ?></td>
+		<td><?php echo $this->translate($this->oAddCateFrom->is_active->renderLabel() ); ?></td>
 		<td><?php echo $this->oAddCateFrom->is_active->renderViewHelper();?></td>
 	</tr>
 	<tr>

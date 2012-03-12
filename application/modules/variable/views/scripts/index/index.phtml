@@ -1,7 +1,7 @@
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
-<a href="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'addedit'));?>">Add Variable</a>
+<a href="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'addedit'));?>"><?php echo $this->translate('Add Variable');?></a>
 <div>
-	<div class="genratefile" align="right"><a href="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'generatefile'));?>">Generate File</a></div>
+	<div class="genratefile" align="right"><a href="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'generatefile'));?>"><?php echo $this->translate('Generate File'); ?></a></div>
 </div>
 <table width='100%' border='0' >	
 	<tr>

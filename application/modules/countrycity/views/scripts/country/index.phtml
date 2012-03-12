@@ -5,7 +5,7 @@
             $messages = array_merge($messenger->getCurrentMessages(),$messenger->getMessages());
             if( $messages != ""):
             foreach ($messages as $message) { ?>
-               <p><font color="#cd435d"><?php echo $this->escape($message); ?></font></p>
+               <p><font color="#cd435d"><?php echo $this->translate($this->escape($message)); ?></font></p>
             <?php }
             endif;
             $messenger->clearMessages(); ?>

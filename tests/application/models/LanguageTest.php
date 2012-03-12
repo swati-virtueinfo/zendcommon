@@ -12,7 +12,7 @@
 class Tests_LanguageTable extends PHPUnit_Framework_TestCase
 {
 	/**
-	* Language Id for listing,update 
+	* Language Id for listing, edit 
     *
 	* @var number
 	* @access private
@@ -89,7 +89,24 @@ class Tests_LanguageTable extends PHPUnit_Framework_TestCase
 	* @var Array
 	* @access private
 	*/
-	private $amInsertLanguageData = array('name' => "Gujarati",'lang' => "gu", 'is_default' => "0", 'is_active' => "1", 'flag' => "1329972498_gb.png");
+	private $amInsertLanguageData = array('name' => "Gujarati_with",'lang' => "gi", 'is_default' => "0", 'is_active' => "1", 'flag' => "1329972498_gb.png");
+	
+	/**
+	* For update Language detail
+    *
+	* @var Array
+	* @access private
+	*/
+	private $amUpdateLanguage = Array ( 'id' => 3, 'name' => 'Gujarati_update', 'lang' => 'gj', 'is_active' => 0, 'flag' => 'logo.jpeg' ) ;
+	
+	
+	/**
+	* For change active language
+    *
+	* @var string
+	* @access private
+	*/
+	private $bIsActive = 1;
 	
 	/**
 	* For Fetch All Language List
@@ -202,7 +219,244 @@ class Tests_LanguageTable extends PHPUnit_Framework_TestCase
 	*/
     public function testInsertLanguage()
     {
-    	$bResult = Doctrine::getTable('Model_Language')->InsertLanguage($this->amInsertLanguageData);
-        $this->assertTrue($bResult,"Language Not Inserted");
-    }    
+    	//$bResult = Doctrine::getTable('Model_Language')->InsertLanguage($this->amInsertLanguageData);
+        //$this->assertTrue($bResult,"Record add successfully");
+    }
+	
+    
+    // Update languages
+    
+	/**
+	* For updating language detail
+	* When user pass blank  array  parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testUpdateLanguageDetailWhenPassBlankArrayParameter()
+    {
+        $bResult = Doctrine::getTable('Model_Language')->UpdateLanguage($this->asBlankArray);
+		$this->assertFalse($bResult ,"Record do not update successfully because pass blank array as parameter");
+    }
+
+	/**
+	* For updating language detail
+	* When user pass  string parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testUpdateLanguageDetailWhenPassStringParameter()
+    {
+		$bResult = Doctrine::getTable('Model_Language')->UpdateLanguage($this->ssStringParameter);
+		$this->assertFalse($bResult ,"Record do not update successfully  because pass string value as a parameter");
+	}
+
+	/**
+	* For updating language detail
+	* When user pass blank value parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testUpdateLanguageDetailWhenPassBlankParameter()
+    {
+		$bResult = Doctrine::getTable('Model_Language')->UpdateLanguage('');
+		$this->assertFalse($bResult ,"Record do not update successfully  because pass blank value as a parameter");
+    }
+
+    /**
+	* For updating language detail
+	* When user pass array  parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testUpdateLanguageDetailWhenPassAppropriateArrayParameter()
+    {
+		$bResult = Doctrine::getTable('Model_Language')->UpdateLanguage($this->amUpdateLanguage);
+		$this->assertFalse($bResult ,"Record update successfully");
+    }
+    
+	/**
+	* For Delete language.
+	* when pass blank value as parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testdeleteLanguageWhenPassBlankAsParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Language')->deleteLanguage('');
+      	$this->assertFalse($bResult,"language Not Delete Because Pass Blank As Id Parameter");
+    }
+    
+    /**
+	* For Delete language. 
+	* when pass String as Id parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testdeleteLanguageWhenPassStringAsParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Language')->deleteLanguage($this->ssStringParameter);
+      	$this->assertFalse($bResult,"language Not Delete Because Pass String As Id Parameter");
+    }
+    
+    /**
+	* For Delete language
+	* when pass blank array as parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testdeleteLanguageWhenPassArrayAsParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Language')->deleteLanguage($this->asBlankArray);
+      	$this->assertFalse($bResult,"language Not Delete Because Pass Array As Id Parameter");
+    }
+    
+    /**
+	* For Delete language
+	* when pass Appropriate Id parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testdeleteLanguage()
+    {
+    	$bResult = Doctrine::getTable('Model_Language')->deleteLanguage($this->snDeleteLanguageId);
+      	$this->assertTrue($bResult,"language deleted sucessfully");
+    }
+    
+    
+	/**
+	* For change default language
+	* when pass blank value as parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testchangeDefaultLanguageWhenPassBlankAsParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Language')->changeDefaultLanguage('');
+      	$this->assertFalse($bResult,"Default language Not Changed Because Pass Blank value As Parameter");
+    }
+    
+	/**
+	* For change default language
+	* when pass null as parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testchangeDefaultLanguageWhenPassNullAsParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Language')->changeDefaultLanguage();
+      	$this->assertFalse($bResult,"Default language Not Changed Because Pass Null As Parameter");
+    }
+	/**
+	* For change default language
+	* when pass blank array as parameter.
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testchangeDefaultLanguageWhenPassBlankArrayParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Language')->changeDefaultLanguage($this->asBlankArray);
+      	$this->assertFalse($bResult,"Default language Not Changed Because Pass Blank Array As Parameter");
+    }
+    
+	/**
+	* For change default language
+	* When user pass  string parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testchangeDefaultLanguageWhenPassStringParameter()
+    {
+		$bResult = Doctrine::getTable('Model_Language')->changeDefaultLanguage($this->ssStringParameter);
+		$this->assertFalse($bResult ,"Default language Not Changed because pass string value as a parameter");
+	}
+	
+	/**
+	* For change default language
+	* When user pass  string parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testchangeDefaultLanguage()
+    {
+		$bResult = Doctrine::getTable('Model_Language')->changeDefaultLanguage($this->snLanguageId);
+		$this->assertTrue($bResult ,"Change default language sucessfully");
+	}
+	
+	
+	/**
+	* For change language status
+	* when pass blank value as parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testchangeActiveLanguageWhenPassBlankAsParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Language')->changeActiveLanguage('');
+      	$this->assertFalse($bResult,"language status Not Changed Because Pass Blank As Id Parameter");
+    }
+    
+	/**
+	* For change language status
+	* when pass null parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testchangeActiveLanguageWhenPassNullAsParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Language')->changeActiveLanguage();
+      	$this->assertFalse($bResult,"language status Not Changed Because Pass Null As Parameter");
+    }
+	/**
+	* For change language status
+	* when pass blank array as parameter 
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testchangeActiveLanguageWhenPassBlankArrayParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Language')->changeActiveLanguage($this->asBlankArray);
+      	$this->assertFalse($bResult,"language status not Changed Because Pass Blank Array As Parameter");
+    }
+    
+	/**
+	* For change language status
+	* When user pass string as parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testchangeActiveLanguageWhenPassStringParameter()
+    {
+		$bResult = Doctrine::getTable('Model_Language')->changeActiveLanguage($this->ssStringParameter);
+		$this->assertFalse($bResult ,"language status not Changed because pass string value as a parameter");
+	}
+	
+	/**
+	*For change language status
+	* When user pass  string parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testchangeActiveLanguage()
+    {
+		$bResult = Doctrine::getTable('Model_Language')->changeActiveLanguage($this->snLanguageId, $this->bIsActive);
+		$this->assertTrue($bResult ,"language status changed sucessfully");
+	}    
 }

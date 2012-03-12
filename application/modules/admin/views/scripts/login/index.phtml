@@ -7,11 +7,11 @@
 	       	<td>
 	       		<table width="100%" border="0" cellpadding="2" cellspacing="1">
 		        	<tr class="tblheader">
-		            	 <td colspan="3">Login</td>
+		            	 <td colspan="3"><?php echo $this->translate('Login'); ?></td>
 		         	</tr>
 		         	<tr>
 						<td colspan="3" align="center" id="error" class="tblrow">
-							<?php echo "<font color='red'><b>".$this->flashMessages()."</b></font>";?>
+							<?php echo "<font color='red'><b>".$this->translate($this->flashMessages())."</b></font>";?>
 							<?php $oMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');?>
 							<?php  $oMessenger->clearMessages(); ?>
 						</td>
@@ -20,24 +20,24 @@
 						<div id="error" class="tblrow"></div>
 					</tr>
 					<tr>
-						<td class="tblrow"><?php echo strip_tags($this->form->email->renderLabel()); ?></td>
+						<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->email->renderLabel())); ?></td>
 						<td class="tblrow">
-							<div><?php echo strip_tags($this->form->email->renderErrors());?></div>
+							<div><?php echo $this->translate(strip_tags($this->form->email->renderErrors())) ;?></div>
 							<?php echo $this->form->email->renderViewHelper();?>
 						</td>
 					</tr>
 					
 					<tr>
-						<td class="tblrow"><?php echo strip_tags($this->form->password->renderLabel()); ?></td>
+						<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->password->renderLabel()) ); ?></td>
 						<td class="tblrow">
-							<div id="error" class="tblrow"><?php echo strip_tags($this->form->password->renderErrors());?></div>
+							<div id="error" class="tblrow"><?php echo $this->translate(strip_tags($this->form->password->renderErrors()));?></div>
 							<?php echo $this->form->password->renderViewHelper();?>
 						</td>
 					</tr>
 					
 					<tr>
 						<td colspan="3" align="center" class="tblrow" >
-							<input type="submit" class="but" name="login" value="Login"/>
+							<input type="submit" class="but" name="login" value="<?php echo $this->translate('Login'); ?>"/>
 						</td>
 					</tr>
 				</table>

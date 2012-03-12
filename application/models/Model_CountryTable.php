@@ -49,6 +49,7 @@ class Model_CountryTable extends Doctrine_Table
 	public function getCountryById($snCountryId ='')
 	{
 		if( $snCountryId == "" || !is_numeric($snCountryId) || $snCountryId == 0 ) return false;
+		
 		try
 		{
 			$oSelectQuery = Doctrine_Query::create();
@@ -114,6 +115,7 @@ class Model_CountryTable extends Doctrine_Table
 	public function UpdateCountry($asCountryFormData = array())
 	{
 		if( !is_array( $asCountryFormData ) || empty( $asCountryFormData ) ) return false;
+		
 		try
 		{   
 			//Update Country Table
@@ -172,9 +174,10 @@ class Model_CountryTable extends Doctrine_Table
 	* @param  boolean $b__isActive for check the value of is_active on click
 	* @return boolean
 	*/
-	public function changeEnableDisable($snCountryId = 0,$bIsActive)
+	public function changeEnableDisable($snCountryId = '', $bIsActive = 0)
 	{
 		if((empty($snCountryId) && empty($bIsActive)) || !is_numeric($snCountryId) || $snCountryId == 0 ) return false;
+		
 		try
 		{
 			//change the value of is_active of Given Row Id

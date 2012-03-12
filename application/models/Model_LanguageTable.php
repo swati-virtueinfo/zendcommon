@@ -143,6 +143,7 @@ class Model_LanguageTable extends Doctrine_Table
 	public function UpdateLanguage($asLanguageUpdateData = array())
 	{
 		if( !is_array( $asLanguageUpdateData ) || empty( $asLanguageUpdateData ) ) return false;
+		
 		try
 		{
 			//Update Language table
@@ -215,7 +216,8 @@ class Model_LanguageTable extends Doctrine_Table
 	*/
 	public function changeDefaultLanguage($snLanguageId = '')
 	{
-		if( $snLanguageId == "" || !is_numeric($snLanguageId) ) return false;
+		if( $snLanguageId == "" || !is_numeric($snLanguageId)) return false;
+		
 		try
 		{
 			//Update Language table
@@ -249,10 +251,10 @@ class Model_LanguageTable extends Doctrine_Table
 	* @param  boolean $b__isActive for check the value of is_active on clicked id
 	* @return boolean
 	*/
-	public function changeActiveLanguage($snLanguageId = '',$b__isActive)
+	public function changeActiveLanguage($snLanguageId = '', $b__isActive = 0)
 	{
-		
 		if( $snLanguageId == "" || !is_numeric($snLanguageId)) return false;
+		
 		try
 		{
 			//change the value of is_active of Given Row Id

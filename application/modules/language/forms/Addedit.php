@@ -20,7 +20,7 @@ class Language_Form_Addedit extends Zend_Form
 						->addFilter('StringTrim')
 						->addValidator('NotEmpty', true, array('messages' => 'Language name is required'))
 						->setAttrib('maxlength', '50');
-    
+						
      	//Set language textbox
        	$oTextBoxLanguage = new Zend_Form_Element_Text("lang");
        	$oTextBoxLanguage->setLabel("Language * ")
@@ -57,7 +57,4 @@ class Language_Form_Addedit extends Zend_Form
 			$this->addElements(array($oTextBoxName, $oTextBoxLanguage,$oChkIsDefault,$ochkIsActive,$oFlagImage));
 		}
     }
-
-
 }
-

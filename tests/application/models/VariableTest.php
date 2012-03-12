@@ -3,7 +3,7 @@
  * Tests_VariableModel
  *
  * Unit test case for Variable Table
- * Insert,Update,Delete Variable
+ * Insert, Edit, Update, Delete, Change status Variable
  *
  * @package    zendcommon
  * @subpackage phpunit
@@ -28,7 +28,7 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
 	private $snDeleteVariableId = 3;
 	
 	/**
-	* StringParameter for add,update,delete,listing 
+	* StringParameter for variable add,update,delete,listing 
     *
 	* @var string
 	* @access private
@@ -41,7 +41,15 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
 	* @var array
 	* @access private
 	*/	
-	private $asBlankArray = array();	
+	private $asBlankArray = array();
+	
+	/**
+	* For insert variable details
+    * @author Suresh Chikani    
+	* @var array
+	* @access private
+	*/
+	private $asVariable = Array ( 'name' => 'lbl_Label_variable', 'value_en' => 'lbl_Label_variable_en', 'value_fi' => 'lbl_Label_variable_fi', 'is_active' => 1 ); 
 	
 	/**
 	* For store sort on value
@@ -91,19 +99,27 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
 	*/
 	private $amInsertArray = array();
 	
+	/**
+	* For update variable  detail array
+    *
+	* @var array
+	* @access private
+	*/
+	private $amUpdateVariabel = Array ( 'id' => 5, 'name' => 'lbl_Label_variable', 'value_en' => 'lbl_Label_variable_en', 'value_fi' => 'lbl_Label_variable_fi', 'is_active' => 1 ) ;
+	
 	
 	/**
-	* For change active language
+	* For change active variabel
     *
 	* @var string
 	* @access private
 	*/
-	private $bIsActive = 0;
+	private $bIsActive = 1;
+	
 	
 	/**
 	* For Fetch All Variable List
-	* when pass nothing as parameter
-    *
+	* 
     * @author Bhaskar Joshi
 	* @access public
 	*/
@@ -115,7 +131,7 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
     
     /**
 	* For Fetch All Variable List
-	* when pass parameter
+	* when pass parameter 
     *
     * @author Bhaskar Joshi
 	* @access public
@@ -125,6 +141,73 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
     	$bResult = Doctrine::getTable('Model_Variable')->getVariableList($this->ssSortOn,$this->ssSortBy,$this->ssSearchField,$this->ssSearchKeyword,$this->ssLang);
       	$this->assertInternalType('array',$bResult);
     }
+    
+	//Get all variable list by language
+    
+	/**
+	* For get all variable by language
+	* when pass blank value as parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testgetAllVariableListWhenBlankAsParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Variable')->getAllVariableList('');
+      	$this->assertFalse($bResult,"Variable record not found beacuse Pass Blank value As Parameter");
+    }
+	/**
+	* For get all variable by language
+	* when pass null as parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testgetAllVariableListWhenNullAsParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Variable')->getAllVariableList();
+      	$this->assertFalse($bResult,"Variable record not found beacuse Pass Null As Parameter");
+    }
+    
+    /**
+	* For get all variable by language
+	* when pass String as parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testgetAllVariableListWhenStringAsParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Variable')->getAllVariableList($this->ssStringParameter);
+      	$this->assertInternalType('array',$bResult);
+    }
+    
+    /**
+	* For get all variable by language
+	* when pass blank array as parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testgetAllVariableListWhenArrayAsParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Variable')->getAllVariableList($this->asBlankArray);
+      	$this->assertFalse($bResult,"Variable record not found beacuse pass blank Array As Parameter");
+    }
+    
+    /**
+	* For get all variable by language
+	* when pass Proper id as parameter
+    *
+    * @author Suresh Chikani
+	* @access public
+	*/
+    public function testgetAllVariableList()
+    {
+    	$bResult = Doctrine::getTable('Model_Variable')->getAllVariableList($this->ssLang);
+      	$this->assertInternalType('array',$bResult);
+    }
+    
     
     /**
 	* For Fetch Variable by id
@@ -175,9 +258,9 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
     public function testgetVariableById()
     {
     	$bResult = Doctrine::getTable('Model_Variable')->getVariableById($this->snVariableId);
-    	
       	$this->assertInternalType('array',$bResult);
     }
+    
     
     /**
 	* For Insert Variable
@@ -218,11 +301,87 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
       	$this->assertFalse($bResult,"Variable Not Insert Because Pass String As Parameter");
     }
     
+	/**
+	* For Insert Variable
+	* When user pass array parameter
+    *
+    * @author suresh chikani
+	* @access public
+	*/
+    public function testInsertVariableWhenPassAppropriateArrayParameter()
+    {
+    	$bResult = Doctrine::getTable('Model_Variable')->InsertVariable($this->asVariable);
+      	$this->assertTrue($bResult ,"Record add successfully");
+    }
     
+	// Updtae variable detail 
+	   
+	/**
+	* For updating variable detail
+	* When user pass blank  array  parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testUpdateVariableDetailWhenPassBlankArrayParameter()
+    {
+        $bResult = Doctrine::getTable('Model_Variable')->UpdateVariable($this->asBlankArray);
+		$this->assertFalse($bResult ,"Record do not update successfully because pass blank array");
+    }
+
+	/**
+	* For updating variable detail
+	* When user pass  string parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testUpdateVariableDetailWhenPassStringParameter()
+    {
+		$bResult = Doctrine::getTable('Model_Variable')->UpdateVariable($this->ssStringParameter);
+		$this->assertFalse($bResult ,"Record do not update successfully  because pass string value as a parameter");
+	}
+
+	/**
+	* For updating variable detail
+	* When user pass blank value parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testUpdateVariableDetailWhenPassBlankParameter()
+    {
+		$bResult = Doctrine::getTable('Model_Variable')->UpdateVariable('');
+		$this->assertFalse($bResult ,"Record do not update successfully  because pass blank value as a parameter");
+    }
     
+	/**
+	* For updating variable detail
+	* When user pass null parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testUpdateVariableDetailWhenPassNullParameter()
+    {
+		$bResult = Doctrine::getTable('Model_Variable')->UpdateVariable();
+		$this->assertFalse($bResult ,"Record do not update successfully  because pass null parameter");
+    }
+	
+    /**
+	* For updating variable detail
+	* When user pass array  parameter
+	*
+	* @author suresh chikani
+	* @access public
+	*/
+	public function testUpdateVariableDetailWhenPassAppropriateArrayParameter()
+    {
+		$bResult = Doctrine::getTable('Model_Variable')->UpdateVariable($this->amUpdateVariabel);
+		$this->assertTrue($bResult ,"Record update successfully");
+    }
    
-   
-   
+    
     /**
 	* For Delete Variable
 	* when pass blank as Id parameter
@@ -271,8 +430,8 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
 	*/
     public function testdeleteVariable()
     {
-    	$bResult = Doctrine::getTable('Model_Variable')->deleteVariable($this->snDeleteVariableId);
-      	$this->assertTrue($bResult,"Variable Not Delete Because Pass Array As Id Parameter");
+    	//$bResult = Doctrine::getTable('Model_Variable')->deleteVariable($this->snDeleteVariableId);
+      	//$this->assertTrue($bResult,"record deleted sucessfully");
     }
     
     /**
@@ -303,7 +462,7 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
     
      /**
 	* For change Active Variable
-	* when pass Proper parameters
+	* when pass Proper parameters with is_active status 1
     *
     * @author Bhaskar Joshi
 	* @access public
@@ -312,5 +471,5 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
     {
     	$bResult = Doctrine::getTable('Model_Variable')->changeActiveVariable($this->snVariableId,$this->bIsActive);
       	$this->assertTrue($bResult,"Actibe Variable Not Changed Because");
-    }	
+    }
 }

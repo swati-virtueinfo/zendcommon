@@ -12,6 +12,7 @@ class Model_CategoryTable extends Doctrine_Table
 	*/
 	public function getAllCategoryData()
 	{
+		
 		try
 		{
 			$oSelectQuery = Doctrine_Query::create();
@@ -80,27 +81,40 @@ class Model_CategoryTable extends Doctrine_Table
 	* @access public
 	* @param  array $amCategories To store category detail
 	* @param  $snParentid To store category parentid
+	* @param  $ssLang To store current language
 	* @return array
 	*/
-	public function getCatList($snParentid = 0, $amCategories = array())
+	public function getCatList($ssLang = 'en', $snParentid = 0, $amCategories = array())
 	{
-		$oSelectQuery = Doctrine_Query::create();
-		$oSelectQuery->select('C.id, C.is_active, C.level, C.parentid, T.*');
-		$oSelectQuery->from("Model_Category C " );
-		$oSelectQuery->leftjoin("C.Translation T");
-		$oSelectQuery->where("C.parentid = ? ", $snParentid );
-		$oSelectQuery->andwhere("T.lang = ?", Zend_Registry::get('Zend_Locale'));
-		$oSelectQuery->orderBy('parentid, level');
+		if( !is_numeric($snParentid) || !is_array( $amCategories ) || empty($ssLang) ) return false;
 		
-		$oCategories = $oSelectQuery->fetchArray();
-		
-		if ( $oCategories ) {
-			foreach ($oCategories as $amCategory){
-				$amNewCategory = $amCategories[$amCategory['id']] = $amCategory;
-				$amCategories[$amCategory['id']] = $this->getCatList($amCategory['id'], $amNewCategory);
+		try
+		{ 
+			$oSelectQuery = Doctrine_Query::create();
+			$oSelectQuery->select('C.id, C.is_active, C.level, C.parentid, T.*');
+			$oSelectQuery->from("Model_Category C " );
+			$oSelectQuery->leftjoin("C.Translation T");
+			$oSelectQuery->where("C.parentid = ? ", $snParentid );
+			$oSelectQuery->andwhere("T.lang = ?", $ssLang);
+			$oSelectQuery->orderBy('parentid, level');
+			
+			$oCategories = $oSelectQuery->fetchArray();
+			
+			if ( $oCategories ) {
+				foreach ($oCategories as $amCategory){
+					$amNewCategory = $amCategories[$amCategory['id']] = $amCategory;
+					$amCategories[$amCategory['id']] = $this->getCatList($ssLang, $amCategory['id'], $amNewCategory);
+				}
 			}
+			return $amCategories;
 		}
-		return $amCategories;
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}	
+		
+			
 	}
 	/**
 	* For get category record by editid
@@ -112,13 +126,23 @@ class Model_CategoryTable extends Doctrine_Table
 	*/
 	public function getCategoryById($snEditId = 0)
 	{
-		$oSelectQuery = Doctrine_Query::create();
-		$oSelectQuery->select('C.*, T.*');
-		$oSelectQuery->from("Model_Category C " );
-		$oSelectQuery->leftjoin("C.Translation T");
-		$oSelectQuery->where("C.id = ? ", $snEditId );
+		if( $snEditId == '' || !is_numeric($snEditId) ) return false;
 		
-		return $oCategories = $oSelectQuery->fetchArray();
+		try
+		{	
+			$oSelectQuery = Doctrine_Query::create();
+			$oSelectQuery->select('C.*, T.*');
+			$oSelectQuery->from("Model_Category C " );
+			$oSelectQuery->leftjoin("C.Translation T");
+			$oSelectQuery->where("C.id = ? ", $snEditId );
+			
+			return $oCategories = $oSelectQuery->fetchArray();
+		}
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}	
 		
 	}
 	/**
@@ -129,16 +153,26 @@ class Model_CategoryTable extends Doctrine_Table
 	* @param  $snId To store category id 
 	* @return boolean
 	*/
-	public function deletecat($snId = 0)
+	public function deleteCatById($snId = '')
 	{
-		if( $snId == "" || !is_numeric($snId) ) return false;
+		if( $snId == '' || !is_numeric($snId) ) return false;
 		
-		//delete category from category and translatetable table
-		Doctrine_Query::create()
+		try
+		{
+			//delete category from category and translatetable table
+			Doctrine_Query::create()
 				->delete("Model_Category C")
 				->where("C.id = ?", $snId)
 				->execute();
-		return true;
+				
+			return true;
+		}
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}
+			
 	}
 	/**
 	* For change category isactive status
@@ -183,7 +217,7 @@ class Model_CategoryTable extends Doctrine_Table
 	public function updateCategory($amFormUpdateData = array())
 	{
 		if( !is_array( $amFormUpdateData ) || empty( $amFormUpdateData ) ) return false;
-		
+	
 		try
 		{
 			$oUpdateCategory = Doctrine::getTable('Model_Category')->find($amFormUpdateData['editid']);
