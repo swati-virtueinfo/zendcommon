@@ -2,7 +2,20 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
-	
+	protected function _initViewHelpers()
+	{
+		$oView = new Zend_View();
+		$oView->addHelperPath( APPLICATION_PATH . "/views/helpers", "Application_View_Helper" );
+
+		$oViewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
+		$oViewRenderer->setView($oView);
+		Zend_Controller_Action_HelperBroker::addHelper($oViewRenderer);
+
+		return $oView;
+		
+	}
+
+
 	/** Execute _initDoctrine function to initialize Doctrine.
 	 *
 	 */

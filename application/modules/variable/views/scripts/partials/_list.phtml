@@ -23,16 +23,7 @@
 	<tr>
 	<?php foreach($this->asFieldName as $snKey => $ssFieldName): ?>
 		<td align="<?php echo $this->asColumnAlign[$snKey]; ?>" class="tblrow">
-			<?php $ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString(); ?>	
-			<?php if($ssFieldName == "value"): ?>
-				<?php echo $asList['Translation'][$ssCurrentLocale]['value'];?>
-			<?php elseif($ssFieldName == "is_active") : ?>
-			<a href="<?php echo $this->url(array('module'=> $oRequest->getParam('module'),'controller'=> $oRequest->getParam('controller'),'action'=>'changeactive','id' => $asList['id']))?>">
-				<img src="/images/<?php echo ($asList[$ssFieldName] == 1) ? 'active_check.gif' : 'deactive_check.gif';?>">
-			</a>
-			<?php else: ?>
 				<?php echo (!empty($ssFieldName)) ? $asList[$ssFieldName] : $asList[$snKey] ; ?>
-			<?php endif;?>
 		</td>
 	<?php endforeach; ?>			
 	</tr>

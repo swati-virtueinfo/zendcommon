@@ -22,6 +22,7 @@ class Countrycity_Form_Addedit extends Zend_Form
 		$oVariableId = new Zend_Form_Element_Hidden("id");
 		$oVariableId->setRequired(false);
 		
+		//At Edit time add Hidden text Field
 		if(isset($snIdVariable) ? array_push($asElementArray, $oVariableId) : "");		
 		
 		//Get Languages list for Creating Textbox for language

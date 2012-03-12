@@ -192,9 +192,16 @@
               <actionMethod actionName="delete"/>
               <actionMethod actionName="changeactive"/>
             </controllerFile>
+            <controllerFile controllerName="City">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="addedit"/>
+              <actionMethod actionName="delete"/>
+              <actionMethod actionName="changeactiveAction"/>
+            </controllerFile>
           </controllersDirectory>
           <formsDirectory>
             <formFile formName="Addedit"/>
+            <formFile formName="Addeditcity"/>
           </formsDirectory>
           <layoutsDirectory enabled="false">
             <layoutScriptsDirectory enabled="false"/>
@@ -213,6 +220,41 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Country">
                 <viewScriptFile forActionName="changeactive"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="City">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="City">
+                <viewScriptFile forActionName="addedit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="City">
+                <viewScriptFile forActionName="delete"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="City">
+                <viewScriptFile forActionName="changeactiveAction"/>
+              </viewControllerScriptsDirectory>
+            </viewScriptsDirectory>
+            <viewHelpersDirectory/>
+            <viewFiltersDirectory/>
+          </viewsDirectory>
+        </moduleDirectory>
+        <moduleDirectory moduleName="sitepages">
+          <apisDirectory enabled="false"/>
+          <configsDirectory enabled="false"/>
+          <controllersDirectory>
+            <controllerFile controllerName="Index">
+              <actionMethod actionName="index"/>
+            </controllerFile>
+          </controllersDirectory>
+          <formsDirectory enabled="false"/>
+          <layoutsDirectory enabled="false">
+            <layoutScriptsDirectory enabled="false"/>
+          </layoutsDirectory>
+          <modelsDirectory/>
+          <viewsDirectory>
+            <viewScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -312,16 +354,31 @@
               </testApplicationControllerFile>
             </testApplicationControllerDirectory>
           </testApplicationModuleDirectory>
-		  <testApplicationModuleDirectory forModuleName="countrycity">
-		    <testApplicationControllerDirectory>
-		      <testApplicationControllerFile forControllerName="Country">
-		        <testApplicationActionMethod forActionName="index"/>
-		        <testApplicationActionMethod forActionName="addedit"/>
-				<testApplicationActionMethod forActionName="delete"/>
-		        <testApplicationActionMethod forActionName="changeactive"/>
-		      </testApplicationControllerFile>
-		    </testApplicationControllerDirectory>
-		  </testApplicationModuleDirectory>	
+          <testApplicationModuleDirectory forModuleName="countrycity">
+            <testApplicationControllerDirectory>
+              <testApplicationControllerFile forControllerName="Country">
+                <testApplicationActionMethod forActionName="index"/>
+                <testApplicationActionMethod forActionName="addedit"/>
+                <testApplicationActionMethod forActionName="delete"/>
+                <testApplicationActionMethod forActionName="changeactive"/>
+              </testApplicationControllerFile>
+            </testApplicationControllerDirectory>
+            <testApplicationControllerDirectory>
+              <testApplicationControllerFile forControllerName="City">
+                <testApplicationActionMethod forActionName="index"/>
+                <testApplicationActionMethod forActionName="addedit"/>
+                <testApplicationActionMethod forActionName="delete"/>
+                <testApplicationActionMethod forActionName="changeactive"/>
+              </testApplicationControllerFile>
+            </testApplicationControllerDirectory>
+          </testApplicationModuleDirectory>
+		  <testApplicationModuleDirectory forModuleName="sitepages">
+            <testApplicationControllerDirectory>
+              <testApplicationControllerFile forControllerName="Index">
+                <testApplicationActionMethod forActionName="index"/>
+              </testApplicationControllerFile>
+            </testApplicationControllerDirectory>
+          </testApplicationModuleDirectory>	
         </testApplicationModulesDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory/>

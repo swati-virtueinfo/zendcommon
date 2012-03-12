@@ -1,0 +1,57 @@
+<?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
+<?php $snEditId = $oRequest->getParam('id'); ?>
+<?php echo (isset($snEditId) ? $this->headTitle('Edit-City') : $this->headTitle('Add-City')); ?>
+
+<form name="addeditcity" method="post" enctype="multipart/form-data">
+	<fieldset width="100%"><legend><?php echo (isset($snEditId) ? "Edit City" : "Add New City"); ?></legend>
+		<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" >
+			<tr>
+		  		<td>
+		       	<table width="100%" border="0" cellpadding="2" cellspacing="1">
+						<tr>
+							<td class="tblrow"><?php echo strip_tags($this->form->country_id->renderLabel()); ?></td>
+							<td class="tblrow">
+								<div id="error"><?php echo strip_tags($this->form->country_id->renderErrors());	?></div>							
+								<?php $ssSortOn = $ssSortBy = $ssSearchField = $ssSearchKeyword = ''; ?>
+								<?php $ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString(); ?> 
+								<?php $amCategories = Doctrine::getTable('Model_Country')->getContries($ssCurrentLocale); ?>
+								<select name="country_id">
+									<option value="">------Select Country------</option>					
+									<?php foreach ($amCategories as $amCategory):?>	
+									<option value="<?php echo $amCategory['id']; ?>" <?php echo (isset($this->country_id) && ($amCategory['id'] == $this->country_id) ? "selected=selected" : "");?>>
+										<?php echo $amCategory['Translation'][$ssCurrentLocale]['name']; ?>
+									</option>
+									<?php endforeach;?>
+								</select>
+							</td>			
+						</tr>	
+						<?php $asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();	?>
+						<tr>
+							<td class="tblrow">Name * </td>
+							<?php foreach($asLanguageList as $key => $amLanguage) : ?>
+							<?php $ssColmnName = 'name_' . $amLanguage['lang']; ?>
+							<td class="tblrow">				
+									<div><?php echo $amLanguage['name'];?></div>
+									<div id="error"><?php echo strip_tags($this->form->$ssColmnName->renderErrors());?></div>
+									<?php echo $this->form->$ssColmnName->renderViewHelper();?>
+							</td>
+							<?php endforeach;?>
+						</tr>
+						<tr>
+							<td class=""><?php echo strip_tags($this->form->is_active->renderLabel()); ?></td>
+							<td class=""><?php echo $this->form->is_active->renderViewHelper();?></td>
+							<td id="error" class=""><?php echo strip_tags($this->form->is_active->renderErrors());	?></td>
+						</tr>				
+						<tr>
+							<td><?php if(isset($snEditId)): ?><input type="hidden" name="id" id="id" value="<?php echo $snEditId; ?>" /><?php endif; ?></td>
+							<td >
+								<input type="submit" name="submit" value="Save" class='but'>
+								<input type="reset" name="cancel" value="Cancel" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/city'; ?>'">
+							</td>
+						</tr>
+					</table>	
+				</td>
+		    </tr>	    
+	 	</table>
+ 	</fieldset>	
+</form>

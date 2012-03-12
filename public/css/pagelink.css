@@ -3,7 +3,7 @@
 	width:100%;
 	height:auto;
 	border:1px solid #ffffff;
-	background:#6D7B8D;
+	background:url(/images/book/btnback.gif) repeat;
 	text-align:center;
 	float:left;
 }
@@ -12,7 +12,6 @@
 	text-align:center;
 	width:auto;
 	height:auto;
-
 }
 tr.pagination {
                 padding: 3px;
@@ -46,8 +45,8 @@ tr.pagination {
         tr.pagination span.disabled {
                 margin-right:3px;
                 padding:2px 5px;
-                border: 1px solid #606060;
-                color: #808080;
+                border: 1px solid #ffffff;
+                color: #ffffff;
         }
 .clear{ clear:left ; }
 

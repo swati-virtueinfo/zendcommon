@@ -1,3 +1,5 @@
+<?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
+<fieldset width="100%"><legend>Manage Languages</legend>
 <table width='100%' border='0' >	
 	<tr>
 		<td align="center" colspan="8">
@@ -13,10 +15,22 @@
 	</tr>
 </table>
 <div id="welcome">
-	<!-- Pagination Link Partial Set imageview = true to Show NEXT PREVIOUS Image & Need to giv folder name 'srcfoldername' => 'images' where images are  & include pagelink.css -->
-	<?php echo $this->paginationControl($this->user, 'Sliding', 'partials/_pagination.phtml', array('searchSelect' => $this->ssSearchField, 'searchKeyword' => $this->ssSearchKeyword, 'imageview' => 'false')); ?>
-	<?php echo $this->partial('partials/_search.phtml',array('asSearchOption'=>$this->asSearchOption)); ?>
-	<?php echo $this->partial('partials/_list.phtml',array('asList'=>$this->user, 'asHeading'=>$this->asHeading, 'asFieldName'=>$this->asFieldName, 'asColumnSort'=>$this->asColumnSort, 'asColumnWidth'=>$this->asColumnWidth, 'asColumnAlign'=>$this->asColumnAlign));?>
+	<?php echo $this->partial('partials/_search.phtml', "variable", array('asSearchOption'=>$this->asSearchOption)); ?>
+	<table border="0" width="100%">
+		<tr>
+			<td colspan="6" align="right" class="tblrow">
+				<a href="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'addedit'));?>">
+					<img src="/images/add.gif">&nbsp;<?php echo $this->translate('Add Language');?>
+				</a>
+			</td>		
+		</tr>
+		<tr>
+			<td>
+				<?php echo $this->partial('partials/_list.phtml',"variable",array('asList'=>$this->user, 'asHeading'=>$this->asHeading, 'asFieldName'=>$this->asFieldName, 'asColumnSort'=>$this->asColumnSort, 'asColumnWidth'=>$this->asColumnWidth, 'asColumnAlign'=>$this->asColumnAlign));?>
+			</td>
+		</tr>
+	</table>
 	<!-- Pagination Link Partial Set imageview = true to Show NEXT PREVIOUS Image & Need to giv folder name where images are  -->
 	<?php echo $this->paginationControl($this->user, 'Sliding', 'partials/_pagination.phtml', array('searchSelect' => $this->ssSearchField, 'searchKeyword' => $this->ssSearchKeyword, 'imageview' => 'false')); ?>
 </div>
+</fieldset>

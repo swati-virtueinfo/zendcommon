@@ -1,7 +1,10 @@
-<?php
+<?php 
 	$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
 	$this->headTitle()->setSeparator(' - ');
 	$this->headTitle('ZEND COMMON PROJECT');
+	$this->custom_head = '<script src="/js/fckeditor/fckeditor.js" type="text/javascript"></script>';
+	$this->custom_head .= "<script language='javascript' type='text/javascript' src='/js/customs.js'></script>";
+	$this->custom_body = ' onload="setupFCK()"';
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head> 
@@ -13,13 +16,14 @@
 		<?php echo $this->headScript()->appendFile($this->baseUrl().'/js/function.js'); ?>
 		<!-- Include function file -->
 		<?php echo $this->headScript()->appendFile($this->baseUrl().'/js/jquery.js'); ?>
+		
 	</head>
 <body>
 	<div id="header">
 		<!--Header File -->
 		<?php echo $this->partial('partials/_header.phtml'); ?>
 	</div>
-	<div id="content" align="center">
+	<div id="cnt-main" align="center">
 		<h1><?php echo $this->escape($this->title); ?></h1>
 			<?php echo $this->layout()->content; ?>
 	</div>	

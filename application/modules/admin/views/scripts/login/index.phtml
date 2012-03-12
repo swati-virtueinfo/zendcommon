@@ -13,7 +13,12 @@
 						<td colspan="3" align="center" id="error" class="tblrow">
 							<?php echo "<font color='red'><b>".$this->translate($this->flashMessages())."</b></font>";?>
 							<?php $oMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');?>
-							<?php  $oMessenger->clearMessages(); ?>
+				            <?php $amMessages = array_merge($oMessenger->getCurrentMessages(),$oMessenger->getMessages());?>
+				            <?php if( $amMessages != ""): ?>
+				            <?php foreach ($amMessages as $ssmessage):?>
+				               <p><font color="#cd435d"><?php echo $this->escape($ssmessage); ?></font></p>
+				            <?php endforeach;endif; ?>
+				            <?php $oMessenger->clearMessages(); ?>
 						</td>
 					</tr>
 					<tr>
@@ -23,6 +28,7 @@
 						<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->email->renderLabel())); ?></td>
 						<td class="tblrow">
 							<div><?php echo $this->translate(strip_tags($this->form->email->renderErrors())) ;?></div>
+							<div id="error"><?php echo strip_tags($this->form->email->renderErrors());?></div>
 							<?php echo $this->form->email->renderViewHelper();?>
 						</td>
 					</tr>

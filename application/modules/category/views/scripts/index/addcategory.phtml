@@ -1,9 +1,9 @@
 <?php
-	$amCatList = Doctrine::getTable('Model_Category')->getCatList();
-   	ksort($amCatList);
-   	
-   	$oRequest = Zend_Controller_Front::getInstance()->getRequest();
-    $snEditId = $oRequest->getParam('editid');
+$amCatList = Doctrine :: getTable('Model_Category')->getCatList();
+ksort($amCatList);
+
+$oRequest = Zend_Controller_Front :: getInstance()->getRequest();
+$snEditId = $oRequest->getParam('editid');
 ?>
 <form method="post" enctype="multipart/form-data">
 <table>
@@ -61,21 +61,89 @@
 		<?php } ?>
 	</tr>
 </table>
+	<fieldset><legend><?php echo (isset($snEditId) ? "Edit Category" : "Add New Category"); ?></legend>
+		<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" >
+			<tr>
+				<td>
+					<table width="100%" border="0" cellpadding="2" cellspacing="1">
+						<?php if(empty($snEditId)): ?>
+						<tr>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->cat_name->renderLabel(); ?></td>
+							<td class="tblrow"> 
+								<?php echo $this->snParentId;?>
+								<select name="parentid">
+									<option value="0">Select Category</option>
+									<?php getContent($amCatList, $this->snParentId);?>
+								</select>
+							</td>
+						</tr>
+						<?php endif; ?>
+						<tr>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->name->renderLabel(); ?></td>
+							<?php foreach ($this->asLanguageList as $ssLanguageList): ?>
+							<td class="tblrow">
+								<table>
+									<tr>
+										<td><?php echo $ssLanguageList['name']; ?></td>
+									</tr>
+									<tr>
+										<td><?php $ssCatName = 'name_' . $ssLanguageList['lang']; echo $this->translate($this->oAddCateFrom->$ssCatName->renderErrors()); ?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->oAddCateFrom->$ssCatName->renderViewHelper();?></td>
+									</tr>	
+								</table>
+							</td>
+							<?php endforeach;?>
+						</tr>
+						<tr>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->image_name->renderLabel(); ?></td>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->image_name->renderfile();?></td>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->image_name->renderErrors(); ?></td>
+						</tr>
+						<tr>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->is_active->renderLabel(); ?></td>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->is_active->renderViewHelper();?></td>
+						</tr>
+						<tr>
+							<td class="tblrow"><?php if($snEditId) { ?>
+								<input id="editid" type="hidden" value="<?php echo $snEditId; ?>" name="editid">
+							</td>
+							<td class="tblrow">
+								<?php echo $this->oAddCateFrom->category_edit->renderViewHelper();?>
+								<input type="reset" name="reset" value="Cancel" class="but" title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index/listcategory'; ?>'">
+							</td>
+							<?php } else { ?>
+							<td class="tblrow">
+								<?php echo $this->oAddCateFrom->category_add->renderViewHelper();?>
+								<input type="reset" name="reset" value="Cancel" class="but" title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index/listcategory'; ?>'">						
+							</td>		
+							<?php } ?>
+						</tr>
+					</table>
+				</td>
+			</tr>	    
+		</table>			
+	</fieldset>
 </form>
 <?php
-	
-	function getContent($amCategories = array(), $snParentId = 0) {
-		if ($amCategories) {
-			foreach ($amCategories as $amCategory) {
-				
-				$ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString(); ?>
+
+
+function getContent($amCategories = array (), $snParentId = 0) {
+	if ($amCategories) {
+		foreach ($amCategories as $amCategory) {
+
+			$ssCurrentLocale = Zend_Registry :: get('Zend_Locale')->toString();
+?>
 				<option value="<?php echo $amCategory['id']; ?>" <?php if($amCategory['id'] == $snParentId ) { echo "selected=selected"; } ?>>
 					<?php echo str_repeat("&nbsp;", ($amCategory['level'] * 2) ) . $amCategory['Translation'][$ssCurrentLocale]['name']; ?>
 				</option>
 				<?php
-				unset($amCategory['id'], $amCategory['level'], $amCategory['is_active'], $amCategory['parentid'], $amCategory['Translation']);
-				getContent($amCategory, $snParentId);	
-			}
+
+
+			unset ($amCategory['id'], $amCategory['level'], $amCategory['is_active'], $amCategory['parentid'], $amCategory['Translation']);
+			getContent($amCategory, $snParentId);
 		}
-		
 	}
+
+}

@@ -20,6 +20,7 @@ class Model_VariableTable extends Doctrine_Table
 			$oSelectQuery->from("Model_Variable v " );
 			$oSelectQuery->leftjoin("v.Translation T");
 			$oSelectQuery->andwhere("T.lang = ?", $ssLang);
+			
 			if( !empty($ssSearchField) && !empty($ssSearchKeyword) )
 				$oSelectQuery->where($ssSearchField . " LIKE '" . $ssSearchKeyword . "%'" );
 		

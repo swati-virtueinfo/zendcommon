@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Admin_Form_Changepass
+ * Admin Change Password Form
+ *
+ * @category   Zend
+ * @package    admin
+ * @subpackage form
+ * @author     Bhaskar Joshi
+ * @uses       Zend_Form
+ */
 class Admin_Form_Changepass extends Zend_Form
 {
     public function init()
@@ -7,7 +16,7 @@ class Admin_Form_Changepass extends Zend_Form
     	$oId = new Zend_Form_Element_Hidden("id");
     	$oId->setRequired(false);
 					
-        // Set password textbox
+        // Set old password textbox
         $oOldPasswordTextbox = new Zend_Form_Element_Password("oldpassword");
         $oOldPasswordTextbox->setLabel("Old Password :")
 			            ->setRequired(true)
@@ -16,7 +25,7 @@ class Admin_Form_Changepass extends Zend_Form
 			            ->addValidator('NotEmpty', true, array('messages' => 'Old password requiered'))
 			            ->addValidator('StringLength', true, array(6, 20,'messages' => 'Passwprd must less than 6 characters long'));
 	
-        // Set password textbox
+        // Set new password textbox
         $oNewPasswordTextbox = new Zend_Form_Element_Password("newpassword");
         $oNewPasswordTextbox->setLabel("New Password :")
 			            ->setRequired(true)
@@ -25,7 +34,7 @@ class Admin_Form_Changepass extends Zend_Form
 			            ->addValidator('NotEmpty', true, array('messages' => 'New password requiered'))
 			            ->addValidator('StringLength', true, array(6, 20,'messages' => 'Passwprd must less than 6 characters long'));
 		
-		// Set password textbox
+		// Set Confirm password textbox
         $oConfirmPasswordTextbox = new Zend_Form_Element_Password("confirmpassword");
         $oConfirmPasswordTextbox->setLabel("Confirm Password :")
 			            ->setRequired(true)

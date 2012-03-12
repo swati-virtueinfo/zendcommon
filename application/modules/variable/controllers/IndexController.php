@@ -53,6 +53,9 @@ class Variable_IndexController extends Zend_Controller_Action
 
 		// Assigning search keyword
 		$this->view->ssSearchKeyword =$this->ssSearchKeyword = $this->_getParam('searchKeyword');
+		
+		//Fetch Zend_Locale to used in fetch Record 
+		$ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString();
 
 		//Fetch All Data From Language Table
 
@@ -62,17 +65,19 @@ class Variable_IndexController extends Zend_Controller_Action
 		
 		// Get list
 		$this->view->asHeading = array("Variable Name","Value","Active","Action");
-		$this->view->asFieldName = $asFieldList = array("name", "value","is_active","edit","delete");
-		$this->view->asColumnSort = array(true,false,false,false,false,false);
-		$this->view->asColumnWidth = array("40%", "15%", "10%", "10%","10%","15%");
-		$this->view->asColumnAlign = array("left", "center", "center", "center","center","center");	
+		$this->view->asFieldName = $asFieldList = array("name", "value","is_active","");
+		$this->view->asColumnSort = array(true,false,false,false);
+		$this->view->asColumnWidth = array("40%", "30%", "10%", "20%");
+		$this->view->asColumnAlign = array("left", "center", "center", "center");	
 		$this->view->asSearchOption = array('name' => 'Variable','value' => 'Value');	
 		
 		//For Edit/Delete Link In Listing
-		foreach($amVariableList  as $snKey => $asLanguage)
+		foreach($amVariableList  as $snKey => $amVariable)
 		{
-			$amVariableList[$snKey]['edit'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/addedit/id/".$asLanguage['id']."' title='Edit'><img src='/images/edit_icon.gif' ></a>";
-			$amVariableList[$snKey]['delete'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$asLanguage['id']."' title='Delete' onclick='return deleteMsg()'><img src='/images/delete.gif'></a>";
+			$amVariableList[$snKey]['is_active'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/changeactive/id/".$amVariable['id']."' title='Edit'><img src="."'"."/images/".(isset($amVariable['is_active']) && $amVariable['is_active'] == 1 ? "active_check.gif" : "deactive_check.gif")."'"."/></a>";
+			$amVariableList[$snKey]['value'] = $amVariableList[$snKey]['Translation'][$ssCurrentLocale]['value'];
+			$amVariableList[$snKey]['3'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/addedit/id/".$amVariable['id']."' title='Edit'><img src='/images/edit_icon.gif' ></a>" .
+			"&nbsp;&nbsp;<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$amVariable['id']."' title='Delete' onclick='return deleteMsg()'><img src='/images/delete.gif'></a>";
 		}
 		
 		// Get paging

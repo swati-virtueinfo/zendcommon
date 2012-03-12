@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Variable_Form_Addedit
+ * Add/Edit Variable Form
+ *
+ * @category   Zend
+ * @package    admin
+ * @subpackage form
+ * @author     Bhaskar Joshi
+ * @uses       Zend_Form
+ */
 class Variable_Form_Addedit extends Zend_Form
 {
     public function init()
@@ -30,8 +39,8 @@ class Variable_Form_Addedit extends Zend_Form
 		//Set Variable value textbox
 		foreach($asLanguageList as $key => $amLanguage) {
     		$oVariableNameLang[$amLanguage['lang']] = $this->createElement('text','value_' . $amLanguage['lang'], array('label' => 'Value : '));
-			$oVariableNameLang[$amLanguage['lang']]->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => 'msg_var_val_required')))
-			     ->setRequired(true);
+			$oVariableNameLang[$amLanguage['lang']]->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => 'msg_var_val_required')));
+			$oVariableNameLang[$amLanguage['lang']]->setRequired(true);
 			array_push($asElementArray, $oVariableNameLang[$amLanguage['lang']]);
     	}		
 						
@@ -44,4 +53,3 @@ class Variable_Form_Addedit extends Zend_Form
 		$this->addElements($asElementArray);
     }
 }
-
