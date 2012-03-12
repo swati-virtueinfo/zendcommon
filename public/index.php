@@ -3,7 +3,7 @@
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
-    
+   
 // Define path to languages directory
 defined('LANGUAGE_PATH')
     || define('LANGUAGE_PATH', realpath(dirname(__FILE__) . '/../application/languages/'));
@@ -31,4 +31,6 @@ $application = new Zend_Application(
 );
 $application->bootstrap()
             ->run();
-            
+
+    
+ 

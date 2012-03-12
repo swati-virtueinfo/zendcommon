@@ -50,7 +50,7 @@ class Language_IndexController extends Zend_Controller_Action
 		
 		// Get list
 		$this->view->asHeading = array("Language","Flag","Default","Active","Action");
-		$this->view->asFieldName = $asFieldList = array("name", "flag","is_default","is_active","edit","delete");
+		$this->view->asFieldName = $asFieldList = array("name", "flag","is_default","is_active","");
 		$this->view->asColumnSort = array(true,false,false,false,false,false);
 		$this->view->asColumnWidth = array("40%", "15%", "10%", "10%","10%","15%");
 		$this->view->asColumnAlign = array("left", "center", "center", "center","center","center");
@@ -59,13 +59,16 @@ class Language_IndexController extends Zend_Controller_Action
 		//For Edit/Delete Link In Listing
 		foreach($asLanguageList  as $snKey => $asLanguage)
 		{
-			$asLanguageList[$snKey]['edit'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/addedit/id/".$asLanguage['id']."' title='Edit'><img src='/images/edit_icon.gif' ></a>";
+			$asLanguageList[$snKey]['flag'] = "<img src="."'"."/upload/language/".$asLanguage['flag']."'"."height='20' width='20'/>";	
+			$asLanguageList[$snKey]['is_default'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/changedefault/id/".$asLanguage['id']."' title='Change Default Language'><img src="."'"."/images/".(isset($asLanguage['is_default']) && $asLanguage['is_default'] == 1 ? "active_radio.gif" : "deactive_radio.gif")."'"."/></a>";
+			$asLanguageList[$snKey]['is_active'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/changeactive/id/".$asLanguage['id']."' title='Change Active'><img src="."'"."/images/".(isset($asLanguage['is_active']) && $asLanguage['is_active'] == 1 ? "active_check.gif" : "deactive_check.gif")."'"."/></a>";
+			$asLanguageList[$snKey]['4'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/addedit/id/".$asLanguage['id']."' title='Edit'><img src='/images/edit_icon.gif' ></a>";
 			if($asLanguage["is_default"])
 			{
-				$asLanguageList[$snKey]['delete'] = "<a><img src='/images/delete_gray.gif'></a>";
+				$asLanguageList[$snKey]['4'] .= "&nbsp;&nbsp;&nbsp;&nbsp;<a><img src='/images/delete_gray.gif'></a>";
 			}
 			else{
-				$asLanguageList[$snKey]['delete'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$asLanguage['id']."' title='Delete' onclick='return deleteMsg()'><img src='/images/delete.gif'></a>";
+				$asLanguageList[$snKey]['4'] .=  "&nbsp;&nbsp;&nbsp;&nbsp;<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$asLanguage['id']."' title='Delete' onclick='return deleteMsg()'><img src='/images/delete.gif'></a>";
 			}	
 		}
 		
@@ -129,8 +132,11 @@ class Language_IndexController extends Zend_Controller_Action
 					//for Store file name with Path
 					$ssLogfile = LANGUAGE_PATH.'/'.$amAddLanguageData['lang'].'.php';
 					
-					//call function to create Language File in Languages Folder
-					$bResult = $this->_createLanguageFile($ssLogfile);
+					if(!is_file($ssLogfile))
+					{
+						//call function to create Language File in Languages Folder
+						$bResult = $this->_createLanguageFile($ssLogfile);
+					}
 					
 					// For assigning success massage to flashMessenger
 					$this->_helper->flashMessenger->addMessage('Language Add Successfully.');

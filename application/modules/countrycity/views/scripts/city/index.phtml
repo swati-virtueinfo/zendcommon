@@ -1,0 +1,35 @@
+<?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
+<fieldset width="100%"><legend>Manage Cities</legend>
+<table width='100%' border='0' >	
+	<tr>
+		<td align="center" colspan="8">
+			<?php $messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
+            $messages = array_merge($messenger->getCurrentMessages(),$messenger->getMessages());
+            if( $messages != ""):
+            foreach ($messages as $message) { ?>
+               <p><font color="#cd435d"><?php echo $this->escape($message); ?></font></p>
+            <?php }
+            endif;
+            $messenger->clearMessages(); ?>
+		</td>
+	</tr>
+</table>
+<div id="welcome">
+	<table border="0" width="100%">
+		<tr>
+			<td colspan="6" align="right" class="tblrow">
+				<a href="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'addedit'));?>">
+					<img src="/images/add.gif">&nbsp;<?php echo $this->translate('Add City');?>
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?php echo $this->partial('partials/_list.phtml',"variable",array('asList'=>$this->user, 'asHeading'=>$this->asHeading, 'asFieldName'=>$this->asFieldName, 'asColumnSort'=>$this->asColumnSort, 'asColumnWidth'=>$this->asColumnWidth, 'asColumnAlign'=>$this->asColumnAlign));?>
+			</td>
+		</tr>
+	</table>
+	<!-- Pagination Link Partial Set imageview = true to Show NEXT PREVIOUS Image & Need to giv folder name where images are  -->
+	<?php echo $this->paginationControl($this->user, 'Sliding', 'partials/_pagination.phtml', array('searchSelect' => $this->ssSearchField, 'searchKeyword' => $this->ssSearchKeyword, 'imageview' => 'false')); ?>
+</div>
+</fieldset>

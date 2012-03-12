@@ -11,5 +11,5 @@
  */
 class Countrycity_CountryControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
-
+	
 }

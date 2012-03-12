@@ -1,12 +1,20 @@
 <?php
-
+/**
+ * Language_Form_Addedit
+ * Add/Edit Language Form
+ *
+ * @category   Zend
+ * @package    admin
+ * @subpackage form
+ * @author     Bhaskar Joshi
+ * @uses       Zend_Form
+ */
 class Language_Form_Addedit extends Zend_Form
 {
-
     public function init()
     {
-    	 $oRequest = Zend_Controller_Front::getInstance()->getRequest();
-		 $snIdLanguage = $oRequest->getParam('id'); 
+    	$oRequest = Zend_Controller_Front::getInstance()->getRequest();
+		$snIdLanguage = $oRequest->getParam('id'); 
 		
 		//set id hidden field at Edit
 		$oId = new Zend_Form_Element_Hidden("id");
@@ -29,7 +37,7 @@ class Language_Form_Addedit extends Zend_Form
 						->addFilter('StringTrim')
 						->addValidator('NotEmpty', true, array('messages' => 'Language culture is required'))
 						->setAttrib('maxlength', '2');	
-    	
+		
     	//Set isdefualt Radio Button  
     	$oChkIsDefault = new Zend_Form_Element_Checkbox("is_default");
       	$oChkIsDefault->setLabel("Default Language ")
@@ -43,21 +51,16 @@ class Language_Form_Addedit extends Zend_Form
 		//Set flag file control 
 		$oFlagImage = new Zend_Form_Element_File("flag");
        	$oFlagImage->setLabel("Flag * ")
-       			->setDestination(UPLOAD_DIR_PATH.'/language/');
-
-       	//put condition for validation set required
-       	if(isset($snIdLanguage) ? $oFlagImage->setRequired(false) : $oFlagImage->setRequired(true));
+       			  	   ->setDestination(UPLOAD_DIR_PATH.'/language/');
 	   	$oFlagImage->addValidator('Extension', false, 'jpg,jpeg,png,gif');
 	   	$oFlagImage->addValidator('Size', false, 10240000);
+	   	if(isset($snIdLanguage) ? $oFlagImage->setRequired(false) : $oFlagImage->setRequired(true));
 
 		//Add element At Add & Edit 
 		if(isset($snIdLanguage)){
-			$this->addElements(array($oId,$oTextBoxName, $oTextBoxLanguage,$ochkIsActive,$oFlagImage));
+			$this->addElements(array($oId,$oTextBoxName, $oTextBoxLanguage, $ochkIsActive,$oFlagImage));
 		}else{
-			$this->addElements(array($oTextBoxName, $oTextBoxLanguage,$oChkIsDefault,$ochkIsActive,$oFlagImage));
+			$this->addElements(array($oTextBoxName, $oTextBoxLanguage, $oChkIsDefault,$ochkIsActive,$oFlagImage));
 		}
     }
-
-
 }
-

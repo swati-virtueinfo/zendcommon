@@ -32,17 +32,14 @@ class Category_Form_Addcategory extends Zend_Form
 		$ssCateActive = $this->createElement('checkbox','is_active',array('label' => 'Active : '));
 		$ssCateActive->setValue('1');
 		
-        $ssResetButton =  $this->createElement('reset','category_reset',array('label' => 'Cancel'));
-        $ssResetButton->setIgnore(true);
-        
         if($snEditId) {
-        	$ssSubmitButton =  $this->createElement('submit','category_edit',array('label' => 'Edit Category'));
+        	$ssSubmitButton =  $this->createElement('submit','category_edit',array('label' => 'Edit Category','class' => 'but'));
         	$ssSubmitButton->setIgnore(true);
-        	array_push($asElementArray, $ssEditHidden, $ssCatName, $CatName,  $ssCatImage, $ssCateActive, $ssSubmitButton, $ssResetButton);
+        	array_push($asElementArray, $ssEditHidden, $ssCatName, $CatName,  $ssCatImage, $ssCateActive, $ssSubmitButton);
         } else {
-        	$ssSubmitButton =  $this->createElement('submit','category_add',array('label' => 'Add Category'));
+        	$ssSubmitButton =  $this->createElement('submit','category_add',array('label' => 'Add Category','class' => 'but'));
         	$ssSubmitButton->setIgnore(true);
-        	array_push($asElementArray, $ssCatName, $CatName,  $ssCatImage, $ssCateActive, $ssSubmitButton, $ssResetButton);
+        	array_push($asElementArray, $ssCatName, $CatName,  $ssCatImage, $ssCateActive, $ssSubmitButton);
         }
         $this->addElements($asElementArray);
     }

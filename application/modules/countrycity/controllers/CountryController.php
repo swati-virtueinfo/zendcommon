@@ -23,7 +23,12 @@ class Countrycity_CountryController extends Zend_Controller_Action
     {
         
     }
-
+	
+	/**
+	* For Listing Country Detalil
+	*
+	* @access public
+	*/	
     public function indexAction()
     {
         $oCommon = new ZendX_Common();
@@ -34,32 +39,51 @@ class Countrycity_CountryController extends Zend_Controller_Action
 		$this->view->ssSortBy = $ssSortBy = $this->_getParam('sortBy', 'ASC');
 
 		/********** Optional Part Start FOR paginate()**********/
+		
 		// Assigning current page value
 		$oCommon->snPage = $this->_getParam('page', 1);
 		$oCommon->snRecordPerPage = 4;
+		
 		/********** Optional Part End FOR paginate()************/
 		
+		// Assigning search field
+		$this->view->ssSearchField = $ssSearchField = $this->_getParam('searchSelect');
+
+		// Assigning search keyword
+		$this->view->ssSearchKeyword =  $ssSearchKeyword = $this->_getParam('searchKeyword');
+		
+		//Fetch Zend_Locale to used in fetch Record 
+		$ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString(); 
+		
 		//Fetch All Data From Country Table
-		$amCountryList = Doctrine::getTable('Model_Country')->getCountryList($ssSortOn, $ssSortBy, Zend_Registry::get('Zend_Locale'));
+		$amCountryList = Doctrine::getTable('Model_Country')->getCountryList($ssSortOn, $ssSortBy, $ssSearchField, $ssSearchKeyword, $ssCurrentLocale);
 
 		// Get list
 		$this->view->asHeading = array("Country Name", "Enable Or Disable","Action");
-		$this->view->asFieldName = $asFieldList = array("name", "is_active", "edit", "delete");
-		$this->view->asColumnSort = array(true, false, false, false);
-		$this->view->asColumnWidth = array("65%", "15%", "10%", "10%");
-		$this->view->asColumnAlign = array("left", "center", "center", "center");
-		
+		$this->view->asFieldName = $asFieldList = array("name", "is_active", "");
+		$this->view->asColumnSort = array(true, false, false);
+		$this->view->asColumnWidth = array("65%", "15%", "20%");
+		$this->view->asColumnAlign = array("left", "center", "center");
+		$this->view->asSearchOption = array('name' => 'Country');
+
 		//For Edit/Delete Link In Listing
-		foreach($amCountryList  as $snKey => $asLanguage)
+		foreach($amCountryList  as $snKey => $asCountry)
 		{
-			$amCountryList[$snKey]['edit'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/addedit/id/".$asLanguage['id']."' title='Edit'><img src='/images/edit_icon.gif' ></a>";
-			$amCountryList[$snKey]['delete'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$asLanguage['id']."' title='Delete' onclick='return deleteMsg()'><img src='/images/delete.gif'></a>";
+			$amCountryList[$snKey]['is_active'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/changeactive/id/".$asCountry['id']."' title='Edit'><img src="."'"."/images/".(isset($asCountry['is_active']) && $asCountry['is_active'] == 1 ? "active_check.gif" : "deactive_check.gif")."'"."/></a>";
+			$amCountryList[$snKey]['name'] = $amCountryList[$snKey]['Translation'][$ssCurrentLocale]['name'];
+			$amCountryList[$snKey]['2'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/addedit/id/".$asCountry['id']."' title='Edit'><img src='/images/edit_icon.gif' ></a>" .
+			"&nbsp;&nbsp;<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$asCountry['id']."' title='Delete' onclick='return deleteMsg()'><img src='/images/delete.gif'></a>";
 		}
-		
+	
 		// Get paging
 		$this->view->user= $oCommon->paginate($amCountryList);
     }
-
+	
+	/**
+	* For Add and Edit Country Detalil
+	*
+	* @access public
+	*/
     public function addeditAction()
     {
         //Create Form View Object
@@ -125,6 +149,11 @@ class Countrycity_CountryController extends Zend_Controller_Action
 		$this->view->form = $oForm;
     }
 
+	/**
+	* For Delete Country Detalil
+	*
+	* @access public
+	*/
     public function deleteAction()
     {
     	if( $this->getRequest()->getParam('id') != '' )
@@ -140,6 +169,11 @@ class Countrycity_CountryController extends Zend_Controller_Action
 		}       
     }
 
+	/**
+	* For Change Active City or not 
+	*
+	* @access public
+	*/
     public function changeactiveAction()
     {
         if($this->getRequest()->getParam('id') != '')

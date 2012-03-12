@@ -1,0 +1,14 @@
+<?php
+	 $oNamespace = new Zend_Session_Namespace('sess_admin');        
+     $ssLoginUserName = $oNamespace->__get('admin_name');
+     $snAdminId = $oNamespace->__get('aid');
+?>
+<ul id="btnmenu">
+    <li><a href="#" title="">Home</a></li>
+    <li><a href="/countrycity/country" title="">Country</a></li>
+    <li><a href="/countrycity/city" title="">City</a></li>
+    <li><a href="/category/index/listcategory" title="Category">Category</a></li>
+    <li><a href="/language/index" title="Language">language</a></li>
+    <li><a href="/variable/index" title="Variable">Variable</a></li>
+    <li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'login','action'=>'changepassword','id' => $snAdminId));?>" title="Change Password">Reset Password</a></li>
+</ul>
