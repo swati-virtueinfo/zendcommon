@@ -139,3 +139,36 @@ City:
     Timestampable: true
     I18n:
       fields: [name]
+SitePages:
+  tableName: site_pages
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    parent_id:
+      type: integer(10)
+      notnull: true
+    url:
+      type: string()
+      notnull: false
+    is_active:
+      type: boolean
+      default: 1
+    ord:
+      type: integer(10)
+      default: 1
+    title:
+      type: string(255)
+    menu_name:
+      type: string(255)
+    content: 
+      type: string()
+    meta_title:
+      type: string(255)
+    meta_description:
+      type: string()
+  actAs:
+    Timestampable: true
+    I18n:
+      fields: [title,menu_name,content,meta_title,meta_description]      

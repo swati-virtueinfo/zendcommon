@@ -1,15 +1,9 @@
-<?php //For Get Request Parameter
+<?php 
+	//For Get Request Parameter
 	$oRequest = Zend_Controller_Front::getInstance()->getRequest(); 
-	
 	$amLangActiveList = Doctrine::getTable('Model_Language')->getActiveLanguageList();
-	//print_r($amLangActiveList);
 ?>
-<table class="tblbg" width="100%" align="right">
-	<tr>
-		<td  align="right">
-			<?php foreach($amLangActiveList as $key => $asActiveLanguage): ?>
-			  		<a href="<?php echo $this->url(array('module'=> 'language','controller'=> 'index','action'=> 'changelanguage','lang' => $asActiveLanguage['lang']))?>"><img src="/upload/language/<?php echo $asActiveLanguage['flag']; ?>" width='20' height="20"/></a>
-			<?php endforeach; ?>	
-		</td>
-	</tr>
-</table>
+<?php foreach($amLangActiveList as $key => $asActiveLanguage): ?>
+	<a href="<?php echo $this->url(array('module'=> 'language','controller'=> 'index','action'=> 'changelanguage','lang' => $asActiveLanguage['lang']))?>"><img src="/upload/language/<?php echo $asActiveLanguage['flag']; ?>" width='20' height="20"/></a>
+<?php endforeach; ?>	
+	
