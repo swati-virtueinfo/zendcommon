@@ -25,7 +25,7 @@ class Variable_Form_Addedit extends Zend_Form
 		
 		 //Set name textbox
         $oTextBoxName = new Zend_Form_Element_Text("name");
-        $oTextBoxName->setLabel("Name * ")
+        $oTextBoxName->setLabel("Name")
 						->setRequired(true)
 						->addFilter('StripTags')
 						->addFilter('StringTrim')

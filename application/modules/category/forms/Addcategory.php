@@ -14,22 +14,22 @@ class Category_Form_Addcategory extends Zend_Form
 
     	$ssEditHidden = $this->createElement('text','editid');
     	
-    	$ssCatName = $this->createElement('select','cat_name',array('label' => 'Cat Name : '));
+    	$ssCatName = $this->createElement('select','cat_name',array('label' => 'Category Name'));
     	
-	   	$CatName = $this->createElement('text','name',array('label' => 'Cat Name  : '));
+	   	$CatName = $this->createElement('text','name',array('label' => 'Category Name'));
 		
     	foreach($asLanguageList as $key => $amLanguage) {
-    		$oCatNameLang[$amLanguage['lang']] = $this->createElement('text','name_' . $amLanguage['lang'], array('label' => 'Cat Name : '));
+    		$oCatNameLang[$amLanguage['lang']] = $this->createElement('text','name_' . $amLanguage['lang'], array('label' => 'Category Name'));
 			$oCatNameLang[$amLanguage['lang']]->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => 'msg_cat_name_required')))
 			     ->setRequired(true);
 			array_push($asElementArray, $oCatNameLang[$amLanguage['lang']]);
     	}
 		
-		$ssCatImage = $this->createElement('file','image_name',array('label' => 'Category Image : '));
+		$ssCatImage = $this->createElement('file','image_name',array('label' => 'Category Image'));
 		$ssCatImage->addValidator('Extension', false, array('jpg', 'png', 'gif', 'jpeg','messages' => 'Select only .jpg .png .gif .jpeg file'))
 	              ->setDestination(UPLOAD_DIR_PATH.'category/');
     
-		$ssCateActive = $this->createElement('checkbox','is_active',array('label' => 'Active : '));
+		$ssCateActive = $this->createElement('checkbox','is_active',array('label' => 'Active'));
 		$ssCateActive->setValue('1');
 		
         if($snEditId) {

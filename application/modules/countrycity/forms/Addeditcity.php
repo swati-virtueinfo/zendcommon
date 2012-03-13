@@ -25,7 +25,7 @@ class Countrycity_Form_Addeditcity extends Zend_Form
 		
 		//Add country_id as select field
 		$oCountry = new Zend_Form_Element_Select('country_id');
-        $oCountry->setLabel('Country *');
+        $oCountry->setLabel('Country');
         $oCountry->setRequired(true);
    		$oCountry->addValidator('NotEmpty',true, array('messages' => array('isEmpty' => 'msg_country_name_required')));
         $oCountry->setRegisterInArrayValidator(false); 

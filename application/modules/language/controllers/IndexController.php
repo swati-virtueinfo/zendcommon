@@ -118,7 +118,7 @@ class Language_IndexController extends Zend_Controller_Action
 						}
 					}	
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage('Language updated successfully');
+					$this->_helper->flashMessenger->addMessage(array('Language updated successfully'));	
 					
 					//Redirect to Language-Index Page
 					$this->_redirect('/language/index');
@@ -139,7 +139,7 @@ class Language_IndexController extends Zend_Controller_Action
 					}
 					
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage('Language Add Successfully.');
+					$this->_helper->flashMessenger->addMessage(array('Language Add Successfully'));	
 					
 					//Redirect to Language-Index Page
 					$this->_redirect('/language/index');
@@ -186,7 +186,7 @@ class Language_IndexController extends Zend_Controller_Action
 				if(!empty($ssLanguageImageName) ? unlink($ssLanguageImageName) : '');				
 			}
 			// For assigning success massage to flashMessenger
-			$this->_helper->flashMessenger->addMessage('Record deleted successfully');
+			$this->_helper->flashMessenger->addMessage(array('Record deleted successfully'));	
 			
 			// Redirectes to Language listing Page
 			$this->_redirect('/language/index');
@@ -202,7 +202,7 @@ class Language_IndexController extends Zend_Controller_Action
 			Doctrine::getTable('Model_Language')->changeDefaultLanguage($this->getRequest()->getParam('id'));
 
 			// For assigning success massage to flashMessenger
-			$this->_helper->flashMessenger->addMessage('Record Edited');
+			$this->_helper->flashMessenger->addMessage(array('Record Edited'));
 		
 			// Redirectes to Language listing Page
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
@@ -222,7 +222,7 @@ class Language_IndexController extends Zend_Controller_Action
 			Doctrine::getTable('Model_Language')->changeActiveLanguage($this->getRequest()->getParam('id'),$bIsActive);
 
 			// For assigning success massage to flashMessenger
-			$this->_helper->flashMessenger->addMessage('Record Edited');
+			$this->_helper->flashMessenger->addMessage(array('Record Edited'));
 			
 			// Redirectes to Language listing Page
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));

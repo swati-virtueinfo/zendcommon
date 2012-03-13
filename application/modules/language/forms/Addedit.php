@@ -22,7 +22,7 @@ class Language_Form_Addedit extends Zend_Form
 		
         //Set name textbox
         $oTextBoxName = new Zend_Form_Element_Text("name");
-        $oTextBoxName->setLabel("Name * ")
+        $oTextBoxName->setLabel("Name")
 						->setRequired(true)
 						->addFilter('StripTags')
 						->addFilter('StringTrim')
@@ -31,7 +31,7 @@ class Language_Form_Addedit extends Zend_Form
 						
      	//Set language textbox
        	$oTextBoxLanguage = new Zend_Form_Element_Text("lang");
-       	$oTextBoxLanguage->setLabel("Language * ")
+       	$oTextBoxLanguage->setLabel("Language")
 						->setRequired(true)
 						->addFilter('StripTags')
 						->addFilter('StringTrim')
@@ -40,17 +40,17 @@ class Language_Form_Addedit extends Zend_Form
 		
     	//Set isdefualt Radio Button  
     	$oChkIsDefault = new Zend_Form_Element_Checkbox("is_default");
-      	$oChkIsDefault->setLabel("Default Language ")
+      	$oChkIsDefault->setLabel("Default Language")
 						->setChecked(true);
 		
 		//Set isactive check box				
 		$ochkIsActive = new Zend_Form_Element_Checkbox("is_active");
-      	$ochkIsActive->setLabel("Active Language ")
+      	$ochkIsActive->setLabel("Active Language")
 						->setChecked(true);
 		
 		//Set flag file control 
 		$oFlagImage = new Zend_Form_Element_File("flag");
-       	$oFlagImage->setLabel("Flag * ")
+       	$oFlagImage->setLabel("Flag")
        			  	   ->setDestination(UPLOAD_DIR_PATH.'/language/');
 	   	$oFlagImage->addValidator('Extension', false, 'jpg,jpeg,png,gif');
 	   	$oFlagImage->addValidator('Size', false, 10240000);

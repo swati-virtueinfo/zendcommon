@@ -105,7 +105,7 @@ class Variable_IndexController extends Zend_Controller_Action
 					Doctrine::getTable('Model_Variable')->UpdateVariable($oForm->getValues());
 
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage('Variable updated successfully');
+					$this->_helper->flashMessenger->addMessage(array('Variable updated successfully'));	
 					
 					//Redirect to Variable-Index Page
 					$this->_redirect('/variable/index');
@@ -117,7 +117,7 @@ class Variable_IndexController extends Zend_Controller_Action
 					Doctrine::getTable('Model_Variable')->InsertVariable($oForm->getValues());
 					
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage('Variable added successfully.');
+					$this->_helper->flashMessenger->addMessage(array('Variable added successfully'));
 					
 					//Redirect to variable-Index Page
 					$this->_redirect('/variable/index');	
@@ -158,7 +158,7 @@ class Variable_IndexController extends Zend_Controller_Action
 			Doctrine::getTable('Model_Variable')->deleteVariable( $this->getRequest()->getParam('id') );
 
 			// For assigning success massage to flashMessenger
-			$this->_helper->flashMessenger->addMessage('Record deleted successfully');
+			$this->_helper->flashMessenger->addMessage(array('Record deleted successfully'));
 			
 			// Redirectes to Variale listing Page
 			$this->_redirect('/variable/index');
@@ -178,7 +178,7 @@ class Variable_IndexController extends Zend_Controller_Action
 
 			// On Success assigning success massage to flashMessenger
 			if($bResult)
-				$this->_helper->flashMessenger->addMessage('Record Edited');
+				$this->_helper->flashMessenger->addMessage(array('Record Edited'));
 			
 			// Redirectes to Variable listing Page
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
@@ -213,7 +213,7 @@ class Variable_IndexController extends Zend_Controller_Action
 			chmod($ssLogfile,0777);
 			$amLanguageList[$snKey]['lang'];
     	}
-    	$this->_helper->flashMessenger->addMessage("Successfully Generate languages files");
+    	$this->_helper->flashMessenger->addMessage(array('Successfully Generate languages files'));
     	$this->_redirect('/variable/index');
     }
 }

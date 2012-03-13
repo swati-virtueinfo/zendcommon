@@ -34,6 +34,7 @@ class Category_IndexController extends Zend_Controller_Action
     				$amFormData = $oAddCateFrom->getValues();
     				//$amFormData['parentid'] = $amPostData['parentid'];
     				$bUpdateCat = Doctrine::getTable('Model_Category')->updateCategory($amFormData);
+    				$this->_helper->flashMessenger->addMessage(array('Record update successfully'));
     				$this->_redirect('/category/index/listcategory');		
     			}
     		}
@@ -50,6 +51,7 @@ class Category_IndexController extends Zend_Controller_Action
             		$amFormData = $oAddCateFrom->getValues();
             		$amFormData['parentid'] = $amPostData['parentid'];
 					$bAddCate = Doctrine::getTable('Model_Category')->insertCategory($amFormData);  // Insert Category
+					$this->_helper->flashMessenger->addMessage(array('Record insert successfully'));
 					$this->_redirect('/category/index/listcategory');
             	} else {
             		$oAddCateFrom->populate($amPostData);
@@ -73,6 +75,7 @@ class Category_IndexController extends Zend_Controller_Action
       	if( $this->getRequest()->getParam('id') != '' )
 			Doctrine::getTable('Model_Category')->deleteCatById( $this->getRequest()->getParam('id') );
 		
+		$this->_helper->flashMessenger->addMessage(array('Record delete successfully'));	
 		// Redirectes to category list
 		$this->_redirect('/category/index/listcategory');
     }
@@ -85,5 +88,6 @@ class Category_IndexController extends Zend_Controller_Action
     	
     	Doctrine::getTable('Model_Category')->updateStatus($amUpdateData);
     	$this->view->amCatById = $amCatById = Doctrine::getTable('Model_Category')->find($snIdCategory)->toArray();
+    	//$this->_helper->flashMessenger->addMessage(array('Category status change successfully'));
     }
 }

@@ -6,62 +6,7 @@ $oRequest = Zend_Controller_Front :: getInstance()->getRequest();
 $snEditId = $oRequest->getParam('editid');
 ?>
 <form method="post" enctype="multipart/form-data">
-<table>
-	<tr>
-		<?php  if($snEditId): ?>
-			<th><?php echo $this->translate('Edit Category');?></th>
-		<?php else: ?>
-			<th><?php echo $this->translate('Add Category');?></th>
-		<?php endif;?>	
-	</tr>
-	<?php if(empty($snEditId)): ?>
-	<tr>
-		<td><?php echo $this->translate($this->oAddCateFrom->cat_name->renderLabel()); ?></td>
-		<td>
-			<?php echo $this->snParentId;?>
-			<select name="parentid">
-				<option value="0">Select Category</option>
-				<?php getContent($amCatList, $this->snParentId);?>
-			</select>
-		</td>
-	</tr>
-	<?php endif; ?>
-	<tr>
-	<td><?php echo $this->translate( $this->oAddCateFrom->name->renderLabel() ); ?></td>
-	<?php foreach ($this->asLanguageList as $ssLanguageList): ?>
-		<td>
-			<table>
-				<tr>
-					<td><?php echo $this->translate($ssLanguageList['name']); ?></td>
-				</tr>
-				<tr>
-					<td><?php $ssCatName = 'name_' . $ssLanguageList['lang']; echo $this->translate($this->oAddCateFrom->$ssCatName->renderErrors()); ?></td>
-				</tr>
-				<tr>
-					<td><?php echo $this->oAddCateFrom->$ssCatName->renderViewHelper();?></td>
-				</tr>	
-			</table>
-		</td>
-	<?php endforeach;?>
-	</tr>
-	<tr>
-		<td><?php echo $this->translate($this->oAddCateFrom->image_name->renderLabel()); ?></td>
-		<td><?php echo $this->oAddCateFrom->image_name->renderfile();?></td>
-		<td><?php echo $this->oAddCateFrom->image_name->renderErrors(); ?></td>
-	</tr>
-	<tr>
-		<td><?php echo $this->translate($this->oAddCateFrom->is_active->renderLabel() ); ?></td>
-		<td><?php echo $this->oAddCateFrom->is_active->renderViewHelper();?></td>
-	</tr>
-	<tr>
-		<td><?php if($snEditId) { ?><input id="editid" type="hidden" value="<?php echo $snEditId; ?>" name="editid"></td>
-			<td><?php echo $this->oAddCateFrom->category_edit->renderViewHelper();?><?php echo $this->oAddCateFrom->category_reset->renderViewHelper();?></td>
-		<?php } else { ?>
-			<td><?php echo $this->oAddCateFrom->category_add->renderViewHelper();?><?php echo $this->oAddCateFrom->category_reset->renderViewHelper();?></td>		
-		<?php } ?>
-	</tr>
-</table>
-	<fieldset><legend><?php echo (isset($snEditId) ? "Edit Category" : "Add New Category"); ?></legend>
+<fieldset><legend><?php echo (isset($snEditId) ? $this->translate("Edit Category") : $this->translate("Add New Category")); ?></legend>
 		<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" >
 			<tr>
 				<td>
@@ -79,15 +24,15 @@ $snEditId = $oRequest->getParam('editid');
 						</tr>
 						<?php endif; ?>
 						<tr>
-							<td class="tblrow"><?php echo $this->oAddCateFrom->name->renderLabel(); ?></td>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->name->renderLabel(); ?><span id="error"></span></td>
 							<?php foreach ($this->asLanguageList as $ssLanguageList): ?>
 							<td class="tblrow">
 								<table>
 									<tr>
-										<td><?php echo $ssLanguageList['name']; ?></td>
+										<td><?php echo $this->translate($ssLanguageList['name']); ?></td>
 									</tr>
 									<tr>
-										<td><?php $ssCatName = 'name_' . $ssLanguageList['lang']; echo $this->translate($this->oAddCateFrom->$ssCatName->renderErrors()); ?></td>
+										<td id="error"><?php $ssCatName = 'name_' . $ssLanguageList['lang']; echo $this->translate(strip_tags($this->oAddCateFrom->$ssCatName->renderErrors())); ?></td>
 									</tr>
 									<tr>
 										<td><?php echo $this->oAddCateFrom->$ssCatName->renderViewHelper();?></td>
@@ -111,12 +56,12 @@ $snEditId = $oRequest->getParam('editid');
 							</td>
 							<td class="tblrow">
 								<?php echo $this->oAddCateFrom->category_edit->renderViewHelper();?>
-								<input type="reset" name="reset" value="Cancel" class="but" title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index/listcategory'; ?>'">
+								<input type="reset" name="reset" value="<?php echo $this->translate("Cancel"); ?>" class="but" title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index/listcategory'; ?>'">
 							</td>
 							<?php } else { ?>
 							<td class="tblrow">
 								<?php echo $this->oAddCateFrom->category_add->renderViewHelper();?>
-								<input type="reset" name="reset" value="Cancel" class="but" title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index/listcategory'; ?>'">						
+								<input type="reset" name="reset" value="<?php echo $this->translate("Cancel"); ?>" class="but" title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index/listcategory'; ?>'">						
 							</td>		
 							<?php } ?>
 						</tr>

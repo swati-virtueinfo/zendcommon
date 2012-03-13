@@ -100,7 +100,7 @@ class Countrycity_CityController extends Zend_Controller_Action
 					Doctrine::getTable('Model_City')->UpdateCity($oForm->getValues());
 
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage('City updated successfully');
+					$this->_helper->flashMessenger->addMessage(array('City updated successfully'));
 					
 					//Redirect to Countrycity-City Page
 					$this->_redirect('/countrycity/city');
@@ -114,7 +114,7 @@ class Countrycity_CityController extends Zend_Controller_Action
 					Doctrine::getTable('Model_City')->InsertCity($amAddCityData);
 					
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage('City added successfully.');
+					$this->_helper->flashMessenger->addMessage(array('City added successfully'));
 					
 					//Redirect to Countrycity-City Page
 					$this->_redirect('/countrycity/city');	
@@ -160,7 +160,7 @@ class Countrycity_CityController extends Zend_Controller_Action
 			Doctrine::getTable('Model_City')->deleteCity( $this->getRequest()->getParam('id') );
 
 			// For assigning success massage to flashMessenger
-			$this->_helper->flashMessenger->addMessage('City deleted successfully');
+			$this->_helper->flashMessenger->addMessage(array('City deleted successfully'));
 			
 			// Redirectes to Country listing Page
 			$this->_redirect('/countrycity/city');
@@ -184,7 +184,7 @@ class Countrycity_CityController extends Zend_Controller_Action
 
 			// On Success assigning success massage to flashMessenger
 			if($bResult)
-				$this->_helper->flashMessenger->addMessage('Record Edited');
+				$this->_helper->flashMessenger->addMessage(array('Record Edited'));
 			
 			// Redirectes to City listing Page
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));

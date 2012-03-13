@@ -2,131 +2,69 @@
 <?php $snIdLanguage = $oRequest->getParam('id');  ?>
 <?php echo (isset($snIdLanguage) ? $this->headTitle('Edit-Language') : $this->headTitle('Add-Language')); ?>
 <form name="addlanguage" method="post" enctype="multipart/form-data">
-	<table width="40%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblbg">
-		<tr>
-	       	<td>
-	       		<table width="100%" border="0" cellpadding="2" cellspacing="1">
-		        	<tr class="tblheader">
-		            	 <td colspan="3"><?php echo (isset($snIdLanguage) ? $this->translate("Edit Language") : $this->translate("Add New Language")); ?></td>
-		         	</tr>
-
-					<?php if(isset($snIdLanguage)): ?>
-					<tr>
-						<td class="tblrow" colspan="3"><input type="hidden" name="id" id="id" value="<?php echo $snIdLanguage; ?>"/></td>
-					</tr>
-					<?php endif; ?>	
-					<tr>
-						<td class="tblrow"><?php echo strip_tags($this->form->name->renderLabel()); ?></td>
-						<td class="tblrow"><?php echo $this->form->name->renderViewHelper();?></td>
-						<td id="error" class="tblrow"><?php echo strip_tags($this->form->name->renderErrors());	?></td>
-					</tr>
-					
-					<tr>
-						<td class="tblrow"><?php echo strip_tags($this->translate($this->form->lang->renderLabel())); ?></td>
-						<td class="tblrow"><?php echo $this->form->lang->renderViewHelper();?></td>
-						<td id="error" class="tblrow"><?php echo strip_tags($this->form->lang->renderErrors());	?></td>
-					</tr>
-					
-					<?php if(!isset($snIdLanguage)): ?>
-					<tr>
-						<td class="tblrow"><?php echo strip_tags($this->translate($this->form->is_default->renderLabel())); ?></td>
-						<td class="tblrow"><?php echo $this->form->is_default->renderViewHelper();?></td>
-						<td id="error" class="tblrow"><?php echo strip_tags($this->form->is_default->renderErrors());	?></td>
-					</tr>
-					<?php endif; ?>
-					
-					<tr>
-						<td class="tblrow"><?php echo strip_tags($this->translate($this->form->is_active->renderLabel())); ?></td>
-						<td class="tblrow"><?php echo $this->form->is_active->renderViewHelper();?></td>
-						<td id="error" class="tblrow"><?php echo strip_tags($this->form->is_active->renderErrors());	?></td>
-					</tr>
-							
-					<tr>
-						<td class="tblrow"><?php echo strip_tags($this->translate($this->form->flag->renderLabel())); ?></td>
-						<td class="tblrow">
-							<?php if(trim(!empty($this->ImageName))):?>
-								<img src="/upload/<?php echo $this->ImageName; ?>" width="20" height="20"/><br/>
-							<?php endif; ?>
-							<?php echo $this->form->flag->renderfile(); ?>
-						</td>
-						<td id="error" class="tblrow"><?php echo strip_tags($this->form->flag->renderErrors());	?></td>
-					</tr>
-						
-					<tr>
-						<td colspan="3" align="center" class="tblrow" >
-							<input type="submit" name="submit" value="<?php echo $this->translate("Save"); ?>" class='but'>
-							<input type="reset" name="cancel" value="<?php  echo $this->translate('Cancel'); ?>" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index'; ?>'">
-						</td>
-					</tr>
-				</table>
-			</td>
-	    </tr>	    
- 	</table>
-	<fieldset width="100%"><legend><?php echo (isset($snIdLanguage) ? "Edit Language" : "Add New Language"); ?></legend>
-		<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
+	<fieldset>
+		<legend>
+			<?php echo (isset($snIdLanguage) ? $this->translate("Edit Language") : $this->translate("Add New Language")); ?>
+		</legend>
+		<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
 			<tr>
-		       	<td>
-		       		<table width="100%" border="0" cellpadding="2" cellspacing="1">
-						<?php if(isset($snIdLanguage)): ?>
+				<td>
+					<table width="100%" border="0" cellpadding="2" cellspacing="1">
+					<?php if(isset($snIdLanguage)): ?>
 						<tr>
-							<td class="tblrow" colspan="3"><input type="hidden" name="id" id="id" value="<?php echo $snIdLanguage; ?>"/></td>
+							<td class="tblrow" colspan="3"><input type="hidden" name="id" id="id" value="<?php echo $snIdLanguage; ?>" /></td>
 						</tr>
-						<?php endif; ?>	
+					<?php endif; ?>
 						<tr>
 							<?php echo $this->form->name->Value;?>
-							<td class="tblrow"><?php echo strip_tags($this->form->name->renderLabel()); ?></td>
+							<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->name->renderLabel())); ?><span id="error">&nbsp; * &nbsp;</span></td>
 							<td class="tblrow">
-								<div id="error"><?php echo strip_tags($this->form->name->renderErrors());	?></div>
-								<?php echo $this->form->name->renderViewHelper();?>
-								
-							</td>
+							<div id="error">
+								<?php echo strip_tags($this->form->name->renderErrors());	?>
+							</div>
+							<?php echo $this->form->name->renderViewHelper();?></td>
 						</tr>
-						
 						<tr>
-							<td class="tblrow"><?php echo strip_tags($this->form->lang->renderLabel()); ?></td>
+							<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->lang->renderLabel())); ?><span id="error">&nbsp; * &nbsp;</span></td>
 							<td class="tblrow">
-								<div id="error"><?php echo strip_tags($this->form->lang->renderErrors());	?></div>
-								<?php echo $this->form->lang->renderViewHelper();?>
-							</td>
+							<div id="error">
+								<?php echo strip_tags($this->form->lang->renderErrors());	?>
+							</div>
+							<?php echo $this->form->lang->renderViewHelper();?></td>
 						</tr>
-						
-					
-						
 						<?php if(!isset($snIdLanguage)): ?>
 						<tr>
-							<td class="tblrow"><?php echo strip_tags($this->form->is_default->renderLabel()); ?></td>
+							<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->is_default->renderLabel())); ?></td>
 							<td class="tblrow"><?php echo $this->form->is_default->renderViewHelper();?></td>
 						</tr>
 						<?php endif; ?>
-						
 						<tr>
-							<td class="tblrow"><?php echo strip_tags($this->form->is_active->renderLabel()); ?></td>
+							<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->is_active->renderLabel())); ?></td>
 							<td class="tblrow"><?php echo $this->form->is_active->renderViewHelper();?></td>
 						</tr>
-								
 						<tr>
-							<td class="tblrow"><?php echo strip_tags($this->form->flag->renderLabel()); ?></td>
+							<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->flag->renderLabel())); ?><span id="error">&nbsp; * &nbsp;</span></td>
 							<td class="tblrow">
-								<div id="error"><?php echo strip_tags($this->form->flag->renderErrors());	?></div>
-								<?php if(trim(!empty($this->ImageName))):?>
-									<img src="/upload/language/<?php echo $this->ImageName; ?>" width="20" height="20"/><br/>
-								<?php endif; ?>
-								<?php echo $this->form->flag->renderfile(); ?>
-							</td>
+							<div id="error">
+								<?php echo strip_tags($this->form->flag->renderErrors());	?>
+							</div>
+							<?php if(trim(!empty($this->ImageName))):?> 
+								<img src="/upload/language/<?php echo $this->ImageName; ?>" width="20" height="20" /><br />
+							<?php endif; ?> 
+							<?php echo $this->form->flag->renderfile(); ?></td>
 						</tr>
-							
 						<tr>
 							<td></td>
-							<td class="tblrow" >
-								<input type="submit" name="submit" value="Save" class='but'>
-								<input type="reset" name="cancel" value="Cancel" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index'; ?>'">
+							<td class="tblrow">
+								<input type="submit" name="submit" value="<?php echo $this->translate("Save"); ?>" class='but'> 
+								<input type="reset" name="cancel" value="<?php echo $this->translate("Cancel")?>" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index'; ?>'">
 							</td>
 						</tr>
 					</table>
 				</td>
-		    </tr>	    
-	 	</table>
- 	</fieldset>
+			</tr>
+		</table>
+	</fieldset>
 </form>
 <script type="text/javascript">
 	document.getElementById('name').focus();

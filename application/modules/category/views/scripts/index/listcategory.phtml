@@ -1,33 +1,53 @@
-<fieldset width="100%"><legend>Manage Category</legend>
-<div>
-	<div class="addcategory"><a href="<?php echo $this->url(array('controller' => 'index' , 'action' => 'addcategory'))?>"><?php echo $this->translate('Add Category');?></a></div>
-	<div class="addcategory">&nbsp;</div>
-</div>
-<div class="listparent">
-	<?php getContent($this->amCatListing); ?>
-</div>
-<?php function getContent($amCategories = array(), $snCategoryId = 0) { ?>
-	<?php foreach ($amCategories as $amCategory) : ?>
+<?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
+<fieldset>
+	<legend><?php echo $this->translate("Manage Category"); ?></legend>
+	<table width='100%' border='0' id="msg">	
+		<tr>
+			<td align="center" colspan="8">
+				<p><font color="#cd435d"><?php echo $this->translate(strip_tags($this->flashMessages())); ?></font></p>
+			</td>
+		</tr>
+	</table>
+	<table border="0" width="100%">
+		<tr>
+			<td colspan="6" align="right" class="tblrow">
+				<a href="<?php echo $this->url(array('controller' => 'index' , 'action' => 'addcategory'))?>">
+					<img src="/images/add.gif">&nbsp;<?php echo $this->translate('Add Category');?>
+				</a>
+			</td>		
+		</tr>
+	</table>
+	<table border=0 width=100% class="tblbg">
+	<tr>
+		<td class="tblheading" style="padding-left:10px; font-weight:bold;"><?php echo $this->translate("Category Name")?></td>
+		<td class="tblheading" align="center" style="font-weight:bold;"><?php echo $this->translate("Active")?></td>
+		<td class="tblheading" align="center" style="font-weight:bold;"><?php echo $this->translate("Action")?></td>
+	</tr>
+	<tr>
+		<td><?php getContent($this->amCatListing); ?></td>
+	</tr>		
+		<?php function getContent($amCategories = array(), $snCategoryId = 0) { ?>
+		<?php foreach ($amCategories as $amCategory) : ?>
 		<?php $ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString(); ?>
-		<div class="listchild" >
+		<tr>
+		<td width="80%" class="tblrow">
 		<?php echo str_repeat("&nbsp;", ($amCategory['level'] * 5) ). $amCategory['Translation'][$ssCurrentLocale]['name']; ?>
-		</div>
-		<div class="listCatAction" >
-			<div class="checkbox"  id="<?php echo $amCategory['id']; ?>_checkbox">
+		</td>
+		<td width="10%" class="tblrow" id="<?php echo $amCategory['id']; ?>_checkbox" align="center">
 				<?php if($amCategory['is_active'] == 1): ?>
-					<input type="checkbox" id="<?php echo "id-".$amCategory['id']."-status-".$amCategory['is_active']; ?>" checked="checked" onclick="catStatus(this);"></input> |
+					<input type="checkbox" id="<?php echo "id-".$amCategory['id']."-status-".$amCategory['is_active']; ?>" checked="checked" onclick="catStatus(this);"></input>
 				<?php else:?>
-					<input type="checkbox" id="<?php echo "id-".$amCategory['id']."-status-0" ?>"  onclick="catStatus(this);"></input> |
+					<input type="checkbox" id="<?php echo "id-".$amCategory['id']."-status-0" ?>"  onclick="catStatus(this);">
 				<?php endif;?>
-			</div>
-			<div>
-				<a href="addcategory/editid/<?php echo $amCategory['id']; ?>">Edit<?php  //echo $this->translate('Edit'); ?></a>&nbsp;|&nbsp;
-				<a href="deletecategory/id/<?php echo $amCategory['id']; ?>" onclick="return deleteMsg();">Delete<?php  //echo $this->translate('Delete'); ?></a>&nbsp;|&nbsp;
-			</div>			
-		</div>
+		</td>
+		<td width="10%" class="tblrow" align="center">
+			<a href="addcategory/editid/<?php echo $amCategory['id']; ?>"><img src="/images/edit_icon.gif"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="deletecategory/id/<?php echo $amCategory['id']; ?>" onclick="return deleteMsg();"><img src="/images/delete.gif"><?php  //echo $this->translate('Delete'); ?></a>
+		</td>			
+	</tr>	
 		<?php unset($amCategory['id'], $amCategory['level'], $amCategory['parentid'], $amCategory['is_active'], $amCategory['Translation']); ?>
 		<?php getContent($amCategory);	?>
 	<?php endforeach; ?>
 <?php } ?>
-<div class="addcategory">&nbsp;</div>
+</table>
 </fieldset>
