@@ -18,7 +18,7 @@ class Admin_Form_Changepass extends Zend_Form
 					
         // Set old password textbox
         $oOldPasswordTextbox = new Zend_Form_Element_Password("oldpassword");
-        $oOldPasswordTextbox->setLabel("Old Password :")
+        $oOldPasswordTextbox->setLabel("Old Password *")
 			            ->setRequired(true)
 			            ->addFilter('StripTags')
 			            ->addFilter('StringTrim')
@@ -27,7 +27,7 @@ class Admin_Form_Changepass extends Zend_Form
 	
         // Set new password textbox
         $oNewPasswordTextbox = new Zend_Form_Element_Password("newpassword");
-        $oNewPasswordTextbox->setLabel("New Password :")
+        $oNewPasswordTextbox->setLabel("New Password *")
 			            ->setRequired(true)
 			            ->addFilter('StripTags')
 			            ->addFilter('StringTrim')
@@ -36,7 +36,7 @@ class Admin_Form_Changepass extends Zend_Form
 		
 		// Set Confirm password textbox
         $oConfirmPasswordTextbox = new Zend_Form_Element_Password("confirmpassword");
-        $oConfirmPasswordTextbox->setLabel("Confirm Password :")
+        $oConfirmPasswordTextbox->setLabel("Confirm Password *")
 			            ->setRequired(true)
 			            ->addFilter('StripTags')
 			            ->addFilter('StringTrim')

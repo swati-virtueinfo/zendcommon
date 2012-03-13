@@ -74,8 +74,8 @@ class Admin_LoginController extends Zend_Controller_Action
 				}
 				else{
 					// For setting error message for invalid username password
-					//$this->view->errorMessage = "Invalid username or password. Please try again."; 
-					$this->_helper->flashMessenger->addMessage(array('success'=>"Invalid Email or password. Please try again."));
+					 $this->_helper->flashMessenger->addMessage(array('success'=>"Invalid Email or password. Please try again"));
+					$this->_redirect('admin/login');
 				}
 			}
       	}

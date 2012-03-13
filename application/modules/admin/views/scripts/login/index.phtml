@@ -1,56 +1,38 @@
 <?php $this->headTitle()->append('Login'); ?>
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
 <div id="content">
-<form class="login" name="adminlogin" method="post" action="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'logincheck'));?>">
-	<table width="40%" border="0" align="center" cellpadding="0" cellspacing="0" class="tblbg">
-		<tr>
-	       	<td>
-	       		<table width="100%" border="0" cellpadding="2" cellspacing="1">
-		        	<tr class="tblheader">
-		            	 <td colspan="3"><?php echo $this->translate('Login'); ?></td>
-		         	</tr>
-		         	<tr>
-						<td colspan="3" align="center" id="error" class="tblrow">
-							<?php echo "<font color='red'><b>".$this->translate($this->flashMessages())."</b></font>";?>
-							<?php $oMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');?>
-				            <?php $amMessages = array_merge($oMessenger->getCurrentMessages(),$oMessenger->getMessages());?>
-				            <?php if( $amMessages != ""): ?>
-				            <?php foreach ($amMessages as $ssmessage):?>
-				               <p><font color="#cd435d"><?php echo $this->escape($ssmessage); ?></font></p>
-				            <?php endforeach;endif; ?>
-				            <?php $oMessenger->clearMessages(); ?>
-						</td>
-					</tr>
-					<tr>
-						<div id="error" class="tblrow"></div>
-					</tr>
-					<tr>
-						<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->email->renderLabel())); ?></td>
-						<td class="tblrow">
-							<div><?php echo $this->translate(strip_tags($this->form->email->renderErrors())) ;?></div>
-							<div id="error"><?php echo strip_tags($this->form->email->renderErrors());?></div>
-							<?php echo $this->form->email->renderViewHelper();?>
-						</td>
-					</tr>
-					
-					<tr>
-						<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->password->renderLabel()) ); ?></td>
-						<td class="tblrow">
-							<div id="error" class="tblrow"><?php echo $this->translate(strip_tags($this->form->password->renderErrors()));?></div>
-							<?php echo $this->form->password->renderViewHelper();?>
-						</td>
-					</tr>
-					
-					<tr>
-						<td colspan="3" align="center" class="tblrow" >
-							<input type="submit" class="but" name="login" value="<?php echo $this->translate('Login'); ?>"/>
-						</td>
-					</tr>
-				</table>
-			</td>
-	    </tr>
- 	</table>
-</form>
+	<fieldset class="loginFix"><legend>Admin Login</legend>
+		<form class="login" name="adminlogin" method="post" action="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'logincheck'));?>">
+			<table width="40%" border="0" align="center" cellpadding="0" cellspacing="0" >
+				<tr>
+					<td colspan="3" align="center" id="error">
+						<?php echo $this->translate(strip_tags($this->flashMessages()));?>
+					</td>
+				</tr>
+				<tr>
+					<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->email->renderLabel())); ?></td>
+					<td class="tblrow">
+						<div id="error"><?php echo $this->translate(strip_tags($this->form->email->renderErrors()));?></div>
+						<?php echo $this->form->email->renderViewHelper();?>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="tblrow"><?php echo $this->translate(strip_tags($this->form->password->renderLabel()) ); ?></td>
+					<td class="tblrow">
+						<div id="error"><?php echo $this->translate(strip_tags($this->form->password->renderErrors()));?></div>
+						<?php echo $this->form->password->renderViewHelper();?>
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="3" align="center" class="tblrow" >
+						<input type="submit" class="but" name="login" value="<?php echo $this->translate('Login'); ?>"/>
+					</td>
+				</tr>		
+		 	</table>
+		</form>
+	</fieldset>
 </div>
 <script type="text/javascript">
 	document.getElementById('email').focus();
