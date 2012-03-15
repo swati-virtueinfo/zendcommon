@@ -139,8 +139,8 @@ City:
     Timestampable: true
     I18n:
       fields: [name]
-SitePages:
-  tableName: site_pages
+Pages:
+  tableName: pages
   columns:
     id:
       type: integer
@@ -166,9 +166,11 @@ SitePages:
       type: string()
     meta_title:
       type: string(255)
+    meta_keyword:
+      type: string(255)
     meta_description:
       type: string()
   actAs:
     Timestampable: true
     I18n:
-      fields: [title,menu_name,content,meta_title,meta_description]      
+      fields: [title,menu_name,content,meta_title,meta_keyword,meta_description]      

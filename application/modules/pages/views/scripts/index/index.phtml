@@ -1,16 +1,10 @@
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
-<fieldset width="100%"><legend>Manage Site Pages</legend>
-<table width='100%' border='0' >	
+<?php $this->oTranslate = Zend_Registry::get('Zend_Translate');?>
+<fieldset width="100%"><legend><?php echo $this->translate("Manage Site Pages"); ?></legend>
+<table width='100%' border='0'>	
 	<tr>
 		<td align="center" colspan="8">
-			<?php $messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
-            $messages = array_merge($messenger->getCurrentMessages(),$messenger->getMessages());
-            if( $messages != ""):
-            foreach ($messages as $message) { ?>
-               <p><font color="#cd435d"><?php echo $this->escape($message); ?></font></p>
-            <?php }
-            endif;
-            $messenger->clearMessages(); ?>
+			<div id="error"><?php echo $this->translate(strip_tags($this->flashMessages()));?></div>
 		</td>
 	</tr>
 </table>

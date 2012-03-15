@@ -49,7 +49,7 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
 	* @var array
 	* @access private
 	*/
-	private $asVariable = Array ( 'name' => 'lbl_Label_variable', 'value_en' => 'lbl_Label_variable_en', 'value_fi' => 'lbl_Label_variable_fi', 'is_active' => 1 ); 
+	private $asVariable = Array ( 'name' => 'lbl_Title', 'value_en' => 'Title', 'value_fi' => 'Title_fi', 'is_active' => 1 ); 
 	
 	/**
 	* For store sort on value

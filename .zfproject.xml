@@ -238,15 +238,20 @@
             <viewFiltersDirectory/>
           </viewsDirectory>
         </moduleDirectory>
-        <moduleDirectory moduleName="sitepages">
+        <moduleDirectory moduleName="pages">
           <apisDirectory enabled="false"/>
           <configsDirectory enabled="false"/>
           <controllersDirectory>
             <controllerFile controllerName="Index">
               <actionMethod actionName="index"/>
+              <actionMethod actionName="addedit"/>
+              <actionMethod actionName="changeactive"/>
+              <actionMethod actionName="delete"/>
             </controllerFile>
           </controllersDirectory>
-          <formsDirectory enabled="false"/>
+          <formsDirectory>
+            <formFile formName="Addedit"/>
+          </formsDirectory>
           <layoutsDirectory enabled="false">
             <layoutScriptsDirectory enabled="false"/>
           </layoutsDirectory>
@@ -255,6 +260,15 @@
             <viewScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">
                 <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="addedit"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="changeactive"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="delete"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -372,13 +386,16 @@
               </testApplicationControllerFile>
             </testApplicationControllerDirectory>
           </testApplicationModuleDirectory>
-		  <testApplicationModuleDirectory forModuleName="sitepages">
+          <testApplicationModuleDirectory forModuleName="pages">
             <testApplicationControllerDirectory>
               <testApplicationControllerFile forControllerName="Index">
                 <testApplicationActionMethod forActionName="index"/>
+                <testApplicationActionMethod forActionName="addedit"/>
+				<testApplicationActionMethod forActionName="changeactive"/>
+				<testApplicationActionMethod forActionName="delete"/>
               </testApplicationControllerFile>
             </testApplicationControllerDirectory>
-          </testApplicationModuleDirectory>	
+          </testApplicationModuleDirectory>
         </testApplicationModulesDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory/>

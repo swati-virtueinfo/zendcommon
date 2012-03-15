@@ -306,7 +306,22 @@ legend span{
   font-size:12px !important;
 }
 
+.languages {
+	font-weight: bold !important;
+	color: #1B729C;
+	font-size: 16px;
+}
 
+.loginFix{
+  width:520px;
+  padding-bottom:22px;
+}
+
+.changepassFix{
+  text-align:center;	
+  width:600px;
+  padding-bottom:22px;
+}
 
 #cnt-main{
 	width:1300px;

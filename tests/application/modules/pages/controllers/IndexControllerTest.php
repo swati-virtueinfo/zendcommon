@@ -1,6 +1,6 @@
 <?php
 
-class Sitepages_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
+class Pages_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
 
     public function setUp()
@@ -13,4 +13,19 @@ class Sitepages_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
     {
 
     }
+
+	public function testAddeditAction()
+    {
+
+    }
+
+	public function testchangeactiveAction()
+	{
+
+	}
+
+	public function testdeleteAction()
+	{
+
+	}
 }
