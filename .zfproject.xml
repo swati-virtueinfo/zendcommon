@@ -247,6 +247,7 @@
               <actionMethod actionName="addedit"/>
               <actionMethod actionName="changeactive"/>
               <actionMethod actionName="delete"/>
+              <actionMethod actionName="pagesorder"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory>
@@ -269,6 +270,9 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">
                 <viewScriptFile forActionName="delete"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="pagesorder"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -391,8 +395,9 @@
               <testApplicationControllerFile forControllerName="Index">
                 <testApplicationActionMethod forActionName="index"/>
                 <testApplicationActionMethod forActionName="addedit"/>
-				<testApplicationActionMethod forActionName="changeactive"/>
-				<testApplicationActionMethod forActionName="delete"/>
+                <testApplicationActionMethod forActionName="changeactive"/>
+                <testApplicationActionMethod forActionName="delete"/>
+                <testApplicationActionMethod forActionName="pagesorder"/>
               </testApplicationControllerFile>
             </testApplicationControllerDirectory>
           </testApplicationModuleDirectory>

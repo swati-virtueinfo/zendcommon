@@ -1,3 +1,4 @@
+
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
 <?php $this->oTranslate = Zend_Registry::get('Zend_Translate');?>
 <fieldset width="100%"><legend><?php echo $this->translate("Manage Site Pages"); ?></legend>
@@ -19,7 +20,7 @@
 		</tr>
 		<tr>
 			<td>
-				<?php echo $this->partial('partials/_list.phtml',"variable",array('asList'=>$this->user, 'asHeading'=>$this->asHeading, 'asFieldName'=>$this->asFieldName, 'asColumnSort'=>$this->asColumnSort, 'asColumnWidth'=>$this->asColumnWidth, 'asColumnAlign'=>$this->asColumnAlign));?>
+				<?php echo $this->partial('partials/_list.phtml',"variable",array('asList'=>$this->user, 'anParentPages'=>$this->anParentPages, 'asHeading'=>$this->asHeading, 'asFieldName'=>$this->asFieldName, 'asColumnSort'=>$this->asColumnSort, 'asColumnWidth'=>$this->asColumnWidth, 'asColumnAlign'=>$this->asColumnAlign));?>
 			</td>
 		</tr>
 	</table>

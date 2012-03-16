@@ -3,8 +3,9 @@
 */
 class Model_PagesTable extends Doctrine_Table
 {
-	public function getPageMenu($ssCulture = 'en', $snPageId = '',$bNeedTree = true)
+	public function getPageMenu($ssCulture = 'fi', $snPageId = '', $bNeedTree = true)
 	{
+		
 		$ssQuery ='';
 		$saPages = array();
 		$oPages = '';
@@ -16,7 +17,7 @@ class Model_PagesTable extends Doctrine_Table
 
 			if (!empty($snPageId) && $snPageId > 0)
 				$ssQuery = $ssQuery->andWhere('P.id != ?', $snPageId);
-			
+				
 			$oPages = $ssQuery->orderBy('P.ord ', 'ASC')->execute();
 			
 			if($oPages->count() > 0){
@@ -75,13 +76,41 @@ class Model_PagesTable extends Doctrine_Table
 			$oPageSelectQuery->from("Model_Pages P " );
 			$oPageSelectQuery->leftjoin("P.Translation T");
 			$oPageSelectQuery->where("P.id = ?", $snPageId);
-			return $oPageSelectQuery->fetchArray();
+			
+			return $oPageSelectQuery->fetchOne();
+			
+			
 		}
 		catch( Exception $oException )
 		{
 			echo $oException->getMessage();
 			return false;
 		}
+	}
+	
+	public function getPagesByParentId($snPageParentId = 0, $snUpdateOredrId = '')
+	{
+		
+		if( $snPageParentId == '' || !is_numeric($snPageParentId) ) return false;
+		
+		try
+		{	
+			$oSelectQuery = Doctrine_Query::create();
+			$oSelectQuery->select('S.*, T.*');
+			$oSelectQuery->from("Model_Pages S " );
+			$oSelectQuery->leftjoin("S.Translation T");
+			$oSelectQuery->where("S.parent_id = ? ", $snPageParentId );
+			$oSelectQuery->andwhere("S.ord = ? ", $snUpdateOredrId );
+			
+			return $oPages = $oSelectQuery->fetchOne();
+			
+		}
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}	
+		
 	}
 	
 	/**

@@ -88,6 +88,6 @@ class Category_IndexController extends Zend_Controller_Action
     	
     	Doctrine::getTable('Model_Category')->updateStatus($amUpdateData);
     	$this->view->amCatById = $amCatById = Doctrine::getTable('Model_Category')->find($snIdCategory)->toArray();
-    	//$this->_helper->flashMessenger->addMessage(array('Category status change successfully'));
+    	$this->_helper->flashMessenger->addMessage(array('Category status change successfully'));
     }
 }

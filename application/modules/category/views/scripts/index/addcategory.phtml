@@ -32,7 +32,8 @@ $snEditId = $oRequest->getParam('editid');
 										<td><?php echo $this->translate($ssLanguageList['name']); ?></td>
 									</tr>
 									<tr>
-										<td id="error"><?php $ssCatName = 'name_' . $ssLanguageList['lang']; echo $this->translate(strip_tags($this->oAddCateFrom->$ssCatName->renderErrors())); ?></td>
+										<td id="error"><?php $ssCatName = 'name_' . $ssLanguageList['lang']; echo $this->translate(strip_tags($this->oAddCateFrom->$ssCatName->renderErrors())); 
+										?></td>
 									</tr>
 									<tr>
 										<td><?php echo $this->oAddCateFrom->$ssCatName->renderViewHelper();?></td>
