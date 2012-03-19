@@ -17,20 +17,14 @@ class Admin_LoginController extends Zend_Controller_Action
         
     }
 
+	//For Display Login Form
     public function indexAction()
-    {
-    	//Create Session Namespace object & check if Session is Created 
-        $oNamespace = new Zend_Session_Namespace('sess_admin');        
-       	$ssAdminname = $oNamespace->__get('admin_name');
-       	$this->view->aid =$snAdminId = $oNamespace->__get('aid');
-       	//If Sessesion is Created then Redirect to Index Page
-       	if(!empty($ssAdminname))
-            $this->_redirect('admin/index');
-            
+    { 
         //Create Form Object & Assign Form to View
         $this->view->form = $oForm = new Admin_Form_Login();
     }
 
+    //For Admin Authentication
     public function logincheckAction()
     {
        //create form Object & assign form to view
@@ -63,18 +57,20 @@ class Admin_LoginController extends Zend_Controller_Action
 		          	$oAdminSessionNamespace = new Zend_Session_Namespace('sess_admin');
 		          	$oAdminSessionNamespace->setExpirationSeconds(18000);
 		          	
-		          	//SELECT l.id AS l__id, l.name AS l__name, l.lang AS l__lang FROM language l WHERE (l.is_active = '1')
-		          	
 		          	// set Session Variable 
 		         	$oAdminSessionNamespace->__set('admin_name',$oAuthData->email);
 		         	$oAdminSessionNamespace->__set('aid',$oAuthData->id);
-		         	
-					//If User is Authenticate User Redirect to User index Page                 	
-		        	$this->_redirect('admin/index');
+
+		         	if ($oRequest->getParam('module') != 'admin' && $oRequest->getParam('controller') != 'login') {
+		         		$ssUrl = $this->getRequest()->getServer('HTTP_REFERER');
+		         	} else { 
+		         		$ssUrl = $this->_redirect('admin/index');
+		         	}
+		         	$this->_redirect($ssUrl);		         	          	
 				}
 				else{
 					// For setting error message for invalid username password
-					 $this->_helper->flashMessenger->addMessage(array('success'=>"Invalid Email or password. Please try again"));
+					 $this->_helper->flashMessenger->addMessage(array("msg_Invalid_Email_or_password"));
 					$this->_redirect('admin/login');
 				}
 			}
@@ -82,6 +78,7 @@ class Admin_LoginController extends Zend_Controller_Action
       	  $this->render('index');
     }
 
+	//for get Auth Adapter
     protected function _getAuthAdapter($asValues = array ())
     {
     	/*
@@ -124,6 +121,7 @@ class Admin_LoginController extends Zend_Controller_Action
     	return $oAuthAdapter; */
     }
 
+	//For Logout
     public function logoutAction()
     {
     	//Create Session Storage Object & Unset Session Namespace 
@@ -132,8 +130,10 @@ class Admin_LoginController extends Zend_Controller_Action
  		
  		//After Session Namespace Unset Redirect To Admin Login
         $this->_redirect('admin/login');
+       
     }
 
+	// For Change password
     public function changepasswordAction()
     {
         $snAid = $this->getRequest()->getParam('id');
@@ -143,6 +143,7 @@ class Admin_LoginController extends Zend_Controller_Action
         
     }
 
+	// For Check Change Password
 	public function changepasscheckAction()
     {
        //create form Object & assign form to view
@@ -153,7 +154,7 @@ class Admin_LoginController extends Zend_Controller_Action
        
        //checking method is Post
        if($oRequest->isPost())
-       {	
+       {
 			//checking post value is valid
 			if($oForm->isValid($oRequest->getPost()))
 			{
@@ -165,7 +166,7 @@ class Admin_LoginController extends Zend_Controller_Action
 	       		
 	       		//If New Password & Confirm Password not Match Redirect to Form Then Give Error
 	       		if ($smNewPassword !== $smConfirmPassword) {
-	            	$this->_helper->flashMessenger->addMessage(array('Password and confirmation do not match.'));
+	            	$this->_helper->flashMessenger->addMessage(array('msg_Password_and_confirmation_do_not_match.'));
 	                $this->_redirect('admin/login/changepassword/id/'.$snAdminId);
 	            }
 	            else
@@ -174,19 +175,19 @@ class Admin_LoginController extends Zend_Controller_Action
 					
 	            	if($asFetchedOldpassword['password'] == $smOldPassword)	
 	            	{
-	            		$bResult = Doctrine::getTable('Model_Admin')->ChangePassword($smNewPassword,$snAdminId);
+	            		$bResult = Doctrine::getTable('Model_Admin')->changeAdminPassword($smNewPassword,$snAdminId); 
 	            		if($bResult){
-	            			$this->_helper->flashMessenger->addMessage(array('Your password changed successfully.'));	
+	            			$this->_helper->flashMessenger->addMessage(array('msg_Your_password_changed_successfully.'));	
 	            		}
 	            		else
 	            		{
-	            			$this->_helper->flashMessenger->addMessage(array('Password Not Changed Pls Try Again'));
+	            			$this->_helper->flashMessenger->addMessage(array('msg_Password_Not_Changed_Pls_Try_Again'));
 	            		}
 	            		$this->_redirect('admin/login/changepassword/id/'.$snAdminId);
 	            	}
 	            	else
 	            	{
-	            		$this->_helper->flashMessenger->addMessage(array('Your Old Password Not Matched.'));
+	            		$this->_helper->flashMessenger->addMessage(array('msg_Your_Old_Password_Not_Matched.'));
 	                	$this->_redirect('admin/login/changepassword/id/'.$snAdminId);
 	            	}
 	            }
@@ -195,6 +196,3 @@ class Admin_LoginController extends Zend_Controller_Action
        	$this->render('changepassword');
     }
 }
-
-
-

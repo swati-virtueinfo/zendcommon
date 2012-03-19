@@ -5,8 +5,8 @@
 <?php $asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();?>
 <?php $snTotLang = count($asLanguageList); $snI = 0; $ssContentString = ''; $ssMetaDescriptionString ='';
       foreach($asLanguageList as $key => $amLanguage) { 
-		$ssContentString .= 'site_pages_content_'.$amLanguage['lang'];
-		$ssMetaDescriptionString .= 'site_pages_meta_description_'.$amLanguage['lang'];
+		$ssContentString .= 'pages_content_'.$amLanguage['lang'];
+		$ssMetaDescriptionString .= 'pages_meta_description_'.$amLanguage['lang'];
 		if ($snTotLang != ++$snI){
 			$ssContentString .= ',';
 			$ssMetaDescriptionString .= ',';
@@ -67,7 +67,7 @@ tinyMCE.init({
 			<tr>
 				<td class="tblrow"><?php echo strip_tags($this->form->cn_title->renderLabel()); ?><span id="error">*</span></td>
 				<?php foreach($asLanguageList as $key => $amLanguage) : ?>
-				<?php $ssColmnName = 'site_pages_title_' . $amLanguage['lang']; ?>
+				<?php $ssColmnName = 'pages_title_' . $amLanguage['lang']; ?>
 				<td class="tblrow">				
 					<div id="error"><?php echo $this->translate(strip_tags($this->form->$ssColmnName->renderErrors()));?></div>
 					<?php echo $this->form->$ssColmnName->renderViewHelper();?>
@@ -78,7 +78,7 @@ tinyMCE.init({
 			<tr>
 				<td class="tblrow"><?php echo strip_tags($this->form->menu_name->renderLabel()); ?><span id="error">*</span></td>
 				<?php foreach($asLanguageList as $key => $amLanguage) : ?>
-				<?php $ssColmnName = 'site_pages_menu_name_' . $amLanguage['lang']; ?>
+				<?php $ssColmnName = 'pages_menu_name_' . $amLanguage['lang']; ?>
 				<td class="tblrow">				
 					<div id="error"><?php echo $this->translate(strip_tags($this->form->$ssColmnName->renderErrors()));?></div>
 					<?php echo $this->form->$ssColmnName->renderViewHelper();?>
@@ -89,7 +89,7 @@ tinyMCE.init({
 			<tr>
 				<td class="tblrow"><?php echo $this->form->meta_title->renderLabel(); ?></td>
 				<?php foreach($asLanguageList as $key => $amLanguage) : ?>
-				<?php $ssColmnName = 'site_pages_meta_title_' . $amLanguage['lang']; ?>
+				<?php $ssColmnName = 'pages_meta_title_' . $amLanguage['lang']; ?>
 				<td class="tblrow">				
 					<div id="error"><?php echo $this->translate(strip_tags($this->form->$ssColmnName->renderErrors()));?></div>
 					<?php echo $this->form->$ssColmnName->renderViewHelper();?>
@@ -100,7 +100,7 @@ tinyMCE.init({
 			<tr>
 				<td class="tblrow"><?php echo $this->form->meta_keyword->renderLabel(); ?></td>
 				<?php foreach($asLanguageList as $key => $amLanguage) : ?>
-				<?php $ssColmnName = 'site_pages_meta_keyword_' . $amLanguage['lang']; ?>
+				<?php $ssColmnName = 'pages_meta_keyword_' . $amLanguage['lang']; ?>
 				<td class="tblrow">				
 					<div id="error"><?php echo $this->translate(strip_tags($this->form->$ssColmnName->renderErrors()));?></div>
 					<?php echo $this->form->$ssColmnName->renderViewHelper();?>
@@ -111,7 +111,7 @@ tinyMCE.init({
 			<tr>
 				<td class="tblrow"><?php echo $this->form->content->renderLabel(); ?></td>
 				<?php foreach($asLanguageList as $key => $amLanguage) : ?>
-				<?php $ssColmnName = 'site_pages_content_' . $amLanguage['lang']; ?>
+				<?php $ssColmnName = 'pages_content_' . $amLanguage['lang']; ?>
 				<td class="tblrow">				
 					<div id="error"><?php echo $this->translate(strip_tags($this->form->$ssColmnName->renderErrors()));?></div>
 					<?php echo $this->form->$ssColmnName->renderViewHelper();?>
@@ -122,7 +122,7 @@ tinyMCE.init({
 			<tr>
 				<td class="tblrow"><?php echo $this->form->meta_description->renderLabel(); ?></td>
 				<?php foreach($asLanguageList as $key => $amLanguage) : ?>
-				<?php $ssColmnName = 'site_pages_meta_description_' . $amLanguage['lang']; ?>
+				<?php $ssColmnName = 'pages_meta_description_' . $amLanguage['lang']; ?>
 				<td class="tblrow">				
 					<div id="error"><?php echo $this->translate(strip_tags($this->form->$ssColmnName->renderErrors()));?></div>
 					<?php echo $this->form->$ssColmnName->renderViewHelper();?>
@@ -149,8 +149,8 @@ tinyMCE.init({
 			<tr>
 				<td><?php if(isset($snEditId)): ?><input type="hidden" name="id" id="id" value="<?php echo $snEditId; ?>" /><?php endif; ?></td>
 				<td >
-					<input type="submit" name="submit" value="Save" class='but'>
-					<input type="reset" name="cancel" value="Cancel" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/city'; ?>'">
+					<input type="submit" name="submit" value=<?php echo $this->translate("btn_save"); ?> title="<?php echo $this->translate("ttl_save"); ?>" class='but'>
+					<input type="reset" name="cancel" value="<?php echo $this->translate("btn_cancel"); ?>" class='but' title="<?php echo $this->translate("ttl_cancel"); ?>" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index'; ?>'">
 				</td>
 			</tr>
 	 	</table>

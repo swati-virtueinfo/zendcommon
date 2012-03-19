@@ -21,14 +21,16 @@ class Admin_IndexController extends Zend_Controller_Action {
 	 * @Description : For Listing 
 	 */
 	public function indexAction() {
+		
+		$oAuth = Zend_Auth::getInstance();
+		if (!$oAuth->hasIdentity()) {
+            $this->_redirect('admin/login');
+		}
+		
 		//Create Session Namespace object & check if Session is Created or not
 		$oNamespace = new Zend_Session_Namespace('sess_admin');
 		$ss__adminname = $oNamespace->__get('admin_name');
 		$ss__adminid = $oNamespace->__get('aid');
-
-		//If Sessesion Not Created then Redirect to Login
-		if (empty ($ss__adminname))
-			$this->_redirect('admin/login');
 
 		//For Display Admin Name in View     
 		$this->view->admin_name = $ss__adminname;
