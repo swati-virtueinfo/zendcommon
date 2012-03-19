@@ -88,29 +88,36 @@ class Model_PagesTable extends Doctrine_Table
 		}
 	}
 	
-	public function getPagesByParentId($snPageParentId = 0, $snUpdateOredrId = '')
+	/*
+	 For Fetch Record by ord & Parent Id from Pages Table
+	
+	 @author Suresh Chikani
+	* @param  number $snPageId for Pages Id field
+	* @access public
+	* @return object 
+	*/
+	public function getPagesByParentId($snPageParentId = 0, $snUpdateOrd = 0)
 	{
-		
-		if( $snPageParentId == '' || !is_numeric($snPageParentId) ) return false;
-		
+		$oPages = '';
+		if( !is_numeric($snPageParentId) || $snPageParentId === '' ) return false;
+
 		try
 		{	
 			$oSelectQuery = Doctrine_Query::create();
-			$oSelectQuery->select('S.*, T.*');
-			$oSelectQuery->from("Model_Pages S " );
-			$oSelectQuery->leftjoin("S.Translation T");
-			$oSelectQuery->where("S.parent_id = ? ", $snPageParentId );
-			$oSelectQuery->andwhere("S.ord = ? ", $snUpdateOredrId );
-			
-			return $oPages = $oSelectQuery->fetchOne();
-			
+			$oSelectQuery->select('P.*, T.*');
+			$oSelectQuery->from("Model_Pages P" );
+			$oSelectQuery->leftjoin("P.Translation T");
+			$oSelectQuery->where("P.parent_id = ? ", $snPageParentId );
+			$oSelectQuery->andWhere("P.ord = ? ", $snUpdateOrd );
+			$oPages = $oSelectQuery->fetchOne();
+
+			return ($oPages) ? $oPages : false; 
 		}
 		catch( Exception $oException )
 		{
 			echo $oException->getMessage();
 			return false;
 		}	
-		
 	}
 	
 	/**

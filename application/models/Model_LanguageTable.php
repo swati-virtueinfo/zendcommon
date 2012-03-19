@@ -1,6 +1,5 @@
 <?php
-/**
- */
+
 class Model_LanguageTable extends Doctrine_Table
 {
 	/**
@@ -11,8 +10,7 @@ class Model_LanguageTable extends Doctrine_Table
 	* @return array of Language table records 
 	*/
 	public function getLanguageList($ssSortOn = '', $ssSortBy = '', $ssSearchField = '', $ssSearchKeyword = '')
-	{
-		
+	{  
 		try
 		{
 			$oSelectQuery = Doctrine_Query::create();
@@ -38,16 +36,16 @@ class Model_LanguageTable extends Doctrine_Table
 	*
 	* @author Bhaskar joshi
 	* @access public
-	* @return object of doctrine query 
+	* @return array  
 	*/
 	public function getDefaultLanguage()
 	{
 		try
 		{
-			$amLanguageData = Doctrine_Query::create()
-						->select('id,name,lang')
-						->from("Model_Language")
-						->where('is_default = ? ', 1);
+			$amLanguageData = Doctrine_Query::create();
+			$amLanguageData->select('id,name,lang');
+			$amLanguageData->from("Model_Language");
+			$amLanguageData->where('is_default = ? ', 1);
 			
 			return $amLanguageData->fetchOne()->toArray();
 		}
@@ -63,16 +61,16 @@ class Model_LanguageTable extends Doctrine_Table
 	*
 	* @author Bhaskar joshi
 	* @access public
-	* @return object of doctrine query 
+	* @return array 
 	*/
 	public function getActiveLanguageList()
 	{
 		try
 		{
-			$amLanguageData = Doctrine_Query::create()
-						->select('*')
-						->from("Model_Language")
-						->where('is_active = ? ', 1);
+			$amLanguageData = Doctrine_Query::create();
+			$amLanguageData->select('*');
+			$amLanguageData->from("Model_Language");
+			$amLanguageData->where('is_active = ? ', 1);
 			
 			return $amLanguageData->fetchArray();
 		}
@@ -82,7 +80,6 @@ class Model_LanguageTable extends Doctrine_Table
 			return false;
 		}
 	}
-	
 	
 	/**
 	* For Insert Language detail
@@ -111,17 +108,17 @@ class Model_LanguageTable extends Doctrine_Table
 			
 			//Getting Last Insert Record Id & is_default Value
 			$snLastInsertId = $oLanguage['id'];
-			$b__isDefaultValue = $oLanguage['is_default'];
+			$IsDefaultValue = $oLanguage['is_default'];
 			
 			//check if last insert Record is_default value is true 
-			if($b__isDefaultValue == 1)
+			if($IsDefaultValue == 1)
 			{
 				//Update Other Record is_default value false 
-				$asLanguageUpdate = Doctrine_Query::create()
-						->update("Model_Language L")
-						->set("L.is_default", "?", 0)
-						->where("L.id != ?", $snLastInsertId)
-						->execute();
+				$asLanguageUpdate = Doctrine_Query::create();
+				$asLanguageUpdate->update("Model_Language L");
+				$asLanguageUpdate->set("L.is_default", "?", 0);
+				$asLanguageUpdate->where("L.id != ?", $snLastInsertId);
+				$asLanguageUpdate->execute();
 			}
 			return true;
 		}
@@ -147,11 +144,11 @@ class Model_LanguageTable extends Doctrine_Table
 		try
 		{
 			//Update Language table
-			$asLanguageUpdate = Doctrine_Query::create()
-						->update("Model_Language L")
-						->set("L.name", "?", $asLanguageUpdateData['name'])
-						->set("L.lang", "?", $asLanguageUpdateData['lang'])
-						->set("L.is_active", "?", $asLanguageUpdateData['is_active']);
+			$asLanguageUpdate = Doctrine_Query::create();
+			$asLanguageUpdate->update("Model_Language L");
+			$asLanguageUpdate->set("L.name", "?", $asLanguageUpdateData['name']);
+			$asLanguageUpdate->set("L.lang", "?", $asLanguageUpdateData['lang']);
+			$asLanguageUpdate->set("L.is_active", "?", $asLanguageUpdateData['is_active']);
 						
 			if(!empty($asLanguageUpdateData['flag']))
 			{
@@ -163,12 +160,12 @@ class Model_LanguageTable extends Doctrine_Table
 			
 			if($asLanguageUpdateData['is_default'] == 1)
 			{
-				$asLanguageUpdate = Doctrine_Query::create()
-						->update("Model_Language L")
-						->set("L.is_default", "?", 0)
-						->set("updated_at", "?" , date('Y-m-d H:i:s'))
-						->where("L.id != ?", $asLanguageUpdateData['id'])
-						->execute();
+				$asLanguageUpdate = Doctrine_Query::create();
+				$asLanguageUpdate->update("Model_Language L");
+				$asLanguageUpdate->set("L.is_default", "?", 0);
+				$asLanguageUpdate->set("updated_at", "?" , date('Y-m-d H:i:s'));
+				$asLanguageUpdate->where("L.id != ?", $asLanguageUpdateData['id']);
+				$asLanguageUpdate->execute();
 			}
 			return true;
 		}
@@ -184,19 +181,20 @@ class Model_LanguageTable extends Doctrine_Table
 	*
 	* @author Bhaskar joshi
 	* @access public
-	* @param  $snLanguageId for Which language Id is Delete
+	* @param  number $snLanguageId for Which language Id is Delete
 	* @return boolean
 	*/
 	public function deleteLanguage($snLanguageId = '')
 	{
 		if( $snLanguageId == "" || !is_numeric($snLanguageId) ) return false;
+		
 		try
 		{
-			//delete data from Language table
-			Doctrine_Query::create()
-						->delete("Model_Language L")
-						->where("L.id = ?", $snLanguageId)
-						->execute();
+			$oDeleteQuery = Doctrine_Query::create();
+			$oDeleteQuery->delete("Model_Language L");
+			$oDeleteQuery->where("L.id = ?", $snLanguageId);
+			$oDeleteQuery->execute();
+			
 			return true;
 		}
 		catch( Exception $oException )
@@ -220,19 +218,19 @@ class Model_LanguageTable extends Doctrine_Table
 		
 		try
 		{
-			//Update Language table
-			$asLanguageUpdate = Doctrine_Query::create()
-					->update("Model_Language L")
-					->set("L.is_default", "?", 1)
-					->set("updated_at", "?", date('Y-m-d H:i:s'))
-					->where("L.id = ?", $snLanguageId)
-					->execute();
+			$asLanguageUpdate = Doctrine_Query::create();
+			$asLanguageUpdate->update("Model_Language L");
+			$asLanguageUpdate->set("L.is_default", "?", 1);
+			$asLanguageUpdate->set("updated_at", "?", date('Y-m-d H:i:s'));
+			$asLanguageUpdate->where("L.id = ?", $snLanguageId);
+			$asLanguageUpdate->execute();
 				
-			$asLanguageUpdateOther = Doctrine_Query::create()
-					->update("Model_Language L")
-					->set("L.is_default", "?", 0)
-					->where("L.id != ?", $snLanguageId)
-					->execute();
+			$asLanguageUpdateOther = Doctrine_Query::create();
+			$asLanguageUpdateOther->update("Model_Language L");
+			$asLanguageUpdateOther->set("L.is_default", "?", 0);
+			$asLanguageUpdateOther->where("L.id != ?", $snLanguageId);
+			$asLanguageUpdateOther->execute();
+			
 			return true;
 		}
 		catch( Exception $oException )
@@ -247,27 +245,23 @@ class Model_LanguageTable extends Doctrine_Table
 	*
 	* @author Bhaskar joshi
 	* @access public
-	* @param  number  $snLanguageId is id of language to set active
-	* @param  boolean $b__isActive for check the value of is_active on clicked id
+	* @param  array  $snLanguageId is id of language to set active
 	* @return boolean
 	*/
-	public function changeActiveLanguage($snLanguageId = '', $b__isActive = 0)
+	public function changeIsActive($amUpdateData = array())
 	{
-		if( $snLanguageId == "" || !is_numeric($snLanguageId)) return false;
+		if( !is_array( $amUpdateData ) || empty( $amUpdateData ) ) return false;
 		
 		try
 		{
-			//change the value of is_active of Given Row Id
-			$bIsActive = ($b__isActive) ? 0 : 1;
+			$oLanguageUpdate = Doctrine_Query::create();
+		    $oLanguageUpdate->update("Model_Language L");
+			$oLanguageUpdate->set("L.is_active", "?", $amUpdateData['is_active']);
+			$oLanguageUpdate->set("updated_at", "?", date('Y-m-d H:i:s'));
+			$oLanguageUpdate->where("L.id = ?", $amUpdateData['id']);
+			$oLanguageUpdate->execute();
 			
-			//Update Language table
-			$asLanguageUpdate = Doctrine_Query::create()
-					->update("Model_Language L")
-					->set("L.is_active", "?", $bIsActive)
-					->set("updated_at", "?", date('Y-m-d H:i:s'))
-					->where("L.id = ?", $snLanguageId)
-					->execute();
-			return true;
+			return ($oLanguageUpdate) ? true : false;
 		}
 		catch( Exception $oException )
 		{
