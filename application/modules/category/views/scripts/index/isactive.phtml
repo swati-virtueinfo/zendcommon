@@ -3,7 +3,7 @@
 	 $amCategory = $this->amCatById;
 ?>	 
 <?php if($amCategory['is_active'] == 1): ?>
-	<input type="checkbox" id="<?php echo "id-".$amCategory['id']."-status-".$amCategory['is_active']; ?>" checked="checked" onclick="catStatus(this);"></input> |
+	<input type="checkbox" id="<?php echo "id-".$amCategory['id']."-status-".$amCategory['is_active']; ?>" checked="checked" onclick="catStatus(this);"></input>
 <?php else:?>
-	<input type="checkbox" id="<?php echo "id-".$amCategory['id']."-status-0" ?>"  onclick="catStatus(this);"></input> |
+	<input type="checkbox" id="<?php echo "id-".$amCategory['id']."-status-0" ?>"  onclick="catStatus(this);"></input>
 <?php endif;?>

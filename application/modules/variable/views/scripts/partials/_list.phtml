@@ -1,5 +1,4 @@
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
-
 <table border="0" width="100%" class="tblbg">
 	<tr>
 	<?php foreach($this->asHeading as $snKey => $ssHeading): ?>
@@ -23,14 +22,14 @@
 	<tr>
 	<?php foreach($this->asFieldName as $snKey => $ssFieldName): ?>
 		<td align="<?php echo $this->asColumnAlign[$snKey]; ?>" class="tblrow">
-				<?php echo (!empty($ssFieldName)) ? $asList[$ssFieldName] : $asList[$snKey] ; ?>
+			<?php echo (!empty($ssFieldName)) ? $asList[$ssFieldName] : $asList[$snKey] ; ?>
 		</td>
 	<?php endforeach; ?>			
 	</tr>
 	<?php endforeach; ?>
 	<?php else: ?>
 	<tr>
-		<th colspan="<?php echo count( $this->asHeading );?>" class="tblrow"><?php echo $this->translate("No record found"); ?></th>
+		<th colspan="<?php echo count( $this->asHeading );?>" class="tblrow"><?php echo $this->translate("msg_no_record_found"); ?></th>
 	</tr>
 	<?php endif;?>
 </table>

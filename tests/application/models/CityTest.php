@@ -400,9 +400,9 @@ class Tests_CityTable extends PHPUnit_Framework_TestCase
     * @author Bhaskar Joshi
 	* @access public
 	*/
-    public function testchangeEnableDisableWhenPassBlankAsIdParameter()
+    public function testchangeIsActiveWhenPassBlankAsIdParameter()
     {
-    	$bResult = Doctrine::getTable('Model_City')->changeEnableDisable('',$this->bIsActive);
+    	$bResult = Doctrine::getTable('Model_City')->changeIsActive('',$this->bIsActive);
       	$this->assertFalse($bResult, "City Enable/Disable Because Pass Blank As Id Parameter");
     }
     
@@ -413,9 +413,9 @@ class Tests_CityTable extends PHPUnit_Framework_TestCase
     * @author Bhaskar Joshi
 	* @access public
 	*/
-    public function testchangeEnableDisableWhenPassBothParameterAsBlank()
+    public function testchangeIsActiveWhenPassBothParameterAsBlank()
     {
-    	$bResult = Doctrine::getTable('Model_City')->changeEnableDisable('','');
+    	$bResult = Doctrine::getTable('Model_City')->changeIsActive('','');
       	$this->assertFalse($bResult, "City Enable/Disable Because Pass Both parameter Blank");
     }
     
@@ -426,9 +426,9 @@ class Tests_CityTable extends PHPUnit_Framework_TestCase
     * @author Bhaskar Joshi
 	* @access public
 	*/
-    public function testchangeEnableDisableWhenPassStringAsIdParameter()
+    public function testchangeIsActiveWhenPassStringAsIdParameter()
     {
-    	$bResult = Doctrine::getTable('Model_City')->changeEnableDisable($this->ssStringParameter,$this->bIsActive);
+    	$bResult = Doctrine::getTable('Model_City')->changeIsActive($this->ssStringParameter,$this->bIsActive);
       	$this->assertFalse($bResult, "City Enable/Disable Because Pass String As Id Parameter");
     }
     
@@ -439,9 +439,9 @@ class Tests_CityTable extends PHPUnit_Framework_TestCase
     * @author Bhaskar Joshi
 	* @access public
 	*/
-    public function testchangeEnableDisable()
+    public function testchangeIsActive()
     {
-    	$bResult = Doctrine::getTable('Model_City')->changeEnableDisable($this->snCityId,$this->bIsActive);
+    	$bResult = Doctrine::getTable('Model_City')->changeIsActive($this->snCityId,$this->bIsActive);
       	$this->assertTrue($bResult, "City Not Enable/Disable on Some Problem");
     }	
 }

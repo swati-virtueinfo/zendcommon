@@ -1,15 +1,15 @@
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
 <?php $snIdVariable = $oRequest->getParam('id'); ?>
-<?php echo (isset($snIdVariable) ? $this->headTitle('Edit-Country') : $this->headTitle('Add-Country')); ?>
+<?php echo (isset($snIdVariable) ? $this->headTitle('ttl_edit_country') : $this->headTitle('ttl_add_country')); ?>
 <form name="addeditvariable" method="post" enctype="multipart/form-data">
-	<fieldset><legend><?php echo (isset($snIdVariable) ? $this->translate("Edit Country") : $this->translate("Add New Country")); ?></legend>
+	<fieldset><legend><?php echo (isset($snIdVariable) ? $this->translate("lbl_edit_country") : $this->translate("lbl_add_new_country")); ?></legend>
 		<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" >
 			<tr>
 		       	<td>
 		       		<table width="100%" border="0" cellpadding="2" cellspacing="1">
 						<?php $asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList(); ?>
 						<tr>
-							<td class="tblrow"><?php echo $this->translate("Name"); ?>&nbsp;*&nbsp;</td>
+							<td class="tblrow"><?php echo $this->translate("lbl_name"); ?>&nbsp;*&nbsp;</td>
 							<?php foreach($asLanguageList as $key => $amLanguage) : ?>
 							<?php $ssColmnName = 'name_' . $amLanguage['lang']; ?>
 							<td class="tblrow">
@@ -27,8 +27,8 @@
 						<tr>
 							<td class="tblrow"><?php if(isset($snIdVariable)): ?><input type="hidden" name="id" id="id" value="<?php echo $snIdVariable; ?>" /><?php endif; ?></td>
 							<td class="tblrow">
-								<input type="submit" name="submit" value="<?php echo $this->translate("Save"); ?>" class='but'>
-								<input type="reset" name="cancel" value="<?php echo $this->translate("Cancel"); ?>" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/country'; ?>'">
+								<input type="submit" name="submit" value="<?php echo $this->translate("btn_save"); ?>" class='but'>
+								<input type="reset" name="cancel" value="<?php echo $this->translate("btn_cancel"); ?>" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/country'; ?>'">
 							</td>
 						</tr>
 					</table>

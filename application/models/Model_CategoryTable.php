@@ -27,14 +27,12 @@ class Model_CategoryTable extends Doctrine_Table
 		}
 	}
 	
-	
 	/**
 	* For inserting category detail
 	*
 	* @author suresh chikani
 	* @access public
 	* @param array $asCategory To store category detail
-	* @param array $amCatId To store category detail
 	* @return boolean
 	*/
 	public function insertCategory($asCategory = array())
@@ -44,7 +42,7 @@ class Model_CategoryTable extends Doctrine_Table
 		//print_r($asCategory);exit;
 		try
 		{
-			$asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();
+			$amLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();
 			
 			if( $asCategory['parentid'] > 0 ) {
 				$amCatLevel = Doctrine::getTable('Model_Category')->find($asCategory['parentid'])->toArray();
@@ -54,7 +52,7 @@ class Model_CategoryTable extends Doctrine_Table
 			
 			$oCategory = new Model_Category();
 			
-			foreach($asLanguageList as $snKey => $amValues) {
+			foreach($amLanguageList as $snKey => $amValues) {
 				$oCategory->Translation[$amValues['lang']]->name = $asCategory['name_' . $amValues['lang']];
 			}
 			$oCategory->Translation[$amValues['lang']]->name;
@@ -74,8 +72,9 @@ class Model_CategoryTable extends Doctrine_Table
 			return false;
 		}
 	}
+	
 	/**
-	* For get category record
+	* For get category record by locale
 	*
 	* @author suresh chikani
 	* @access public
@@ -84,7 +83,7 @@ class Model_CategoryTable extends Doctrine_Table
 	* @param  $ssLang To store current language
 	* @return array
 	*/
-	public function getCatList($ssLang = 'en', $snParentid = 0, $amCategories = array())
+	public function getCategoryList($ssLang = 'en', $snParentid = 0, $amCategories = array())
 	{
 		if( !is_numeric($snParentid) || !is_array( $amCategories ) || empty($ssLang) ) return false;
 		
@@ -100,10 +99,10 @@ class Model_CategoryTable extends Doctrine_Table
 			
 			$oCategories = $oSelectQuery->fetchArray();
 			
-			if ( $oCategories ) {
+			if ($oCategories) {
 				foreach ($oCategories as $amCategory){
 					$amNewCategory = $amCategories[$amCategory['id']] = $amCategory;
-					$amCategories[$amCategory['id']] = $this->getCatList($ssLang, $amCategory['id'], $amNewCategory);
+					$amCategories[$amCategory['id']] = $this->getCategoryList($ssLang, $amCategory['id'], $amNewCategory);
 				}
 			}
 			return $amCategories;
@@ -116,15 +115,16 @@ class Model_CategoryTable extends Doctrine_Table
 		
 			
 	}
+	
 	/**
-	* For get category record by editid
+	* For get category record by id
 	*
 	* @author suresh chikani
 	* @access public
 	* @param  $snEditId To store category id 
 	* @return array
 	*/
-	public function getCategoryById($snEditId = 0)
+	public function getCategoryById($snEditId = '')
 	{
 		if( $snEditId == '' || !is_numeric($snEditId) ) return false;
 		
@@ -145,6 +145,7 @@ class Model_CategoryTable extends Doctrine_Table
 		}	
 		
 	}
+	
 	/**
 	* For delete category record
 	*
@@ -153,17 +154,16 @@ class Model_CategoryTable extends Doctrine_Table
 	* @param  $snId To store category id 
 	* @return boolean
 	*/
-	public function deleteCatById($snId = '')
+	public function deleteCategoryById($snId = '')
 	{
 		if( $snId == '' || !is_numeric($snId) ) return false;
 		
 		try
 		{
-			//delete category from category and translatetable table
-			Doctrine_Query::create()
-				->delete("Model_Category C")
-				->where("C.id = ?", $snId)
-				->execute();
+			$oDeleteQuery = Doctrine_Query::create();
+			$oDeleteQuery->delete("Model_Category C");
+			$oDeleteQuery->where("C.id = ?", $snId);
+			$oDeleteQuery->execute();
 				
 			return true;
 		}
@@ -174,6 +174,7 @@ class Model_CategoryTable extends Doctrine_Table
 		}
 			
 	}
+	
 	/**
 	* For change category isactive status
 	*
@@ -182,20 +183,19 @@ class Model_CategoryTable extends Doctrine_Table
 	* @param  array $amUpdateData To store category data  
 	* @return boolean
 	*/	
-	public function updateStatus($amUpdateData = array())
+	public function changeIsActive($amUpdateData = array())
 	{
 		if( !is_array( $amUpdateData ) || empty( $amUpdateData ) ) return false;
 		
 		try
 		{
-			//update isactive in category table
-			$oUserInfo = Doctrine_Query::create()
-				->update("Model_Category C")
-				->set("C.is_active", "?", $amUpdateData['is_active'])
-				->set("C.updated_at", "?", date('Y-m-d H:i:s'));
+			$oChangeActivation = Doctrine_Query::create();
+			$oChangeActivation->update("Model_Category C");
+			$oChangeActivation->set("C.is_active", "?", $amUpdateData['is_active']);
+			$oChangeActivation->set("C.updated_at", "?", date('Y-m-d H:i:s'));
 				
-			$oUserInfo->where("C.id = ?", $amUpdateData['id']);
-			$oUserInfo->execute();
+			$oChangeActivation->where("C.id = ?", $amUpdateData['id']);
+			$oChangeActivation->execute();
 						
 			return true;
 		}
@@ -205,19 +205,19 @@ class Model_CategoryTable extends Doctrine_Table
 			return false;
 		}
 	}
+	
 	/**
 	* For update category detail
 	*
 	* @author suresh chikani
 	* @access public
 	* @param array $amFormUpdateData To store update category detail
-	* @param array $amPostUpdateData To store update category detail
 	* @return boolean
 	*/
 	public function updateCategory($amFormUpdateData = array())
 	{
 		if( !is_array( $amFormUpdateData ) || empty( $amFormUpdateData ) ) return false;
-	
+			
 		try
 		{
 			$oUpdateCategory = Doctrine::getTable('Model_Category')->find($amFormUpdateData['editid']);
@@ -230,8 +230,8 @@ class Model_CategoryTable extends Doctrine_Table
 			$oUpdateCategory->set("is_active", $amFormUpdateData['is_active']);
 			$oUpdateCategory->set("updated_at", "?", date('Y-m-d H:i:s'));
 			
-			$asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();
-			foreach($asLanguageList as $snKey => $amValues) {
+			$amLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();
+			foreach($amLanguageList as $snKey => $amValues) {
 				$oUpdateCategory->Translation[$amValues['lang']]->name = $amFormUpdateData['name_' . $amValues['lang']];
 			}
 			

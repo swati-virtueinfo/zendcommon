@@ -53,6 +53,7 @@ class Model_CityTable extends Doctrine_Table
 	public function getCityById($snCityId ='')
 	{
 		if( $snCityId == "" || !is_numeric($snCityId) || $snCityId == 0 ) return false;
+		
 		try
 		{
 			$oSelectQuery = Doctrine_Query::create();
@@ -119,6 +120,7 @@ class Model_CityTable extends Doctrine_Table
 	public function UpdateCity($asCityFormData = array())
 	{
 		if( !is_array( $asCityFormData ) || empty( $asCityFormData ) ) return false;
+		
 		try
 		{   
 			//Update City Table
@@ -153,6 +155,7 @@ class Model_CityTable extends Doctrine_Table
 	public function deleteCity($snCityId = 0)
 	{
 		if( $snCityId == "" || !is_numeric($snCityId) || $snCityId == 0 ) return false;
+		
 		try
 		{
 			//delete data from Varible table
@@ -178,20 +181,17 @@ class Model_CityTable extends Doctrine_Table
 	* @param  boolean $b__isActive for check the value of is_active on click
 	* @return boolean
 	*/
-	public function changeEnableDisable($snCityId = 0,$bIsActive)
+	public function changeIsActive($amUpdateIsActive = array())
 	{
-		if((empty($snCityId) && empty($bIsActive)) || !is_numeric($snCityId) || $snCityId == 0 ) return false;
+		if( !is_array( $amUpdateIsActive ) || empty( $amUpdateIsActive ) ) return false;
+		
 		try
 		{
-			//change the value of is_active of Given Row Id
-			$bIsActive = ($bIsActive) ? 0 : 1;
-			
-			//Update Country table
 			$asLanguageUpdate = Doctrine_Query::create()
 					->update("Model_City C")
-					->set("C.is_active", "?", $bIsActive)
+					->set("C.is_active", "?", $amUpdateIsActive['is_active'])
 					->set("updated_at", "?", date('Y-m-d H:i:s'))
-					->where("C.id = ?", $snCityId)
+					->where("C.id = ?", $amUpdateIsActive['id'])
 					->execute();
 			return true;
 		}

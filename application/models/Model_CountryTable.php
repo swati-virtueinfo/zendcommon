@@ -34,7 +34,6 @@ class Model_CountryTable extends Doctrine_Table
 				 $oSelectQuery->orderBy( $ssSortOn . ' ' . $ssSortBy );
 	
 			return $oSelectQuery->fetchArray();	
-
 		}
 		catch( Exception $oException )
 		{
@@ -60,6 +59,7 @@ class Model_CountryTable extends Doctrine_Table
 			$oSelectQuery->leftjoin("C.Translation T");
 			$oSelectQuery->andwhere("T.lang = ?", $ssLang);
 			$oSelectQuery->orderBy("T.name");
+			
 			return $oSelectQuery->fetchArray();	
 		}
 		catch( Exception $oException )
@@ -77,7 +77,7 @@ class Model_CountryTable extends Doctrine_Table
 	* @access public
 	* @return array of Country table records 
 	*/
-	public function getCountryById($snCountryId ='')
+	public function getCountryById($snCountryId = '' )
 	{
 		if( $snCountryId == "" || !is_numeric($snCountryId) || $snCountryId == 0 ) return false;
 		
@@ -180,13 +180,14 @@ class Model_CountryTable extends Doctrine_Table
 	public function deleteCountry($snCountryId = 0)
 	{
 		if( $snCountryId == "" || !is_numeric($snCountryId) || $snCountryId == 0 ) return false;
+		
 		try
 		{
 			//delete data from Varible table
-			Doctrine_Query::create()
-						->delete("Model_Country C")
-						->where("C.id = ?", $snCountryId)
-						->execute();
+			$oDeleteQuery = Doctrine_Query::create()
+						  ->delete("Model_Country C")
+						  ->where("C.id = ?", $snCountryId)
+						  ->execute();
 			return true;
 		}
 		catch( Exception $oException )
@@ -201,26 +202,21 @@ class Model_CountryTable extends Doctrine_Table
 	*
 	* @author Bhaskar joshi
 	* @access public
-	* @param  number  $snCountryId is id of Country to set Enable or Disable
-	* @param  boolean $b__isActive for check the value of is_active on click
+	* @param  array $amUpdateIsActive store update data for Country is active.
 	* @return boolean
 	*/
-	public function changeEnableDisable($snCountryId = '', $bIsActive = 0)
+	public function changeIsActive($amUpdateIsActive)
 	{
-		if((empty($snCountryId) && empty($bIsActive)) || !is_numeric($snCountryId) || $snCountryId == 0 ) return false;
+		if( !is_array( $amUpdateIsActive ) || empty( $amUpdateIsActive ) ) return false;
 		
 		try
 		{
-			//change the value of is_active of Given Row Id
-			$bIsActive = ($bIsActive) ? 0 : 1;
-			
-			//Update Country table
 			$asLanguageUpdate = Doctrine_Query::create()
-					->update("Model_Country C")
-					->set("C.is_active", "?", $bIsActive)
-					->set("updated_at", "?", date('Y-m-d H:i:s'))
-					->where("C.id = ?", $snCountryId)
-					->execute();
+					          ->update("Model_Country C")
+					          ->set("C.is_active", "?", $amUpdateIsActive['is_active'])
+					          ->set("updated_at", "?", date('Y-m-d H:i:s'))
+					          ->where("C.id = ?", $amUpdateIsActive['id'])
+					          ->execute();
 			return true;
 		}
 		catch( Exception $oException )

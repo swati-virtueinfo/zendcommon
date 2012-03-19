@@ -1,6 +1,6 @@
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
 <fieldset>
-	<legend><?php echo $this->translate("Manage Countries"); ?></legend>
+	<legend><?php echo $this->translate("lbl_manage_countries"); ?></legend>
 <table width='100%' border='0' >	
 	<tr>
 		<td align="center" colspan="8">
@@ -13,7 +13,7 @@
 		<tr>
 			<td colspan="6" align="right" class="tblrow">
 				<a href="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'addedit'));?>">
-					<img src="/images/add.gif">&nbsp;<?php echo $this->translate('Add Country');?>
+					<img src="/images/add.gif">&nbsp;<?php echo $this->translate('lnk_add_country');?>
 				</a>
 			</td>		
 		</tr>

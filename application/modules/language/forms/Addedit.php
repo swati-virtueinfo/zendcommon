@@ -13,6 +13,8 @@ class Language_Form_Addedit extends Zend_Form
 {
     public function init()
     {
+    	$oTranslator = $this->getTranslator();
+    	
     	$oRequest = Zend_Controller_Front::getInstance()->getRequest();
 		$snIdLanguage = $oRequest->getParam('id'); 
 		
@@ -22,37 +24,37 @@ class Language_Form_Addedit extends Zend_Form
 		
         //Set name textbox
         $oTextBoxName = new Zend_Form_Element_Text("name");
-        $oTextBoxName->setLabel("Name")
-						->setRequired(true)
-						->addFilter('StripTags')
-						->addFilter('StringTrim')
-						->addValidator('NotEmpty', true, array('messages' => 'Language name is required'))
-						->setAttrib('maxlength', '50');
+        $oTextBoxName->setLabel($oTranslator->translate("lbl_name"))
+					 ->setRequired(true)
+					 ->addFilter('StripTags')
+					 ->addFilter('StringTrim')
+					 ->addValidator('NotEmpty', true, array('messages' => $oTranslator->translate('err_language_name_required')))
+					 ->setAttrib('maxlength', '50');
 						
      	//Set language textbox
        	$oTextBoxLanguage = new Zend_Form_Element_Text("lang");
-       	$oTextBoxLanguage->setLabel("Language")
+       	$oTextBoxLanguage->setLabel($oTranslator->translate("lbl_language"))
 						->setRequired(true)
 						->addFilter('StripTags')
 						->addFilter('StringTrim')
-						->addValidator('NotEmpty', true, array('messages' => 'Language culture is required'))
+						->addValidator('NotEmpty', true, array('messages' => $oTranslator->translate('err_language_culture_required')))
 						->setAttrib('maxlength', '2');	
 		
     	//Set isdefualt Radio Button  
     	$oChkIsDefault = new Zend_Form_Element_Checkbox("is_default");
-      	$oChkIsDefault->setLabel("Default Language")
+      	$oChkIsDefault->setLabel($oTranslator->translate("lbl_default_language"))
 						->setChecked(true);
 		
 		//Set isactive check box				
 		$ochkIsActive = new Zend_Form_Element_Checkbox("is_active");
-      	$ochkIsActive->setLabel("Active Language")
+      	$ochkIsActive->setLabel($oTranslator->translate("lbl_active_language"))
 						->setChecked(true);
 		
 		//Set flag file control 
 		$oFlagImage = new Zend_Form_Element_File("flag");
-       	$oFlagImage->setLabel("Flag")
-       			  	   ->setDestination(UPLOAD_DIR_PATH.'/language/');
-	   	$oFlagImage->addValidator('Extension', false, 'jpg,jpeg,png,gif');
+       	$oFlagImage->setLabel($oTranslator->translate("lbl_flag"))
+       			   ->setDestination(UPLOAD_DIR_PATH.'/language/');
+	   	$oFlagImage->addValidator('Extension', false, array('jpg', 'png', 'gif', 'jpeg','messages' => 'err_select only .jpg .png .gif .jpeg file'));
 	   	$oFlagImage->addValidator('Size', false, 10240000);
 	   	if(isset($snIdLanguage) ? $oFlagImage->setRequired(false) : $oFlagImage->setRequired(true));
 

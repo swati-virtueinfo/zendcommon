@@ -54,7 +54,7 @@ class Countrycity_CityController extends Zend_Controller_Action
 		$amCityList = Doctrine::getTable('Model_City')->getCityList($ssSortOn, $ssSortBy, $ssSearchField, $ssSearchKeyword , $ssCurrentLocale );
 
 		// Get list
-		$this->view->asHeading = array("City Name", "Enable Or Disable","Action");
+		$this->view->asHeading = array("lnk_city_name", "lbl_active","lbl_action");
 		$this->view->asFieldName = $asFieldList = array("name", "is_active", "");
 		$this->view->asColumnSort = array(true, false, false);
 		$this->view->asColumnWidth = array("65%", "15%", "20%");
@@ -64,7 +64,7 @@ class Countrycity_CityController extends Zend_Controller_Action
 		//For Edit/Delete Link In Listing
 		foreach($amCityList as $snKey => $asCity)
 		{
-			$amCityList[$snKey]['is_active'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/changeactive/id/".$asCity['id']."' title='Edit'><img src="."'"."/images/".(isset($asCity['is_active']) && $asCity['is_active'] == 1 ? "active_check.gif" : "deactive_check.gif")."'"."/></a>";
+			$amCityList[$snKey]['is_active'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/changeactive/id/".$asCity['id']."/status/".$asCity['is_active']."' title='Edit'><img src="."'"."/images/".(isset($asCity['is_active']) && $asCity['is_active'] == 1 ? "active_check.gif" : "deactive_check.gif")."'"."/></a>";
 			$amCityList[$snKey]['name'] = $amCityList[$snKey]['Translation'][$ssCurrentLocale]['name'];
 			$amCityList[$snKey][2] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/addedit/id/".$asCity['id']."' title='Edit'><img src='/images/edit_icon.gif' ></a>" .
 			"&nbsp;&nbsp;<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$asCity['id']."' title='Delete' onclick='return deleteMsg()'><img src='/images/delete.gif'></a>";
@@ -88,34 +88,24 @@ class Countrycity_CityController extends Zend_Controller_Action
         $oRequest = $this->getRequest();
       	
 		// Checking request method is post
-		if($oRequest->isPost())
-		{
+		if($oRequest->isPost()) {
 			// Checking post values are valid
-			if( $oForm->isValid($oRequest->getPost()))
-			{
+			if( $oForm->isValid($oRequest->getPost())) {
 				//If Id variable is get in request then Edit Record else Add Record
-				if ($oRequest->getParam('id') > 0 )
-				{
+				if ($oRequest->getParam('id') > 0 ) {
 					// For updating City detail
 					Doctrine::getTable('Model_City')->UpdateCity($oForm->getValues());
-
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage(array('City updated successfully'));
-					
+					$this->_helper->flashMessenger->addMessage(array('msg_record_updated_successfully'));
 					//Redirect to Countrycity-City Page
 					$this->_redirect('/countrycity/city');
-				}
-				else
-				{
+				} else {
 					//for Store Form Values	
 					$amAddCityData = $oForm->getValues();
-					
 					// Insert City Detail
 					Doctrine::getTable('Model_City')->InsertCity($amAddCityData);
-					
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage(array('City added successfully'));
-					
+					$this->_helper->flashMessenger->addMessage(array('msg_record_added_successfully'));
 					//Redirect to Countrycity-City Page
 					$this->_redirect('/countrycity/city');	
 				}			
@@ -126,20 +116,16 @@ class Countrycity_CityController extends Zend_Controller_Action
 		if($this->getRequest()->getParam('id') != '' )
 		{
 			$amCityFormData = Doctrine::getTable('Model_City')->getCityById($this->getRequest()->getParam('id'));
-			
 			//set Active checkbox value
 			$this->view->country_id = $amCityFormData[0]['country_id'];
-					
 			// Populate Language wise Textboxes Value
 			$asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();
 			foreach($asLanguageList as $asLanguage)
 			{
 				$amCityFormData['name_' . $asLanguage['lang']] = $amCityFormData[0]['Translation'][$asLanguage['lang']]['name'];
 			}
-			
 			//set Active checkbox value
 			$amCityFormData['is_active'] = $amCityFormData[0]['is_active'];
-			
 			//Poupulate Country Form Data
     		$oForm->populate($amCityFormData);
 		}
@@ -158,10 +144,8 @@ class Countrycity_CityController extends Zend_Controller_Action
 		{
 			// For deleting City detail of given id
 			Doctrine::getTable('Model_City')->deleteCity( $this->getRequest()->getParam('id') );
-
 			// For assigning success massage to flashMessenger
-			$this->_helper->flashMessenger->addMessage(array('City deleted successfully'));
-			
+			$this->_helper->flashMessenger->addMessage(array('msg_record_deleted_successfully'));
 			// Redirectes to Country listing Page
 			$this->_redirect('/countrycity/city');
 		}       
@@ -176,16 +160,15 @@ class Countrycity_CityController extends Zend_Controller_Action
     {
         if($this->getRequest()->getParam('id') != '')
 		{
-			$amCityData = Doctrine::getTable('Model_City')->find($this->getRequest()->getParam('id'));		
-			$bIsActive=$amCityData['is_active'];
-
+			$snPageId = $this->getRequest()->getParam('id');
+			$bStatus  = $this->getRequest()->getParam('status');
+			$snChangeStatus = ($bStatus) ?  0 : 1;
+      		$amUpdateIsActive = array ('id' => $snPageId , 'is_active' => $snChangeStatus);
 			// For Change is_active field value as per given id
-			$bResult = Doctrine::getTable('Model_City')->changeEnableDisable($this->getRequest()->getParam('id'),$bIsActive);
-
+			$bResult = Doctrine::getTable('Model_City')->changeIsActive($amUpdateIsActive);
 			// On Success assigning success massage to flashMessenger
 			if($bResult)
-				$this->_helper->flashMessenger->addMessage(array('Record Edited'));
-			
+				$this->_helper->flashMessenger->addMessage(array('msg_record_edited'));
 			// Redirectes to City listing Page
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
 		}		

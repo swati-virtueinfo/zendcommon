@@ -1,9 +1,9 @@
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
 <?php $snEditId = $oRequest->getParam('id'); ?>
-<?php echo (isset($snEditId) ? $this->headTitle('Edit-City') : $this->headTitle('Add-City')); ?>
+<?php echo (isset($snEditId) ? $this->headTitle('ttl_edit_city') : $this->headTitle('ttl_add_city')); ?>
 <form name="addeditcity" method="post" enctype="multipart/form-data">
 	<fieldset>
-		<legend><?php echo (isset($snEditId) ? $this->translate("Edit City") : $this->translate("Add New City")); ?></legend>
+		<legend><?php echo (isset($snEditId) ? $this->translate("lbl_edit_city") : $this->translate("lbl_add_new_city")); ?></legend>
 		<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" >
 			<tr>
 	  			<td>
@@ -16,7 +16,7 @@
 								<?php $ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString(); ?> 
 								<?php $amCategories = Doctrine::getTable('Model_Country')->getContries($ssCurrentLocale); ?>
 								<select name="country_id">
-									<option value="">-- Select Country --</option>					
+									<option value="">--<?php echo $this->translate("lbl_select_country")?>--</option>					
 									<?php foreach ($amCategories as $amCategory):?>	
 									<option value="<?php echo $amCategory['id']; ?>" <?php echo (isset($this->country_id) && ($amCategory['id'] == $this->country_id) ? "selected=selected" : "");?>>
 										<?php echo $amCategory['Translation'][$ssCurrentLocale]['name']; ?>
@@ -27,7 +27,7 @@
 						</tr>	
 						<?php $asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();	?>
 						<tr>
-							<td class="tblrow" ><?php echo $this->translate("Name"); ?><span id="error">&nbsp; * &nbsp; </span></td>
+							<td class="tblrow" ><?php echo $this->translate("lbl_name"); ?><span id="error">&nbsp; * &nbsp; </span></td>
 							<?php foreach($asLanguageList as $key => $amLanguage) : ?>
 							<?php $ssColmnName = 'name_' . $amLanguage['lang']; ?>
 							<td class="tblrow">				
@@ -45,8 +45,8 @@
 						<tr>
 							<td><?php if(isset($snEditId)): ?><input type="hidden" name="id" id="id" value="<?php echo $snEditId; ?>" /><?php endif; ?></td>
 							<td >
-								<input type="submit" name="submit" value="<?php echo $this->translate("Save"); ?>" class='but'>
-								<input type="reset" name="cancel" value="<?php echo $this->translate("Cancel"); ?>" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/city'; ?>'">
+								<input type="submit" name="submit" value="<?php echo $this->translate("btn_save"); ?>" class='but'>
+								<input type="reset" name="cancel" value="<?php echo $this->translate("btn_cancel"); ?>" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/city'; ?>'">
 							</td>
 						</tr>
 					</table>	

@@ -1,39 +1,41 @@
 <?php
-$amCatList = Doctrine :: getTable('Model_Category')->getCatList();
-ksort($amCatList);
-
-$oRequest = Zend_Controller_Front :: getInstance()->getRequest();
-$snEditId = $oRequest->getParam('editid');
+	$ssCurrentLocale = Zend_Registry :: get('Zend_Locale')->toString();
+	
+	$amCatList = Doctrine :: getTable('Model_Category')->getCategoryList($ssCurrentLocale);
+	ksort($amCatList);
+		
+	$oRequest = Zend_Controller_Front :: getInstance()->getRequest();
+	$snEditId = $oRequest->getParam('editid');
 ?>
 <form method="post" enctype="multipart/form-data">
-<fieldset><legend><?php echo (isset($snEditId) ? $this->translate("Edit Category") : $this->translate("Add New Category")); ?></legend>
+	<fieldset>
+		<legend><?php echo (isset($snEditId) ? $this->translate("lbl_edit_category") : $this->translate("lbl_add_category")); ?></legend>
 		<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" >
 			<tr>
 				<td>
 					<table width="100%" border="0" cellpadding="2" cellspacing="1">
 						<?php if(empty($snEditId)): ?>
 						<tr>
-							<td class="tblrow"><?php echo $this->oAddCateFrom->cat_name->renderLabel(); ?></td>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->cat_name->renderLabel()?></td>
 							<td class="tblrow"> 
 								<?php echo $this->snParentId;?>
 								<select name="parentid">
-									<option value="0">Select Category</option>
+									<option value="0"><?php echo $this->translate("lbl_select_parent_category")?></option>
 									<?php getContent($amCatList, $this->snParentId);?>
 								</select>
 							</td>
 						</tr>
 						<?php endif; ?>
 						<tr>
-							<td class="tblrow"><?php echo $this->oAddCateFrom->name->renderLabel(); ?><span id="error"></span></td>
-							<?php foreach ($this->asLanguageList as $ssLanguageList): ?>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->name->renderLabel(); ?></td>
+							<?php foreach ($this->amLanguageList as $ssLanguageList): ?>
 							<td class="tblrow">
 								<table>
 									<tr>
 										<td><?php echo $this->translate($ssLanguageList['name']); ?></td>
 									</tr>
 									<tr>
-										<td id="error"><?php $ssCatName = 'name_' . $ssLanguageList['lang']; echo $this->translate(strip_tags($this->oAddCateFrom->$ssCatName->renderErrors())); 
-										?></td>
+										<td id="error"><?php $ssCatName = 'name_' . $ssLanguageList['lang']; echo $this->translate(strip_tags($this->oAddCateFrom->$ssCatName->renderErrors())); ?></td>
 									</tr>
 									<tr>
 										<td><?php echo $this->oAddCateFrom->$ssCatName->renderViewHelper();?></td>
@@ -45,26 +47,17 @@ $snEditId = $oRequest->getParam('editid');
 						<tr>
 							<td class="tblrow"><?php echo $this->oAddCateFrom->image_name->renderLabel(); ?></td>
 							<td class="tblrow"><?php echo $this->oAddCateFrom->image_name->renderfile();?></td>
-							<td class="tblrow"><?php echo $this->oAddCateFrom->image_name->renderErrors(); ?></td>
+							<td id="error" class="tblrow"><?php echo $this->translate(strip_tags($this->oAddCateFrom->image_name->renderErrors())); ?></td>
 						</tr>
 						<tr>
 							<td class="tblrow"><?php echo $this->oAddCateFrom->is_active->renderLabel(); ?></td>
 							<td class="tblrow"><?php echo $this->oAddCateFrom->is_active->renderViewHelper();?></td>
 						</tr>
 						<tr>
-							<td class="tblrow"><?php if($snEditId) { ?>
-								<input id="editid" type="hidden" value="<?php echo $snEditId; ?>" name="editid">
-							</td>
-							<td class="tblrow">
-								<?php echo $this->oAddCateFrom->category_edit->renderViewHelper();?>
-								<input type="reset" name="reset" value="<?php echo $this->translate("Cancel"); ?>" class="but" title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index/listcategory'; ?>'">
-							</td>
+							<td class="tblrow"><?php if($snEditId) { ?><input id="editid" type="hidden" value="<?php echo $snEditId; ?>" name="editid"></td>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->category_edit->renderViewHelper();?><input type="reset" name="reset" value="<?php echo $this->translate("btn_cancel"); ?>" class="but" title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index/listcategory'; ?>'"></td>
 							<?php } else { ?>
-							<td class="tblrow">
-								<?php echo $this->oAddCateFrom->category_add->renderViewHelper();?>
-								<input type="reset" name="reset" value="<?php echo $this->translate("Cancel"); ?>" class="but" title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index/listcategory'; ?>'">						
-							</td>		
-							<?php } ?>
+							<td class="tblrow"><?php echo $this->oAddCateFrom->category_add->renderViewHelper();?><input type="reset" name="reset" value="<?php echo $this->translate("btn_cancel"); ?>" class="but" title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index/listcategory'; ?>'"></td><?php } ?>
 						</tr>
 					</table>
 				</td>
@@ -73,20 +66,14 @@ $snEditId = $oRequest->getParam('editid');
 	</fieldset>
 </form>
 <?php
-
-
 function getContent($amCategories = array (), $snParentId = 0) {
 	if ($amCategories) {
 		foreach ($amCategories as $amCategory) {
-
-			$ssCurrentLocale = Zend_Registry :: get('Zend_Locale')->toString();
-?>
-				<option value="<?php echo $amCategory['id']; ?>" <?php if($amCategory['id'] == $snParentId ) { echo "selected=selected"; } ?>>
+			$ssCurrentLocale = Zend_Registry :: get('Zend_Locale')->toString();?>
+				<option value="<?php echo $amCategory['id']; ?>" >
 					<?php echo str_repeat("&nbsp;", ($amCategory['level'] * 2) ) . $amCategory['Translation'][$ssCurrentLocale]['name']; ?>
 				</option>
 				<?php
-
-
 			unset ($amCategory['id'], $amCategory['level'], $amCategory['is_active'], $amCategory['parentid'], $amCategory['Translation']);
 			getContent($amCategory, $snParentId);
 		}

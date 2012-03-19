@@ -25,12 +25,12 @@ class Variable_Form_Addedit extends Zend_Form
 		
 		 //Set name textbox
         $oTextBoxName = new Zend_Form_Element_Text("name");
-        $oTextBoxName->setLabel("Name")
-						->setRequired(true)
-						->addFilter('StripTags')
-						->addFilter('StringTrim')
-						->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => 'msg_var_name_required')))
-						->setAttrib('maxlength', '50');
+        $oTextBoxName->setLabel("lbl_name")
+					 ->setRequired(true)
+					 ->addFilter('StripTags')
+					 ->addFilter('StringTrim')
+					 ->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => 'msg_var_name_required')))
+					 ->setAttrib('maxlength', '50');
 		array_push($asElementArray,$oTextBoxName);
 		
 		//Get Languages list for Creating Textbox for language
@@ -46,7 +46,7 @@ class Variable_Form_Addedit extends Zend_Form
 						
 		//Set isactive check box				
 		$ochkIsActive = new Zend_Form_Element_Checkbox("is_active");
-      	$ochkIsActive->setLabel("Active")
+      	$ochkIsActive->setLabel("lbl_active")
 						->setChecked(true);		
 		array_push($asElementArray,$ochkIsActive);
 						

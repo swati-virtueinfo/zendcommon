@@ -8,7 +8,7 @@ class Model_VariableTable extends Doctrine_Table
 	*
 	* @author Bhaskar joshi
 	* @access public
-	* @return array of Variable table records 
+	* @return boolean | array of Variable table records 
 	*/
 	public function getVariableList($ssSortOn = '', $ssSortBy = '', $ssSearchField = '', $ssSearchKeyword = '',$ssLang = 'en')
 	{
@@ -36,6 +36,7 @@ class Model_VariableTable extends Doctrine_Table
 			return false;
 		}	
 	}
+	
 	/**
 	* For Fetch All Record From Variable Table
 	*
@@ -45,7 +46,6 @@ class Model_VariableTable extends Doctrine_Table
 	*/
 	public function getAllVariableList($ssLang = '')
 	{
-		
 		if(empty($ssLang) || is_numeric($ssLang) || is_array($ssLang) ) return false;
 		
 		try
@@ -58,8 +58,6 @@ class Model_VariableTable extends Doctrine_Table
 			$oSelectQuery->orderBy('v.name ASC');
 			
 			return $oSelectQuery->fetchArray();
-
-
 		}
 		catch( Exception $oException )
 		{
@@ -79,6 +77,7 @@ class Model_VariableTable extends Doctrine_Table
 	public function getVariableById($snVariableId = '')
 	{
 		if( $snVariableId == "" || !is_numeric($snVariableId) || $snVariableId == 0 ) return false;
+		
 		try
 		{
 			$oSelectQuery = Doctrine_Query::create();
@@ -110,7 +109,6 @@ class Model_VariableTable extends Doctrine_Table
 		
 		try
 		{
-			//Inserting Variable into table
 			$oVariable = new Model_Variable();
 			$oVariable->name = $asVariableData['name'];
 			$asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();
@@ -178,6 +176,7 @@ class Model_VariableTable extends Doctrine_Table
 	public function deleteVariable($snVariableId = 0)
 	{
 		if( $snVariableId == "" || !is_numeric($snVariableId) || $snVariableId == 0 ) return false;
+		
 		try
 		{
 			//delete data from Varible table
@@ -199,27 +198,23 @@ class Model_VariableTable extends Doctrine_Table
 	*
 	* @author Bhaskar joshi
 	* @access public
-	* @param  number  $snVariableId is id of Variable to set active
-	* @param  boolean $b__isActive for check the value of is_active on click
+	* @param  array $amUpdateIsActive is array of Variable to set active
 	* @return boolean
 	*/
-	public function changeActiveVariable($snVariableId = 0, $bIsActive)
+	public function changeIsActive($amUpdateIsActive = array())
 	{
-		if((empty($snVariableId) && empty($bIsActive)) || !is_numeric($snVariableId) || $snVariableId == 0 ) return false;
+		if( !is_array( $amUpdateIsActive ) || empty( $amUpdateIsActive ) ) return false;
 		
 		try
 		{
-			//change the value of is_active of Given Row Id
-			$bIsActive = ($bIsActive) ? 0 : 1;
+			$oVarible = Doctrine_Query::create();
+			$oVarible->update("Model_Variable V");
+			$oVarible->set("V.is_active", "?", $amUpdateIsActive['is_active']);
+			$oVarible->set("updated_at", "?", date('Y-m-d H:i:s'));
+			$oVarible->where("V.id = ?", $amUpdateIsActive['id']);
+			$oVarible->execute();
 			
-			//Update Language table
-			$asLanguageUpdate = Doctrine_Query::create()
-					->update("Model_Variable V")
-					->set("V.is_active", "?", $bIsActive)
-					->set("updated_at", "?", date('Y-m-d H:i:s'))
-					->where("V.id = ?", $snVariableId)
-					->execute();
-			return true;
+			return ($oVarible) ? true : false;
 		}
 		catch( Exception $oException )
 		{

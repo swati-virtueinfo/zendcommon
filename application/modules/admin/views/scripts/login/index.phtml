@@ -1,7 +1,7 @@
 <?php $this->headTitle()->append('Login'); ?>
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
 <div id="content">
-	<fieldset class="loginFix"><legend>Admin Login</legend>
+	<fieldset class="loginFix"><legend><?php echo $this->translate("lbl_admin_login"); ?></legend>
 		<form class="login" name="adminlogin" method="post" action="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'logincheck'));?>">
 			<table width="40%" border="0" align="center" cellpadding="0" cellspacing="0" >
 				<tr>
@@ -27,7 +27,7 @@
 				
 				<tr>
 					<td colspan="3" align="center" class="tblrow" >
-						<input type="submit" class="but" name="login" value="<?php echo $this->translate('Login'); ?>"/>
+						<input type="submit" class="but" name="login" value="<?php echo $this->translate('btn_login'); ?>"/>
 					</td>
 				</tr>		
 		 	</table>

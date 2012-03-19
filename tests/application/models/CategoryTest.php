@@ -189,7 +189,7 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
 		$this->assertTrue($bResult, "Record add successfully");
     }
     
-    /** ===============Start getCatList function tests cases =================================**/
+    /** ===============Start getCategoryList function tests cases =================================**/
     
 	/**
 	* For listing of category Detail
@@ -197,9 +197,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
     * @author suresh chikani
 	* @access public
 	*/
-    public function testgetCatListWhenNullAsParameter()
+    public function testgetCategoryListWhenNullAsParameter()
     {
-        $asResult = Doctrine::getTable('Model_Category')->getCatList();
+        $asResult = Doctrine::getTable('Model_Category')->getCategoryList();
         $this->assertInternalType('array', $asResult);
     }
 
@@ -209,9 +209,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
     * @author suresh chikani
 	* @access public
 	*/
-    public function testgetCatListWhenblankAsParameter()
+    public function testgetCategoryListWhenblankAsParameter()
     {
-        $asResult = Doctrine::getTable('Model_Category')->getCatList('');
+        $asResult = Doctrine::getTable('Model_Category')->getCategoryList('');
         $this->assertFalse($asResult, 'Records not found because pass blank value as a parameter'); 
        
     }
@@ -222,9 +222,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
     * @author suresh chikani
 	* @access public
 	*/
-    public function testgetCatListWhenBlankArrayAsParameter()
+    public function testgetCategoryListWhenBlankArrayAsParameter()
     {
-       $asResult = Doctrine::getTable('Model_Category')->getCatList($this->asBlankArrayAsCategory);
+       $asResult = Doctrine::getTable('Model_Category')->getCategoryList($this->asBlankArrayAsCategory);
        $this->assertFalse($asResult, 'Records not found because you pass blank array as parameter');
     }
     
@@ -235,9 +235,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
 	* @author suresh chikani
 	* @access public
 	*/
-	public function testgetCatListWhenPassStringParameter()
+	public function testgetCategoryListWhenPassStringParameter()
     { 
-       	$bResult = Doctrine::getTable('Model_Category')->getCatList($this->ssStringAsCategory);
+       	$bResult = Doctrine::getTable('Model_Category')->getCategoryList($this->ssStringAsCategory);
 	 	$this->assertInternalType('array', $bResult);
 	}
 	
@@ -247,9 +247,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
     * @author suresh chikani
 	* @access public
 	*/
-    public function testgetCatList()
+    public function testgetCategoryList()
     {
-        $asResult = Doctrine::getTable('Model_Category')->getCatList($this->ssLang);
+        $asResult = Doctrine::getTable('Model_Category')->getCategoryList($this->ssLang);
         $this->assertInternalType('array', $asResult); 
     }
     
@@ -314,7 +314,7 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
 		$this->assertInternalType('array', $asResult);
 	}
 	
-	/** =============== Start deleteCatById function tests cases =================================**/
+	/** =============== Start deleteCategoryById function tests cases =================================**/
 	
 	/**
 	* For delete of category by category id.
@@ -323,9 +323,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
     * @author suresh chikani
 	* @access public
 	*/
-    public function testdeleteCatByIdWhenNullAsParameter()
+    public function testdeleteCategoryByIdWhenNullAsParameter()
     {
-       $bResult = Doctrine::getTable('Model_Category')->deleteCatById();
+       $bResult = Doctrine::getTable('Model_Category')->deleteCategoryById();
        $this->assertFalse($bResult, 'Record not delete successfully because pass null as parameter');
     }
     
@@ -335,9 +335,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
     * @author suresh chikani
 	* @access public 
 	*/
-	public function testdeleteCatByIdWithBlankId()
+	public function testdeleteCategoryByIdWithBlankId()
 	{
-		$asResult = Doctrine::getTable('Model_Category')->deleteCatById('');
+		$asResult = Doctrine::getTable('Model_Category')->deleteCategoryById('');
 		$this->assertFalse($asResult, 'Records not delete successfully because pass balnk as parameter');	
 	}
 
@@ -347,9 +347,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
     * @author suresh chikani
 	* @access public 
 	*/
-	public function testdeleteCatByIdWithStringId()
+	public function testdeleteCategoryByIdWithStringId()
 	{
-		$asResult = Doctrine::getTable('Model_Category')->deleteCatById($this->ssCategoryId);
+		$asResult = Doctrine::getTable('Model_Category')->deleteCategoryById($this->ssCategoryId);
 		$this->assertFalse($asResult, 'Records not delete because you pass string as a parameter');	
 	}
 
@@ -359,9 +359,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
     * @author suresh chikani
 	* @access public 
 	*/
-	public function testdeleteCatByIdWithWrongId()
+	public function testdeleteCategoryByIdWithWrongId()
 	{
-		$asResult = Doctrine::getTable('Model_Category')->deleteCatById($this->snWrongCategoryId);
+		$asResult = Doctrine::getTable('Model_Category')->deleteCategoryById($this->snWrongCategoryId);
 		$this->assertEquals(0, false, count( $asResult));
 	}
 
@@ -371,13 +371,13 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
     * @author suresh chikani
 	* @access public 
 	*/
-	public function testdeleteCatByIdWithCategoryId()
+	public function testdeleteCategoryByIdWithCategoryId()
 	{
-		//$asResult = Doctrine::getTable('Model_Category')->deleteCatById($this->snCategoryId);
+		//$asResult = Doctrine::getTable('Model_Category')->deleteCategoryById($this->snCategoryId);
 		//$this->assertTrue($asResult,"Record deleted sucessfully");
 	}
 	
-	/** =============== Start updateStatus function tests cases =================================**/
+	/** =============== Start changeIsActive function tests cases =================================**/
 	
  	/**
 	* For updating category status
@@ -386,9 +386,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
 	* @author suresh chikani
 	* @access public
 	*/
-	public function testupdateStatusWhenPassBlankArrayParameter()
+	public function testchangeIsActiveWhenPassBlankArrayParameter()
     {
-        $bResult = Doctrine::getTable('Model_Category')->updateStatus($this->asBlankArrayAsCategory);
+        $bResult = Doctrine::getTable('Model_Category')->changeIsActive($this->asBlankArrayAsCategory);
 		$this->assertFalse($bResult, "Record do not update successfully because pass blank array");
     }
     
@@ -399,9 +399,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
 	* @author suresh chikani
 	* @access public
 	*/
-	public function testupdateStatusWhenPassStringParameter()
+	public function testchangeIsActiveWhenPassStringParameter()
     {
-		$bResult = Doctrine::getTable('Model_Category')->updateStatus($this->ssStringAsCategory);
+		$bResult = Doctrine::getTable('Model_Category')->changeIsActive($this->ssStringAsCategory);
 		$this->assertFalse($bResult, "Record do not update successfully  because pass string value as a parameter");
 	}
 
@@ -412,9 +412,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
 	* @author suresh chikani
 	* @access public
 	*/
-	public function testupdateStatusWhenPassBlankParameter()
+	public function testchangeIsActiveWhenPassBlankParameter()
     {
-		$bResult = Doctrine::getTable('Model_Category')->updateStatus('');
+		$bResult = Doctrine::getTable('Model_Category')->changeIsActive('');
 		$this->assertFalse($bResult, "Record do not update successfully because pass blank value as a parameter");
     }
     
@@ -425,9 +425,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
 	* @author suresh chikani
 	* @access public
 	*/
-	public function testupdateStatusWhenPassNullParameter()
+	public function testchangeIsActiveWhenPassNullParameter()
     {
-		$bResult = Doctrine::getTable('Model_Category')->updateStatus();
+		$bResult = Doctrine::getTable('Model_Category')->changeIsActive();
 		$this->assertFalse($bResult, "Record do not update successfully because pass null value as a parameter");
     }
 
@@ -438,9 +438,9 @@ class Tests_CategoryTable extends PHPUnit_Framework_TestCase
 	* @author suresh chikani
 	* @access public
 	*/
-	public function testupdateStatusWhenPassAppropriateArrayParameter()
+	public function testchangeIsActiveWhenPassAppropriateArrayParameter()
     {
-		$bResult = Doctrine::getTable('Model_Category')->updateStatus($this->asCategoryStatusForUpdate);
+		$bResult = Doctrine::getTable('Model_Category')->changeIsActive($this->asCategoryStatusForUpdate);
 		$this->assertTrue($bResult, "Record update successfully");
     }
     

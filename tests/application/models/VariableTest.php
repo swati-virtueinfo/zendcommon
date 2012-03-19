@@ -441,9 +441,9 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
     * @author Bhaskar Joshi
 	* @access public
 	*/
-    public function testchangeActiveVariableWhenPassBlankAsIdParameter()
+    public function testchangeIsActiveWhenPassBlankAsIdParameter()
     {
-    	$bResult = Doctrine::getTable('Model_Variable')->changeActiveVariable('',$this->bIsActive);
+    	$bResult = Doctrine::getTable('Model_Variable')->changeIsActive('',$this->bIsActive);
       	$this->assertFalse($bResult,"Actibe Variable Not Changed Because Pass Blank As Id Parameter");
     }
     
@@ -454,9 +454,9 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
     * @author Bhaskar Joshi
 	* @access public
 	*/
-    public function testchangeActiveVariableWhenPassStringAsIdParameter()
+    public function testchangeIsActiveWhenPassStringAsIdParameter()
     {
-    	$bResult = Doctrine::getTable('Model_Variable')->changeActiveVariable($this->ssStringParameter,$this->bIsActive);
+    	$bResult = Doctrine::getTable('Model_Variable')->changeIsActive($this->ssStringParameter,$this->bIsActive);
       	$this->assertFalse($bResult,"Actibe Variable Not Changed Because Pass String As Id Parameter");
     }
     
@@ -467,9 +467,9 @@ class Tests_VariableTable extends PHPUnit_Framework_TestCase
     * @author Bhaskar Joshi
 	* @access public
 	*/
-    public function testchangeActiveVariable()
+    public function testchangeIsActive()
     {
-    	$bResult = Doctrine::getTable('Model_Variable')->changeActiveVariable($this->snVariableId,$this->bIsActive);
+    	$bResult = Doctrine::getTable('Model_Variable')->changeIsActive($this->snVariableId,$this->bIsActive);
       	$this->assertTrue($bResult,"Actibe Variable Not Changed Because");
     }
 }

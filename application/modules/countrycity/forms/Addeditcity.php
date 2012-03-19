@@ -25,7 +25,7 @@ class Countrycity_Form_Addeditcity extends Zend_Form
 		
 		//Add country_id as select field
 		$oCountry = new Zend_Form_Element_Select('country_id');
-        $oCountry->setLabel('Country');
+        $oCountry->setLabel('lbl_country');
         $oCountry->setRequired(true);
    		$oCountry->addValidator('NotEmpty',true, array('messages' => array('isEmpty' => 'msg_country_name_required')));
         $oCountry->setRegisterInArrayValidator(false); 
@@ -45,8 +45,9 @@ class Countrycity_Form_Addeditcity extends Zend_Form
 						
 		//Add is_active as check box Field				
 		$ochkIsActive = new Zend_Form_Element_Checkbox("is_active");
-      	$ochkIsActive->setLabel("Active ")
-					 ->setChecked(true);		
+      	$ochkIsActive->setLabel("lbl_active ")
+					 ->setChecked(true);
+					 		
 		array_push($asElementArray,$ochkIsActive);
 						
 		$this->addElements($asElementArray);

@@ -17,7 +17,7 @@ class Language_IndexController extends Zend_Controller_Action
 
     public function init()
     {
-        $this->oTranslate = Zend_Registry::get('Zend_Translate');
+        
     }
 
     public function indexAction()
@@ -44,12 +44,11 @@ class Language_IndexController extends Zend_Controller_Action
 		$oCommon->snRecordPerPage = 4;
 		/********** Optional Part End FOR paginate()************/
 		
-		
 		//Fetch All Data From Language Table
 		$asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList($this->ssSortOn,$this->ssSortBy,$this->ssSearchField,$this->ssSearchKeyword);
 		
 		// Get list
-		$this->view->asHeading = array("Language","Flag","Default","Active","Action");
+		$this->view->asHeading = array("lnk_language", "lbl_flag", "lbl_default","lbl_active", "lbl_action");
 		$this->view->asFieldName = $asFieldList = array("name", "flag","is_default","is_active","");
 		$this->view->asColumnSort = array(true,false,false,false,false,false);
 		$this->view->asColumnWidth = array("40%", "15%", "10%", "10%","10%","15%");
@@ -61,17 +60,15 @@ class Language_IndexController extends Zend_Controller_Action
 		{
 			$asLanguageList[$snKey]['flag'] = "<img src="."'"."/upload/language/".$asLanguage['flag']."'"."height='20' width='20'/>";	
 			$asLanguageList[$snKey]['is_default'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/changedefault/id/".$asLanguage['id']."' title='Change Default Language'><img src="."'"."/images/".(isset($asLanguage['is_default']) && $asLanguage['is_default'] == 1 ? "active_radio.gif" : "deactive_radio.gif")."'"."/></a>";
-			$asLanguageList[$snKey]['is_active'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/changeactive/id/".$asLanguage['id']."' title='Change Active'><img src="."'"."/images/".(isset($asLanguage['is_active']) && $asLanguage['is_active'] == 1 ? "active_check.gif" : "deactive_check.gif")."'"."/></a>";
+			$asLanguageList[$snKey]['is_active'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/changeactive/id/".$asLanguage['id']."/status/".$asLanguage['is_active']."' title='Change Active'><img src="."'"."/images/".(isset($asLanguage['is_active']) && $asLanguage['is_active'] == 1 ? "active_check.gif" : "deactive_check.gif")."'"."/></a>";
 			$asLanguageList[$snKey]['4'] = "<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/addedit/id/".$asLanguage['id']."' title='Edit'><img src='/images/edit_icon.gif' ></a>";
+			
 			if($asLanguage["is_default"])
-			{
 				$asLanguageList[$snKey]['4'] .= "&nbsp;&nbsp;&nbsp;&nbsp;<a><img src='/images/delete_gray.gif'></a>";
-			}
-			else{
+			else
 				$asLanguageList[$snKey]['4'] .=  "&nbsp;&nbsp;&nbsp;&nbsp;<a href='/".$this->_getParam('module')."/".$this->_getParam('controller')."/delete/id/".$asLanguage['id']."' title='Delete' onclick='return deleteMsg()'><img src='/images/delete.gif'></a>";
-			}	
+				
 		}
-		
 		// Get paging
 		$this->view->user= $oCommon->paginate($asLanguageList);     	
     }
@@ -85,14 +82,11 @@ class Language_IndexController extends Zend_Controller_Action
         $oRequest = $this->getRequest();
       	
 		// Checking request method is post
-		if($oRequest->isPost())
-		{
+		if($oRequest->isPost()) {
 			// Checking post values are valid
-			if( $oForm->isValid($oRequest->getPost()))
-			{
+			if( $oForm->isValid($oRequest->getPost())) {
 				//If Id variable is get in request then Edit Record else Add Record
-				if ($oRequest->getParam('id') > 0 )
-				{
+				if ($oRequest->getParam('id') > 0 ) {
 					//Fetch Record From Database 
 					$oLanguage = Doctrine::getTable('Model_Language')->find($this->getRequest()->getParam('id'));
 					$amLanguageData = $oLanguage->toArray();
@@ -106,25 +100,21 @@ class Language_IndexController extends Zend_Controller_Action
 					Doctrine::getTable('Model_Language')->UpdateLanguage($oForm->getValues());
 					
 					//create Language File when changes Lang value at Update
-					if($ssOldLanguageName != $ssNewLanguageName)
-					{
+					if($ssOldLanguageName != $ssNewLanguageName) {
 						//for Store file name with Path
 						$ssLogfile = LANGUAGE_PATH.'/'.$ssNewLanguageName.'.php';
 						
-						if(!is_file($ssLogfile))
-						{
+						if(!is_file($ssLogfile)) {
 							//call function to create Language File in Languages Folder
 							$bResult = $this->_createLanguageFile($ssLogfile);
 						}
 					}	
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage(array('Language updated successfully'));	
+					$this->_helper->flashMessenger->addMessage(array('msg_language_updated_successfully'));	
 					
 					//Redirect to Language-Index Page
 					$this->_redirect('/language/index');
-				}
-				else
-				{
+				} else {
 					$amAddLanguageData = $oForm->getValues();
 					// Insert Language Record
 					Doctrine::getTable('Model_Language')->InsertLanguage($amAddLanguageData);
@@ -132,14 +122,13 @@ class Language_IndexController extends Zend_Controller_Action
 					//for Store file name with Path
 					$ssLogfile = LANGUAGE_PATH.'/'.$amAddLanguageData['lang'].'.php';
 					
-					if(!is_file($ssLogfile))
-					{
+					if(!is_file($ssLogfile)) {
 						//call function to create Language File in Languages Folder
 						$bResult = $this->_createLanguageFile($ssLogfile);
 					}
 					
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage(array('Language Add Successfully'));	
+					$this->_helper->flashMessenger->addMessage(array('msg_language_add_successfully'));	
 					
 					//Redirect to Language-Index Page
 					$this->_redirect('/language/index');
@@ -148,8 +137,7 @@ class Language_IndexController extends Zend_Controller_Action
 		}
 		
 		//For Populate Edit Form Data
-		if($this->getRequest()->getParam('id') != '' )
-		{
+		if($this->getRequest()->getParam('id') != '' ) {
 			// For getting Language detail of given id
 			$oLanguage = Doctrine::getTable('Model_Language')->find($this->getRequest()->getParam('id'));
 			
@@ -169,16 +157,13 @@ class Language_IndexController extends Zend_Controller_Action
 	//For Delete Language 
 	public function deleteAction()
     {
-        if( $this->getRequest()->getParam('id') != '' )
-		{
+        if( $this->getRequest()->getParam('id') != '' ) {
 			$oLanguage = Doctrine::getTable('Model_Language')->find($this->getRequest()->getParam('id'));
 			$amLanguageData =$oLanguage->toArray();
-			
 			// For deleting language detail of given id
 			$bResultDelete = Doctrine::getTable('Model_Language')->deleteLanguage( $this->getRequest()->getParam('id') );
 			
-			if($bResultDelete)
-			{
+			if($bResultDelete) {
 				//Delete Language File & Image
 				$ssLogfile = LANGUAGE_PATH.'/'.$amLanguageData['lang'].'.php';	
 				$ssLanguageImageName =  UPLOAD_DIR_PATH.'/language/'.$amLanguageData['flag'];
@@ -186,7 +171,7 @@ class Language_IndexController extends Zend_Controller_Action
 				if(!empty($ssLanguageImageName) ? unlink($ssLanguageImageName) : '');				
 			}
 			// For assigning success massage to flashMessenger
-			$this->_helper->flashMessenger->addMessage(array('Record deleted successfully'));	
+			$this->_helper->flashMessenger->addMessage(array('msg_record_deleted_successfully'));	
 			
 			// Redirectes to Language listing Page
 			$this->_redirect('/language/index');
@@ -196,13 +181,12 @@ class Language_IndexController extends Zend_Controller_Action
 	//For Change Default Language From Listing
     public function changedefaultAction()
     {
-    	if($this->getRequest()->getParam('id') != '')
-		{
+    	if($this->getRequest()->getParam('id') != '') {
 			// For Change Default Language as given id
 			Doctrine::getTable('Model_Language')->changeDefaultLanguage($this->getRequest()->getParam('id'));
 
 			// For assigning success massage to flashMessenger
-			$this->_helper->flashMessenger->addMessage(array('Record Edited'));
+			$this->_helper->flashMessenger->addMessage(array('msg_deafult_language_change_successfull'));
 		
 			// Redirectes to Language listing Page
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
@@ -212,18 +196,17 @@ class Language_IndexController extends Zend_Controller_Action
 	//For Change Active Or Not
     public function changeactiveAction()
     {
-       if($this->getRequest()->getParam('id') != '')
-		{
-			$amLanguageData = Doctrine::getTable('Model_Language')->find($this->getRequest()->getParam('id'));
-		
-			$bIsActive = $amLanguageData['is_active'];
+       if($this->getRequest()->getParam('id') != '') {
+       		//Change the status of checkbox
+			$snPageId = $this->getRequest()->getParam('id');
+			$bStatus  = $this->getRequest()->getParam('status');
+			$snChangeStatus = ($bStatus) ?  0 : 1;
+      		$amUpdateData = array ('id' => $snPageId , 'is_active' => $snChangeStatus);
 
-			// For Change Default Language as given id
-			Doctrine::getTable('Model_Language')->changeActiveLanguage($this->getRequest()->getParam('id'),$bIsActive);
-
+			//pass changesstatus data for Update
+			$bResult = Doctrine::getTable('Model_Language')->changeIsActive($amUpdateData);
 			// For assigning success massage to flashMessenger
-			$this->_helper->flashMessenger->addMessage(array('Record Edited'));
-			
+			$this->_helper->flashMessenger->addMessage(array('msg_language_activation_change_successfull'));
 			// Redirectes to Language listing Page
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
 		}		
@@ -233,11 +216,9 @@ class Language_IndexController extends Zend_Controller_Action
     public function changelanguageAction()
     {
         $ssLanguage = $this->getRequest()->getParam('lang');
-        if(!empty($ssLanguage))
-        {
+        if(!empty($ssLanguage)) {
         	$session = new Zend_Session_Namespace('language');
         	$session->ssSesLan=$ssLanguage;
-        	
         	// Redirectes to Language listing Page
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
         }

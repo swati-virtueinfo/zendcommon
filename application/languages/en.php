@@ -1,13 +1,7 @@
 <?php
 return array(
-	'' => '',
-	'Action' => 'Action',
-	'Active' => 'Active',
-	'Country Name' => 'Country Name',
-	'Edit' => 'Edit',
-	'Enable Or Disable' => 'Enable Or Disable ',
-	'lbl_delete' => 'fsd',
-	'lbl_serach_by_value' => 'asf',
-	'lnk_add_new_variable' => 'delete_end',
-	'lnk_value' => 'sadf',
+	'lbl_category_name' => 'lbl_category_name',
+	'lnk_add_category' => 'lnk_add_category en',
+    'msg_record_updated_successfully' => 'msg_record_updated_successfully en',
+	
 );

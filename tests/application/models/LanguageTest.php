@@ -403,9 +403,9 @@ class Tests_LanguageTable extends PHPUnit_Framework_TestCase
     * @author Suresh Chikani
 	* @access public
 	*/
-    public function testchangeActiveLanguageWhenPassBlankAsParameter()
+    public function testIsActiveWhenPassBlankAsParameter()
     {
-    	$bResult = Doctrine::getTable('Model_Language')->changeActiveLanguage('');
+    	$bResult = Doctrine::getTable('Model_Language')->IsActive('');
       	$this->assertFalse($bResult,"language status Not Changed Because Pass Blank As Id Parameter");
     }
     
@@ -416,9 +416,9 @@ class Tests_LanguageTable extends PHPUnit_Framework_TestCase
     * @author Suresh Chikani
 	* @access public
 	*/
-    public function testchangeActiveLanguageWhenPassNullAsParameter()
+    public function testIsActiveWhenPassNullAsParameter()
     {
-    	$bResult = Doctrine::getTable('Model_Language')->changeActiveLanguage();
+    	$bResult = Doctrine::getTable('Model_Language')->IsActive();
       	$this->assertFalse($bResult,"language status Not Changed Because Pass Null As Parameter");
     }
 	/**
@@ -428,9 +428,9 @@ class Tests_LanguageTable extends PHPUnit_Framework_TestCase
     * @author Suresh Chikani
 	* @access public
 	*/
-    public function testchangeActiveLanguageWhenPassBlankArrayParameter()
+    public function testIsActiveWhenPassBlankArrayParameter()
     {
-    	$bResult = Doctrine::getTable('Model_Language')->changeActiveLanguage($this->asBlankArray);
+    	$bResult = Doctrine::getTable('Model_Language')->IsActive($this->asBlankArray);
       	$this->assertFalse($bResult,"language status not Changed Because Pass Blank Array As Parameter");
     }
     
@@ -441,9 +441,9 @@ class Tests_LanguageTable extends PHPUnit_Framework_TestCase
 	* @author suresh chikani
 	* @access public
 	*/
-	public function testchangeActiveLanguageWhenPassStringParameter()
+	public function testIsActiveWhenPassStringParameter()
     {
-		$bResult = Doctrine::getTable('Model_Language')->changeActiveLanguage($this->ssStringParameter);
+		$bResult = Doctrine::getTable('Model_Language')->IsActive($this->ssStringParameter);
 		$this->assertFalse($bResult ,"language status not Changed because pass string value as a parameter");
 	}
 	
@@ -454,9 +454,9 @@ class Tests_LanguageTable extends PHPUnit_Framework_TestCase
 	* @author suresh chikani
 	* @access public
 	*/
-	public function testchangeActiveLanguage()
+	public function testIsActive()
     {
-		$bResult = Doctrine::getTable('Model_Language')->changeActiveLanguage($this->snLanguageId, $this->bIsActive);
+		$bResult = Doctrine::getTable('Model_Language')->IsActive($this->snLanguageId, $this->bIsActive);
 		$this->assertTrue($bResult ,"language status changed sucessfully");
 	}    
 }

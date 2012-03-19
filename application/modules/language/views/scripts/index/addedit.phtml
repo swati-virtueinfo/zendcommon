@@ -4,7 +4,7 @@
 <form name="addlanguage" method="post" enctype="multipart/form-data">
 	<fieldset>
 		<legend>
-			<?php echo (isset($snIdLanguage) ? $this->translate("Edit Language") : $this->translate("Add New Language")); ?>
+			<?php echo (isset($snIdLanguage) ? $this->translate("lbl_edit_language") : $this->translate("lbl_add_new_language")); ?>
 		</legend>
 		<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
 			<tr>
@@ -56,8 +56,8 @@
 						<tr>
 							<td></td>
 							<td class="tblrow">
-								<input type="submit" name="submit" value="<?php echo $this->translate("Save"); ?>" class='but'> 
-								<input type="reset" name="cancel" value="<?php echo $this->translate("Cancel")?>" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index'; ?>'">
+								<input type="submit" name="submit" value="<?php echo $this->translate("btn_save"); ?>" class='but'> 
+								<input type="reset" name="cancel" value="<?php echo $this->translate("btn_cancel")?>" class='but' title="Cancel" onclick="javascript: location.href='/<?php echo $oRequest->getParam('module').'/index'; ?>'">
 							</td>
 						</tr>
 					</table>

@@ -2,6 +2,6 @@
 	$oRequest = Zend_Controller_Front::getInstance()->getRequest();
 	$ssAlphabet = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); ?> 
 	<?php  foreach ($ssAlphabet as $ssLetter) : ?>
-		<a href="<?php echo  $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => $oRequest->getParam('action'),'searchSelect'=>'name','searchKeyword'=>$ssLetter) )?>"><?php echo $this->translate($ssLetter); ?></a>&nbsp;¦&nbsp;
+		<a href="<?php echo  $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => $oRequest->getParam('action'),'searchSelect'=>'name','searchKeyword'=>$ssLetter) )?>"><?php echo "lnk_".$this->translate($ssLetter); ?></a>&nbsp;¦&nbsp;
 	<?php endforeach; ?>
-		<a href="<?php echo $this->url(array('module' => 'variable'));?>" ><?php echo $this->translate('View All'); ?></a>	 	
+		<a href="<?php echo $this->url(array('module' => 'variable'));?>" ><?php echo $this->translate('lnk_view_all'); ?></a>	 	

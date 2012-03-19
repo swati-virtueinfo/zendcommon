@@ -412,9 +412,9 @@ class Tests_CountryTable extends PHPUnit_Framework_TestCase
     * @author Suresh Chikani
 	* @access public
 	*/
-    public function testchangeEnableDisableWhenPassBlankAsParameter()
+    public function testchangeIsActiveWhenPassBlankAsParameter()
     {
-    	$bResult = Doctrine::getTable('Model_Country')->changeEnableDisable('');
+    	$bResult = Doctrine::getTable('Model_Country')->changeIsActive('');
       	$this->assertFalse($bResult,"country status Not Changed Because Pass Blank vlaue as Parameter");
     }
     
@@ -425,9 +425,9 @@ class Tests_CountryTable extends PHPUnit_Framework_TestCase
     * @author Suresh Chikani
 	* @access public
 	*/
-    public function testchangeEnableDisableWhenPassNullAsParameter()
+    public function testchangeIsActiveWhenPassNullAsParameter()
     {
-    	$bResult = Doctrine::getTable('Model_Country')->changeEnableDisable();
+    	$bResult = Doctrine::getTable('Model_Country')->changeIsActive();
       	$this->assertFalse($bResult,"country status Not Changed Because Pass Null Parameter");
     }
 	/**
@@ -437,9 +437,9 @@ class Tests_CountryTable extends PHPUnit_Framework_TestCase
     * @author Suresh Chikani
 	* @access public
 	*/
-    public function testchangeEnableDisableWhenPassBlankArrayParameter()
+    public function testchangeIsActiveWhenPassBlankArrayParameter()
     {
-    	$bResult = Doctrine::getTable('Model_Country')->changeEnableDisable($this->asBlankArray);
+    	$bResult = Doctrine::getTable('Model_Country')->changeIsActive($this->asBlankArray);
       	$this->assertFalse($bResult,"country status not Changed Because Pass Blank Array As Parameter");
     }
     
@@ -450,9 +450,9 @@ class Tests_CountryTable extends PHPUnit_Framework_TestCase
 	* @author suresh chikani
 	* @access public
 	*/
-	public function testchangeEnableDisableWhenPassStringParameter()
+	public function testchangeIsActiveWhenPassStringParameter()
     {
-		$bResult = Doctrine::getTable('Model_Country')->changeEnableDisable($this->ssStringValue);
+		$bResult = Doctrine::getTable('Model_Country')->changeIsActive($this->ssStringValue);
 		$this->assertFalse($bResult ,"country status not Changed because pass string value as a parameter");
 	}
 	
@@ -463,9 +463,9 @@ class Tests_CountryTable extends PHPUnit_Framework_TestCase
 	* @author suresh chikani
 	* @access public
 	*/
-	public function testchangeEnableDisable()
+	public function testchangeIsActive()
     {
-		$bResult = Doctrine::getTable('Model_Country')->changeEnableDisable($this->snCountryId, $this->snCountryStatus);
+		$bResult = Doctrine::getTable('Model_Country')->changeIsActive($this->snCountryId, $this->snCountryStatus);
 		$this->assertTrue($bResult ,"country status changed sucessfully");
 	}
 }

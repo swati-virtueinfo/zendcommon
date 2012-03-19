@@ -38,39 +38,39 @@ class Pages_Form_Addedit extends Zend_Form
 		//Get Languages list for Creating Textbox As Per language
 		$asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();	
 		
-		$oTitle = $this->createElement('text','cn_title',array('label' =>  $this->getTranslator()->_('lbl_Title')));
-		$oMenuName = $this->createElement('text','menu_name',array('label' => $this->getTranslator()->_('lbl_Menu_Name')));
-		$oMetatitle = $this->createElement('text','meta_title',array('label' => $this->getTranslator()->_('lbl_Meta_Title')));
-		$oMetaKeyword = $this->createElement('text','meta_keyword',array('label' => $this->getTranslator()->_('lbl_Meta_Keyword')));
-		$oContent = $this->createElement('text','content',array('label' => $this->getTranslator()->_('lbl_Content')));
-		$oMetaDescription = $this->createElement('text','meta_description',array('label' => $this->getTranslator()->_('lbl_Meta_Description')));
+		$oTitle = $this->createElement('text','cn_title',array('label' =>  $this->getTranslator()->_('lbl_title')));
+		$oMenuName = $this->createElement('text','menu_name',array('label' => $this->getTranslator()->_('lbl_menu_name')));
+		$oMetatitle = $this->createElement('text','meta_title',array('label' => $this->getTranslator()->_('lbl_meta_title')));
+		$oMetaKeyword = $this->createElement('text','meta_keyword',array('label' => $this->getTranslator()->_('lbl_meta_keyword')));
+		$oContent = $this->createElement('text','content',array('label' => $this->getTranslator()->_('lbl_content')));
+		$oMetaDescription = $this->createElement('text','meta_description',array('label' => $this->getTranslator()->_('lbl_meta_description')));
 		
 		foreach($asLanguageList as $key => $amLanguage)
 		{
 			//Set Title textbox
-    		$oPagesTitleLang[$amLanguage['lang']] = $this->createElement('text','site_pages_title_' . $amLanguage['lang'], array('label' => 'Title *'));
-			$oPagesTitleLang[$amLanguage['lang']]->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => 'msg_SitePages_title_required')));
+    		$oPagesTitleLang[$amLanguage['lang']] = $this->createElement('text','pages_title_' . $amLanguage['lang']);
+			$oPagesTitleLang[$amLanguage['lang']]->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => 'msg_pages_title_required')));
 			$oPagesTitleLang[$amLanguage['lang']]->setRequired(true);
 			
 			//Set Menu Name textbox
-			$oPagesMenuNameLang[$amLanguage['lang']] = $this->createElement('text','site_pages_menu_name_' . $amLanguage['lang'], array('label' => 'Menu name *'));
-			$oPagesMenuNameLang[$amLanguage['lang']]->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => 'msg_SitePages_menu_name_required')));
+			$oPagesMenuNameLang[$amLanguage['lang']] = $this->createElement('text','pages_menu_name_' . $amLanguage['lang']);
+			$oPagesMenuNameLang[$amLanguage['lang']]->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => 'msg_pages_menu_name_required')));
 			$oPagesMenuNameLang[$amLanguage['lang']]->setRequired(true);
 			
 			//Set Meta Title textbox
-			$oPagesMetaTitleLang[$amLanguage['lang']] = $this->createElement('text','site_pages_meta_title_' . $amLanguage['lang'], array('label' => 'Meta Title *'));
+			$oPagesMetaTitleLang[$amLanguage['lang']] = $this->createElement('text','pages_meta_title_' . $amLanguage['lang']);
 			$oPagesMetaTitleLang[$amLanguage['lang']]->setRequired(false);
 			
 			//Set Meta keyword textbox
-			$oPagesMetaKeywordLang[$amLanguage['lang']] = $this->createElement('text','site_pages_meta_keyword_' . $amLanguage['lang'], array('label' => 'Meta Keyword '));
+			$oPagesMetaKeywordLang[$amLanguage['lang']] = $this->createElement('text','pages_meta_keyword_' . $amLanguage['lang']);
 			$oPagesMetaKeywordLang[$amLanguage['lang']]->setRequired(false);
 			
 			//Set Content textarea
-			$oPagesContent[$amLanguage['lang']] = $this->createElement('textarea','site_pages_content_' . $amLanguage['lang'], array('label' => 'Content ','rows' => '3', 'cols' => '20' ));
+			$oPagesContent[$amLanguage['lang']] = $this->createElement('textarea','pages_content_' . $amLanguage['lang'], array('rows' => '3', 'cols' => '20' ));
 			$oPagesContent[$amLanguage['lang']]->setRequired(false);
 			
 			//Set Meta Description textarea
-			$oPagesMetaDescription[$amLanguage['lang']] = $this->createElement('textarea','site_pages_meta_description_' . $amLanguage['lang'], array('label' => 'Meta Description ','rows' => '3', 'cols' => '20'));
+			$oPagesMetaDescription[$amLanguage['lang']] = $this->createElement('textarea','pages_meta_description_' . $amLanguage['lang'], array('rows' => '3', 'cols' => '20'));
 			$oPagesMetaDescription[$amLanguage['lang']]->setRequired(false);
 			
 			array_push($asElementArray, $oPagesTitleLang[$amLanguage['lang']],$oPagesMenuNameLang[$amLanguage['lang']],$oPagesMetaTitleLang[$amLanguage['lang']],$oPagesMetaKeywordLang[$amLanguage['lang']],$oPagesContent[$amLanguage['lang']],$oPagesMetaDescription[$amLanguage['lang']]);
@@ -78,7 +78,7 @@ class Pages_Form_Addedit extends Zend_Form
     	
     	//Set Url textBox
     	$oSitePageUrl = $this->createElement('text','url', array('label' => $this->getTranslator()->_('lbl_Url')));
-		$oSitePageUrl->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => $this->getTranslator()->_('msg_site_pages_url_required'))));
+		$oSitePageUrl->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => $this->getTranslator()->_('msg_pages_url_required'))));
 		$oSitePageUrl->addValidator('regex', false, array('pattern' => '/^[öäåÖÄÅA-Z-a-z_0-9\s]+$/i',
 		 							'messages' => array('regexNotMatch'   => "Invalid type given, value should be string, integer or float")));					
 		$oSitePageUrl->setRequired(true);			
@@ -86,7 +86,7 @@ class Pages_Form_Addedit extends Zend_Form
 		
 		//Set isactive check box				
 		$ochkIsActive = new Zend_Form_Element_Checkbox("is_active");
-      	$ochkIsActive->setLabel($this->getTranslator()->_("lbl_Active"))
+      	$ochkIsActive->setLabel($this->getTranslator()->_("lbl_active"))
 					 ->setChecked(true);		
 		array_push($asElementArray,$ochkIsActive, $oTitle, $oMenuName, $oMetatitle, $oMetaKeyword, $oContent, $oMetaDescription);
 						

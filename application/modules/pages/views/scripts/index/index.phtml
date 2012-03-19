@@ -1,10 +1,10 @@
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
 <?php $this->oTranslate = Zend_Registry::get('Zend_Translate');?>
-<fieldset><legend><?php echo $this->translate("Manage Site Pages"); ?></legend>
+<fieldset ><legend><?php echo $this->translate("lbl_manage_pages"); ?></legend>
 <table width='100%' border='0'>	
 	<tr>
 		<td align="center" colspan="8">
-			<div id="error"><?php echo $this->translate(strip_tags($this->flashMessages()));?></div>
+			<div id="error"><?php echo $this->translate(strip_tags($this->flashMessages())); ?></div>
 		</td>
 	</tr>
 </table>
@@ -12,8 +12,8 @@
 	<table border="0" width="100%">
 		<tr>
 			<td colspan="6" align="right" class="tblrow">
-				<a href="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'addedit'));?>">
-					<img src="/images/add.gif">&nbsp;<?php echo $this->translate('Add New Page');?>
+				<a href="<?php echo $this->url(array('module' => $oRequest->getParam('module'), 'controller' => $oRequest->getParam('controller'), 'action' => 'addedit'));?>" title="<?php echo $this->translate('ttl_add_new_page');?>">
+					<img src="/images/add.gif">&nbsp;<?php echo $this->translate('lnk_add_new_page');?>
 				</a>
 			</td>
 		</tr>

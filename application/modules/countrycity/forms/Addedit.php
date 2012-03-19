@@ -38,7 +38,7 @@ class Countrycity_Form_Addedit extends Zend_Form
 						
 		//Set isactive check box				
 		$ochkIsActive = new Zend_Form_Element_Checkbox("is_active");
-      	$ochkIsActive->setLabel("Active")
+      	$ochkIsActive->setLabel("lbl_active")
 						->setChecked(true);		
 		array_push($asElementArray,$ochkIsActive);
 						
