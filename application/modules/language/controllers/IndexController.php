@@ -110,7 +110,7 @@ class Language_IndexController extends Zend_Controller_Action
 						}
 					}	
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage(array('msg_language_updated_successfully'));	
+					$this->_helper->flashMessenger->addMessage(array('msg_record_updated_successfully'));	
 					
 					//Redirect to Language-Index Page
 					$this->_redirect('/language/index');
@@ -128,7 +128,7 @@ class Language_IndexController extends Zend_Controller_Action
 					}
 					
 					// For assigning success massage to flashMessenger
-					$this->_helper->flashMessenger->addMessage(array('msg_language_add_successfully'));	
+					$this->_helper->flashMessenger->addMessage(array('msg_record_added_successfully'));	
 					
 					//Redirect to Language-Index Page
 					$this->_redirect('/language/index');

@@ -1,6 +1,6 @@
 <?php $oRequest = Zend_Controller_Front::getInstance()->getRequest(); ?>
 <?php $snEditId = $oRequest->getParam('id'); ?>
-<?php echo (isset($snEditId) ? $this->headTitle('Edit-Page') : $this->headTitle('Add-Page')); ?>
+<?php echo (isset($snEditId) ? $this->headTitle('ttl_edit_page') : $this->headTitle('ttl_add_page')); ?>
 <?php $ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString(); ?>
 <?php $asLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();?>
 <?php $snTotLang = count($asLanguageList); $snI = 0; $ssContentString = ''; $ssMetaDescriptionString ='';
@@ -50,10 +50,10 @@ tinyMCE.init({
 	}
 </script>
 <form name="addeditpage" method="post" enctype="multipart/form-data">
-	<fieldset width="100%"><legend><?php echo (isset($snEditId) ? $this->translate("Edit Page") : $this->translate("Add New Page")); ?></legend>
+	<fieldset width="100%"><legend><?php echo (isset($snEditId) ? $this->translate("lbl_edit_page") : $this->translate("lbl_add_new_page")); ?></legend>
 		<table width="100%" border="0" align="center" cellpadding="10" cellspacing="10" >
 			<tr>
-				<td class="tblrow">Parent </td>
+				<td class="tblrow">lbl_parent<span id="error"> * </span></td>
 				<td class="tblrow"><?php echo $this->form->parent_id->renderViewHelper();?> </td>
 			</tr>
 			<tr>

@@ -14,13 +14,13 @@
 						<a id="pg_first" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword, 'page' => $this->first)); ?>" title="first"><img src="/<?php echo $ssSourceFolderName;?>/pag-first-icon.gif" /></a>
 						<a id="pg_previous" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword,'page' => $this->previous)); ?>" title="previous"><img src="/<?php echo $ssSourceFolderName;?>/pag-pre-icon.gif" /></a>
 					<?php else: ?>
-						<a id="pg_first" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword, 'page' => $this->first)); ?>" title="first"><?php echo $this->translate('First'); ?></a>
-						<a id="pg_previous" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword, 'page' => $this->previous)); ?>" title="previous"><?php echo $this->translate('Previous'); ?></a>
+						<a id="pg_first" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword, 'page' => $this->first)); ?>" title="first"><?php echo $this->translate('lnk_first'); ?></a>
+						<a id="pg_previous" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword, 'page' => $this->previous)); ?>" title="previous"><?php echo $this->translate('lnk_previous'); ?></a>
 					<?php endif; ?>
 					
 				<?php else: ?>
-					<span class="disabled"><?php echo $this->translate('First'); ?></span>
-					<span class="disabled"><?php echo $this->translate('Previous'); ?></span>
+					<span class="disabled"><?php echo $this->translate('lnk_first'); ?></span>
+					<span class="disabled"><?php echo $this->translate('lnk_previous'); ?></span>
 				<?php endif; ?>
 			</td>
 			<td id="inner">
@@ -40,12 +40,12 @@
 						<a id="pg_next" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword, 'page' => $this->next)); ?>" title="next"><img src="/<?php echo $ssSourceFolderName;?>/pag-next-icon.gif" /></a>
 						<a id="pg_last" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword, 'page' => $this->last)); ?>" title="last"><img src="/<?php echo $ssSourceFolderName;?>/pag-last-icon" /></a>
 					<?php else: ?>
-						<a id="pg_next" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword, 'page' => $this->next)); ?>" title="next"><?php echo $this->translate('Next'); ?></a>
-						<a id="pg_last" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword, 'page' => $this->last)); ?>" title="last"><?php echo $this->translate('Last'); ?></a>					
+						<a id="pg_next" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword, 'page' => $this->next)); ?>" title="next"><?php echo $this->translate('lnk_next'); ?></a>
+						<a id="pg_last" href="<?php echo $this->url(array('searchSelect' => $this->searchSelect, 'searchKeyword' => $this->searchKeyword, 'page' => $this->last)); ?>" title="last"><?php echo $this->translate('lnk_last'); ?></a>					
 					<?php endif; ?>
 				<?php else: ?>
-					<span class="disabled"><?php echo $this->translate('Next'); ?></span>
-					<span class="disabled"><?php echo $this->translate('Last'); ?></span>
+					<span class="disabled"><?php echo $this->translate('lnk_next'); ?></span>
+					<span class="disabled"><?php echo $this->translate('lnk_last'); ?></span>
 				<?php endif; ?>
 			</td>
 		</tr>

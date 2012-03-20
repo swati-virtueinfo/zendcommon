@@ -29,7 +29,7 @@ class Category_IndexController extends Zend_Controller_Action
     			if( $oAddCateFrom->isValid($amPostData) ) {
     				$amFormData = $oAddCateFrom->getValues();
     				$bUpdateCat = Doctrine::getTable('Model_Category')->updateCategory($amFormData);
-    				$this->_helper->flashMessenger->addMessage(array('msg_record_update_successfully'));
+    				$this->_helper->flashMessenger->addMessage(array('msg_record_updated_successfully'));
     				$this->_redirect('/category/index/listcategory');		
     			}
     		}
@@ -45,7 +45,7 @@ class Category_IndexController extends Zend_Controller_Action
             		$amFormData = $oAddCateFrom->getValues();
             		$amFormData['parentid'] = $amPostData['parentid'];
 					$bAddCate = Doctrine::getTable('Model_Category')->insertCategory($amFormData);  // Insert Category
-					$this->_helper->flashMessenger->addMessage(array('msg_record_insert_successfully'));
+					$this->_helper->flashMessenger->addMessage(array('msg_record_added_successfully'));
 					$this->_redirect('/category/index/listcategory');
             	} else {
             		$oAddCateFrom->populate($amPostData);
@@ -67,7 +67,7 @@ class Category_IndexController extends Zend_Controller_Action
       	if( $this->getRequest()->getParam('id') != '' )
 			Doctrine::getTable('Model_Category')->deleteCategoryById( $this->getRequest()->getParam('id') );
 		
-		$this->_helper->flashMessenger->addMessage(array('msg_record_delete_successfully'));	
+		$this->_helper->flashMessenger->addMessage(array('msg_record_deleted_successfully'));	
 		$this->_redirect('/category/index/listcategory');
     }
  	public function isactiveAction()
@@ -79,6 +79,6 @@ class Category_IndexController extends Zend_Controller_Action
     	
     	Doctrine::getTable('Model_Category')->changeIsActive($amUpdateData);
     	$this->view->amCatById = $amCatById = Doctrine::getTable('Model_Category')->find($snIdCategory)->toArray();
-    	$this->_helper->flashMessenger->addMessage(array('msg_category_status_change_successfully'));
+    	$this->_helper->flashMessenger->addMessage(array('msg_record_edited'));
     }
 }
