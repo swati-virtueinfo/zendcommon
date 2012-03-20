@@ -1,7 +1,4 @@
 <?php
-<<<<<<< HEAD
-
-=======
 /**
  * Model_LanguageTable
  *
@@ -11,7 +8,6 @@
  * @package    Application
  * @subpackage Model
  */
->>>>>>> c9216dbf6d8ce4aef73b2000180a59bfc1896319
 class Model_LanguageTable extends Doctrine_Table
 {
 	/**

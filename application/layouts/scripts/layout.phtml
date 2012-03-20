@@ -23,6 +23,9 @@
 		<!--Header File -->
 		<?php echo $this->partial('partials/_header.phtml'); ?>
 	</div>
+	<div>
+	<?php echo $this->BreadCrumb(); ?>
+	</div>
 	<div id="cnt-main" align="center">
 		<h1><?php echo $this->escape($this->title); ?></h1>
 			<?php echo $this->layout()->content; ?>

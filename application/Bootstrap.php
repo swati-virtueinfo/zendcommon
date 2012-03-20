@@ -6,6 +6,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	{
 		$oView = new Zend_View();
 		$oView->addHelperPath( APPLICATION_PATH . "/views/helpers", "Application_View_Helper" );
+		
 
 		$oViewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
 		$oViewRenderer->setView($oView);
@@ -155,4 +156,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		// Save it for later
 		Zend_Registry::set('Zend_Translate', $oTranslate);
 	}
+	
+	
+	protected function _initNavigationConfig()
+	{
+		$this->bootstrap('layout');
+		$layout = $this->getResource('layout');
+		$view = $layout->getView();
+		$navigation = new Zend_Navigation($this->getOption('navigation'));
+		$view->navigation($navigation);
+	}
+	
 }

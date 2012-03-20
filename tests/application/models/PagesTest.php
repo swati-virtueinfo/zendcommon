@@ -12,7 +12,7 @@
 class Tests_PagesTable extends PHPUnit_Framework_TestCase
 {
 	private $snPageId = 1;
-	private $snDeletePageId = 3;
+	private $snDeletePageId = 2;
 	private $snPageParentId = 0;
 	private $snOrder = 1;
 	
@@ -21,14 +21,16 @@ class Tests_PagesTable extends PHPUnit_Framework_TestCase
 
 	private $asBlankArray = array();
 	private $amInsert = array('parent_id' => '0', 'pages_title_en' => 'Test', 'pages_menu_name_en'=> 'Test', 'pages_meta_title_en' => 'test', 'pages_meta_keyword_en' => '', 'pages_content_en' => '', 'pages_meta_description_en' => '', 'pages_title_fi' => 'Test_fi', 'pages_menu_name_fi' => 'Test_fi', 'pages_meta_title_fi' => 'Test_fi', 'pages_meta_keyword_fi' => '', 'pages_content_fi' => '', 'pages_meta_description_fi' => '', 'url' => 'test', 'is_active' => '1') ;
+	private $amUpdate = array('id' => '5', 'parent_id' => '0', 'pages_title_en' => 'Update Test', 'pages_menu_name_en'=> 'Update Test', 'pages_meta_title_en' => 'update test', 'pages_meta_keyword_en' => '', 'pages_content_en' => '', 'pages_meta_description_en' => '', 'pages_title_fi' => 'Test update fi', 'pages_menu_name_fi' => 'Test update fi', 'pages_meta_title_fi' => 'Test update fi', 'pages_meta_keyword_fi' => '', 'pages_content_fi' => '', 'pages_meta_description_fi' => '', 'url' => 'testing', 'is_active' => '0') ;
 	private $IsActiveArray = array('id' => '1', 'is_active' => '1');
 	private $ssEmpty = '';
-	
+	private $amWrongeUpdate = array('iddd' => '2', 'parent' => '0', 'pages_title_en' => 'Update Test', 'pages_menu_name_en'=> 'Update Test', 'pages_meta_title_en' => 'update test', 'pages_meta_keyword_en' => '', 'pages_content_en' => '', 'pages_meta_description_en' => '', 'pages_title_fi' => 'Test update fi', 'pages_menu_name_fi' => 'Test update fi', 'pages_meta_title_fi' => 'Test update fi', 'pages_meta_keyword_fi' => '', 'pages_content_fi' => '', 'pages_meta_description_fi' => '', 'url' => 'testing', 'is_active' => '0') ;
 	private $snWrongPageId = 'd500';
 	private $ssWrongCulture = 'bkj';
 	private $snWrongParentId = 'f2500';
 	private $snWrongOrder = 'f250000';
 	private $amWrongInsertArray = array('parent' => '', 'pages_title_en' => 'Test', 'pages_menu_name_en'=> 'Test', 'pages_meta_title_en' => 'test', 'pages_meta_keyword_en' => '', 'pages_content_en' => '', 'pages_meta_description_en' => '', 'pages_title_fi' => 'Test_fi', 'pages_menu_name_fi' => 'Test_fi', 'pages_meta_title_fi' => 'Test_fi', 'pages_meta_keyword_fi' => '', 'pages_content_fi' => '', 'pages_meta_description_fi' => '', 'url' => 'test', 'is_active' => '1') ;
+	
 	private $WrongIsActiveArray = array('id' => 'test', 'is_active' => '0');
 	
 	private $bFalse;
@@ -168,6 +170,10 @@ class Tests_PagesTable extends PHPUnit_Framework_TestCase
         $bResult = Model_PagesTable::InsertPage($this->amWrongInsertArray);
         $this->assertFalse($bResult);
         $this->assertInternalType('boolean', $bResult);
+        
+        $bResult = Model_PagesTable::InsertPage($this->amInsert);
+        $this->assertTrue($bResult);
+        $this->assertInternalType('boolean', $bResult);
     }
     
      /**
@@ -193,6 +199,14 @@ class Tests_PagesTable extends PHPUnit_Framework_TestCase
         
         $bResult = Model_PagesTable::UpdatePage($this->ssStringParameter);
         $this->assertFalse($bResult);
+        $this->assertInternalType('boolean', $bResult);
+        
+        $bResult = Model_PagesTable::UpdatePage($this->amWrongeUpdate);
+        $this->assertFalse($bResult);
+        $this->assertInternalType('boolean', $bResult);
+        
+        $bResult = Model_PagesTable::UpdatePage($this->amUpdate);
+        $this->assertTrue($bResult);
         $this->assertInternalType('boolean', $bResult);
     }
     

@@ -4,11 +4,12 @@
      $snAdminId = $oNamespace->__get('aid');
 ?>
 <ul id="btnmenu">
-    <li><a href="#" title="">Home</a></li>
-    <li><a href="/countrycity/country" title="">Country</a></li>
-    <li><a href="/countrycity/city" title="">City</a></li>
-    <li><a href="/category/index/listcategory" title="Category">Category</a></li>
-    <li><a href="/language/index" title="Language">language</a></li>
-    <li><a href="/variable/index" title="Variable">Variable</a></li>
-    <li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'login','action'=>'changepassword','id' => $snAdminId));?>" title="Change Password">Reset Password</a></li>
+    <li><a href="/admin/index" title="<?php echo $this->translate("ttl_home_page"); ?>"><?php echo $this->translate("lnk_home"); ?></a></li>
+    <li><a href="/countrycity/country" title="<?php echo $this->translate("ttl_manage_country"); ?>"><?php echo $this->translate("lnk_country"); ?></a></li>
+    <li><a href="/countrycity/city" title="<?php echo $this->translate("ttl_manage_city"); ?>"><?php echo $this->translate("lnk_city"); ?></a></li>
+    <li><a href="/category/index/listcategory" title="<?php echo $this->translate("ttl_manage_category"); ?>"><?php echo $this->translate("lnk_category"); ?></a></li>
+    <li><a href="/language/index" title="<?php echo $this->translate("ttl_manage_language"); ?>"><?php echo $this->translate("lnk_language"); ?></a></li>
+    <li><a href="/variable/index" title="<?php echo $this->translate("ttl_manage_variable"); ?>"><?php echo $this->translate("lnk_variable"); ?></a></li>
+    <li><a href="/pages/index" title="<?php echo $this->translate("ttl_manage_pages"); ?>"><?php echo $this->translate("lnk_pages"); ?></a></li>
+    <li><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'login','action'=>'changepassword','id' => $snAdminId));?>" title="<?php echo $this->translate("ttl_change_password"); ?>"><?php echo $this->translate("lnk_reset_password"); ?></a></li>
 </ul>

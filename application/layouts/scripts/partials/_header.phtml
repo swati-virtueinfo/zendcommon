@@ -7,21 +7,24 @@
 ?>
 <div id="top">
 	<?php if(isset($ssLoginUserName) && (!empty($ssLoginUserName))): ?>
-	<div id="profile-welcome" class="welcome">Welcome :</div>
+	<div id="profile-welcome" class="welcome"><?php echo $this->translate("lbl_welcome :"); ?> </div>
     <div class="prowelcome" id="profile-top"><?php echo $ssLoginUserName; ?></div>
     <?php endif;?>
 	<div id="protoprght">
 	    <div id="profiletoprghtlft">
        	  <ul id="protopmenu">
        	  	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-            <li><?php if(isset($ssLoginUserName) && (!empty($ssLoginUserName))): ?><a href="<?php echo $this->url(array('module'=>'admin','controller'=>'login','action'=>'logout'))?>" title="Logout">Log Out</a><?php endif;?></li>
+            <li>
+            <?php if(isset($ssLoginUserName) && (!empty($ssLoginUserName))): ?>
+            	<a href="<?php echo $this->url(array('module'=>'admin','controller'=>'login','action'=>'logout'))?>" title=<?php echo $this->translate("ttl_logout"); ?>><?php echo $this->translate("lnk_logout"); ?></a>
+            <?php endif;?></li>
             <li><?php echo $this->partial('partials/language.phtml');?></li>
    		  </ul>
         </div>
       </div>
 </div>
 <div id="logo-main">
-	<div id="logo"><a href="#" title="Zend Common By Bhaskar"><img src="/images/logo.jpg" height="80px" width="257px"/></a></div>
+	<div id="logo"><a href="#"><img src="/images/205573.gif" height="80px" width="257px"/></a></div>
 </div>
     </div>
 <!--close-header-->

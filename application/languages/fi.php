@@ -1,4 +1,5 @@
 <?php
 return array(
-	'lbl_category_name' => 'lbl_category_name_fi',
+	'ttl_English' => 'English',
+	'ttl_Finnish' => 'French_fi',
 );

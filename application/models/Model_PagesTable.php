@@ -110,17 +110,11 @@ class Model_PagesTable extends Doctrine_Table
 		}
 	}
 	
-<<<<<<< HEAD
-	/*
-	 For Fetch Record by ord & Parent Id from Pages Table
-	
-	 @author Suresh Chikani
-=======
+
 	/**
 	* For Fetch Record by ord & Parent Id from Pages Table
 	*
 	* @author Suresh Chikani
->>>>>>> c9216dbf6d8ce4aef73b2000180a59bfc1896319
 	* @param  number $snPageId for Pages Id field
 	* @access public
 	* @return object 
