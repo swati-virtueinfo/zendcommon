@@ -84,12 +84,12 @@ class Model_PagesTable extends Doctrine_Table
 	}
 	
 	/**
-	* For Fetch Record of Given Page Id From Pages Table
+	* For Fetch Record of Given Parent Id From Pages Table
 	*
-	* @author Bhaskar joshi
-	* @param  number $snPageId for Pages Id field
+	* @author Suresh Chikani
+	* @param  number $snParentId is store parent is value
 	* @access public
-	* @return object 
+	* @return array 
 	*/
 	public function getPagesMaxId($snParentId = '')
 	{
@@ -102,8 +102,8 @@ class Model_PagesTable extends Doctrine_Table
 			$oPageSelectQuery->select('MAX(P.ord)');
 			$oPageSelectQuery->from("Model_Pages P ");
 			$oPageSelectQuery->where("P.parent_id = ?", $snParentId);
-			return $oPageSelectQuery->fetchArray();
 			
+			return $oPageSelectQuery->fetchArray();
 		}
 		catch( Exception $oException )
 		{
