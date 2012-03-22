@@ -89,6 +89,7 @@ class Pages_IndexController extends Zend_Controller_Action
 
     public function addeditAction()
     {
+    	//Doctrine::getTable('Model_Pages')->getPagesMaxId();
     	//Fetch Zend_Locale to used in fetch Record 
 		$ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString(); 
 		
@@ -120,13 +121,17 @@ class Pages_IndexController extends Zend_Controller_Action
 				{
 					//for Store Form Values	
 					$amAddCityData = $oForm->getValues();
+					$snParentId = $amAddCityData['parent_id'];
+					$anMaxOrd = Doctrine::getTable('Model_Pages')->getPagesMaxId($snParentId);
+					$snOrd = $anMaxOrd['0']['MAX'] + 1 ;
+					$smAddOrd = array('ord' => $snOrd);
+					$amAddCityData = array_merge($amAddCityData, $smAddOrd);
 					
-					// Insert Page Detail
+					//Insert Page Detail
 					Doctrine::getTable('Model_Pages')->InsertPage($amAddCityData);
 					
 					// For assigning success massage to flashMessenger
 					$this->_helper->flashMessenger->addMessage(array('msg_record_added_successfully.'));
-					
 					
 					//Redirect to Countrycity-City Page
 					$this->_redirect('/pages/index');	
@@ -235,6 +240,7 @@ class Pages_IndexController extends Zend_Controller_Action
 
     public function pagesorderAction()
     {
+    	
         $snId = $this->getRequest()->getParam('id');
     	$ssOrderDir = $this->getRequest()->getParam('dir');
     	

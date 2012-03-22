@@ -91,6 +91,34 @@ class Model_PagesTable extends Doctrine_Table
 	* @access public
 	* @return object 
 	*/
+	public function getPagesMaxId($snParentId = '')
+	{
+		
+		if($snParentId == "" || !is_numeric($snParentId) ) return false;
+		
+		try
+		{
+			$oPageSelectQuery = Doctrine_Query::create();
+			$oPageSelectQuery->select('MAX(P.ord)');
+			$oPageSelectQuery->from("Model_Pages P ");
+			$oPageSelectQuery->where("P.parent_id = ?", $snParentId);
+			return $oPageSelectQuery->fetchArray();
+			
+		}
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}
+	}
+	/**
+	* For Fetch Record of Given Page Id From Pages Table
+	*
+	* @author Bhaskar joshi
+	* @param  number $snPageId for Pages Id field
+	* @access public
+	* @return object 
+	*/
 	public function getPagesById($snPageId = '')
 	{
 		if( $snPageId == "" || !is_numeric($snPageId) || $snPageId == 0 ) return false;
@@ -170,6 +198,7 @@ class Model_PagesTable extends Doctrine_Table
 			}
 			
 			$oPage->url = $amPageData['url'];
+			$oPage->ord = $amPageData['ord'];
 			$oPage->is_active = $amPageData['is_active'];
 			$oPage->created_at =  date('Y-m-d H:i:s');
 			$oPage->updated_at =  date('Y-m-d H:i:s');
