@@ -5,17 +5,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	protected function _initViewHelpers()
 	{
 		$oView = new Zend_View();
-		$oView->addHelperPath( APPLICATION_PATH . "/views/helpers", "Application_View_Helper" );
-		
+		$oView->addHelperPath( APPLICATION_PATH . "/views/helpers", "Application_View_Helper" );		
 
 		$oViewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
 		$oViewRenderer->setView($oView);
 		Zend_Controller_Action_HelperBroker::addHelper($oViewRenderer);
 
 		return $oView;
-		
 	}
-
 
 	/** Execute _initDoctrine function to initialize Doctrine.
 	 *
@@ -157,14 +154,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		Zend_Registry::set('Zend_Translate', $oTranslate);
 	}
 	
-	
-	protected function _initNavigationConfig()
+	protected function _initNavigation()
 	{
-		$this->bootstrap('layout');
-		$layout = $this->getResource('layout');
-		$view = $layout->getView();
-		$navigation = new Zend_Navigation($this->getOption('navigation'));
-		$view->navigation($navigation);
+	    $this->bootstrap('layout');
+	    $layout = $this->getResource('layout');
+	    $view = $layout->getView();
+	    $config = new Zend_Config_Xml(APPLICATION_PATH.'/configs/navigation.xml');
+	 
+	    $navigation = new Zend_Navigation($config);
+	    $view->navigation($navigation);
 	}
-	
 }

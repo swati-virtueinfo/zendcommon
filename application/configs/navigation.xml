@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <nav>
+        <label>Home</label>
+        <controller>admin</controller>
+        <action>index</action>
+        <pages>
+            <country>
+                <label>Country</label>
+				<module>countrycity</module>	
+                <controller>country</controller>
+                <action>index</action>
+                <pages>
+                    <addedit>
+                        <label>Add Edit</label>
+						<module>countrycity</module>
+                        <controller>country</controller>
+                        <action>addedit</action>
+                    </addedit>
+                </pages>
+            </country>
+			<city>
+                <label>City</label>
+				<module>countrycity</module>	
+                <controller>city</controller>
+                <action>index</action>
+                <pages>
+                    <addedit>
+                        <label>Add Edit</label>
+						<module>countrycity</module>
+                        <controller>city</controller>
+                        <action>addedit</action>
+                    </addedit>
+                </pages>
+            </city>
+			<category>
+                <label>Category</label>
+				<module>category</module>	
+                <controller>index</controller>
+                <action>listcategory</action>
+                <pages>
+                    <addcategory>
+                        <label>Add Edit</label>
+						<module>category</module>
+                        <controller>index</controller>
+                        <action>addcategory</action>
+                    </addcategory>
+                </pages>
+            </category>
+			<language>
+                <label>Language</label>
+				<module>language</module>	
+                <controller>index</controller>
+                <action>index</action>
+                <pages>
+                    <addeditlanguage>
+                        <label>Add Edit</label>
+						<module>language</module>
+                        <controller>index</controller>
+                        <action>addedit</action>
+                    </addeditlanguage>
+                </pages>
+            </language>
+			<variable>
+                <label>Variable</label>
+				<module>variable</module>	
+                <controller>index</controller>
+                <action>index</action>
+                <pages>
+                    <addeditvariable>
+                        <label>Add Edit</label>
+						<module>variable</module>
+                        <controller>index</controller>
+                        <action>addedit</action>
+                    </addeditvariable>
+                </pages>
+            </variable>
+			<page>
+                <label>Pages</label>
+				<module>pages</module>	
+                <controller>index</controller>
+                <action>index</action>
+                <pages>
+                    <addeditpage>
+                        <label>Add Edit</label>
+						<module>pages</module>
+                        <controller>index</controller>
+                        <action>addedit</action>
+                    </addeditpage>
+                </pages>
+            </page>
+			<changepassword>
+                <label>Reset Password</label>
+				<module>admin</module>	
+                <controller>login</controller>
+                <action>changepassword</action>
+            </changepassword>
+        </pages>
+    </nav>
+</configdata>

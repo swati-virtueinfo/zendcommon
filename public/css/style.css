@@ -329,6 +329,31 @@ legend span{
 	min-height:430px;
 	margin:auto;
 }
+
+div#breadcrumb{
+	width:100%px;
+	height:25px;
+	margin:auto;
+	background-color:#Dfecf5
+	border-top:solid #003399 2px;
+	border-bottom:solid #003399 1px;
+}
+
+div#breadcrumb a {
+    color: #00003D;    
+}
+
+div#breadcrumb a {
+    margin-right: 5px;
+    padding: 0 18px 0 0;
+    text-shadow: none;
+}
+div#breadcrumb-inner
+{
+	text-align:left;
+	margin-left:150px;	
+}
+
 a {
 	color: #00003D;
 	text-decoration: none;
