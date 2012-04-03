@@ -6,7 +6,7 @@ Model_Language:
     is_active: true
     flag: 735c1ba13ad25bb0489395477fb58eae9d138a1b.gif
     created_at: '2012-02-18 03:15:00'
-    updated_at: '2012-03-20 02:20:37'
+    updated_at: '2012-03-22 05:00:17'
   Model_Language_2:
     name: Finnish
     lang: fi
@@ -14,13 +14,13 @@ Model_Language:
     is_active: true
     flag: f77437a6ef633039a9ea6593714c06122f2bb0e4.gif
     created_at: '2012-02-18 03:15:00'
-    updated_at: '2012-03-20 02:18:18'
+    updated_at: '2012-03-22 05:02:53'
 Model_Admin:
   Model_Admin_1:
     email: admin@gmail.com
-    password: 10470c3b4b1fed12c3baac014be15fac67c6e815
+    password: 040bd08a4290267535cd247b8ba2eca129d9fe9f
     created_at: '2012-03-22 12:52:24'
-    updated_at: '0000-00-00 00:00:00'
+    updated_at: '2012-03-22 05:29:33'
   Model_Admin_2:
     email: suresh.virtueinfo@gmail.com
     password: 10470c3b4b1fed12c3baac014be15fac67c6e815
@@ -38,59 +38,59 @@ Model_Admin:
     updated_at: '0000-00-00 00:00:00'
   Model_Admin_5:
     email: admin.virtueinfo@gmail.com
-    password: 10470c3b4b1fed12c3baac014be15fac67c6e815
+    password: 1f82ea75c5cc526729e2d581aeb3aeccfef4407e
     created_at: '2012-03-22 12:54:49'
-    updated_at: '0000-00-00 00:00:00'
+    updated_at: '2012-03-22 05:37:48'
 Model_Pages:
   Model_Pages_1:
     parent_id: '0'
     url: 'Contact Us'
     is_active: true
-    ord: '1'
+    ord: '2'
     created_at: '2012-03-22 02:46:44'
-    updated_at: '2012-03-22 02:46:44'
+    updated_at: '2012-03-22 04:35:28'
   Model_Pages_2:
     parent_id: '0'
     url: 'About Us'
     is_active: true
-    ord: '2'
+    ord: '3'
     created_at: '2012-03-22 02:47:34'
-    updated_at: '2012-03-22 02:47:34'
+    updated_at: '2012-03-22 04:35:25'
   Model_Pages_3:
     parent_id: '0'
     url: TermsCondition
     is_active: true
-    ord: '3'
+    ord: '1'
     created_at: '2012-03-22 02:48:46'
-    updated_at: '2012-03-22 02:48:46'
+    updated_at: '2012-03-22 04:35:28'
   Model_Pages_4:
     parent_id: '1'
     url: 'Press Section'
     is_active: true
     ord: '1'
     created_at: '2012-03-22 02:49:33'
-    updated_at: '2012-03-22 02:49:33'
+    updated_at: '2012-03-22 04:35:29'
   Model_Pages_5:
     parent_id: '2'
     url: SuccessStories
     is_active: true
     ord: '1'
     created_at: '2012-03-22 02:50:47'
-    updated_at: '2012-03-22 02:50:47'
+    updated_at: '2012-03-22 04:35:13'
   Model_Pages_6:
     parent_id: '1'
     url: HomePage
     is_active: true
     ord: '2'
     created_at: '2012-03-22 02:53:22'
-    updated_at: '2012-03-22 02:53:22'
+    updated_at: '2012-03-22 04:35:29'
   Model_Pages_7:
     parent_id: '2'
     url: Country
     is_active: true
     ord: '2'
     created_at: '2012-03-22 02:54:26'
-    updated_at: '2012-03-22 02:54:26'
+    updated_at: '2012-03-22 05:19:33'
   Model_Pages_8:
     parent_id: '4'
     url: City
@@ -107,9 +107,9 @@ Model_Pages:
     updated_at: '2012-03-22 02:58:04'
 Model_Country:
   Model_Country_1:
-    is_active: true
+    is_active: false
     created_at: '2012-03-22 01:01:34'
-    updated_at: '2012-03-22 01:01:34'
+    updated_at: '2012-03-22 04:46:29'
   Model_Country_2:
     is_active: true
     created_at: '2012-03-22 01:07:21'
@@ -129,7 +129,7 @@ Model_Country:
 Model_Variable:
   Model_Variable_1:
     name: lbl_manage_countries
-    is_active: false
+    is_active: true
     created_at: '0000-00-00 00:00:00'
     updated_at: '2012-03-22 03:00:14'
   Model_Variable_2:
@@ -532,6 +532,196 @@ Model_Variable:
     is_active: true
     created_at: '0000-00-00 00:00:00'
     updated_at: '2012-03-22 03:39:35'
+  Model_Variable_82:
+    name: lbl_edit_city
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_83:
+    name: lbl_edit_language
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_85:
+    name: lbl_edit_variable
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_86:
+    name: msg_pages_title_required
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_87:
+    name: msg_pages_menu_name_required
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_88:
+    name: msg_pages_url_required
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_89:
+    name: lbl_change_password
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_90:
+    name: lbl_old_password
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_91:
+    name: lbl_new_password
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_92:
+    name: lbl_confirm_password
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_93:
+    name: btn_change_password
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_94:
+    name: msg_old_password_requiered
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_95:
+    name: msg_new_password_requiered
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_96:
+    name: msg_confirm_password_requiered
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_97:
+    name: msg_Your_password_changed_successfully.
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_98:
+    name: msg_passwprd_must_be_a_6_characters_long
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_99:
+    name: msg_Password_and_confirmation_do_not_match.
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_100:
+    name: 'lbl_welcome :'
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_101:
+    name: lnk_logout
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_102:
+    name: lnk_home
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_103:
+    name: lnk_country
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_104:
+    name: lnk_city
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_105:
+    name: lnk_category
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_106:
+    name: lnk_variable
+    is_active: true
+    created_at: '2012-03-22 05:47:04'
+    updated_at: '2012-03-22 05:47:04'
+  Model_Variable_107:
+    name: lnk_pages
+    is_active: true
+    created_at: '2012-03-22 05:47:26'
+    updated_at: '2012-03-22 05:47:26'
+  Model_Variable_108:
+    name: lnk_reset_password
+    is_active: true
+    created_at: '2012-03-22 05:47:53'
+    updated_at: '2012-03-22 05:47:53'
+  Model_Variable_109:
+    name: 'lbl_Copyright_by:_Virtue_Info-2011_All_right_Reserved.'
+    is_active: true
+    created_at: '2012-03-22 05:48:42'
+    updated_at: '2012-03-22 05:48:42'
+  Model_Variable_110:
+    name: 'lbl_Created_by:_Bhaskar_Joshi'
+    is_active: true
+    created_at: '2012-03-22 05:49:42'
+    updated_at: '2012-03-22 05:49:42'
+  Model_Variable_111:
+    name: msg_successfully_generate_languages_files
+    is_active: true
+    created_at: '2012-03-22 05:53:49'
+    updated_at: '2012-03-22 05:53:49'
+  Model_Variable_112:
+    name: lbl_admin_login
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_113:
+    name: lbl_email
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_114:
+    name: lbl_password
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_115:
+    name: btn_login
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_116:
+    name: msg_email_is_required
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_117:
+    name: msg_password_is_required
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_118:
+    name: msg_Invalid_Email_or_password
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_119:
+    name: lnk_export_csv_file
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
+  Model_Variable_120:
+    name: lnk_import_csv_file
+    is_active: true
+    created_at: '0000-00-00 00:00:00'
+    updated_at: '0000-00-00 00:00:00'
 Model_Category:
   Model_Category_1:
     image_name: one.jpeg
@@ -653,7 +843,7 @@ Model_City:
     country_id: '1'
     is_active: true
     created_at: '2012-03-22 01:03:23'
-    updated_at: '2012-03-22 01:03:23'
+    updated_at: '2012-03-22 04:49:09'
   Model_City_5:
     country_id: '2'
     is_active: true
@@ -1124,7 +1314,7 @@ Model_VariableTranslation:
     lang: en
   Model_VariableTranslation_24_fi:
     Model_Variable: Model_Variable_24
-    value: 'Add Category'
+    value: 'Add Category fi'
     lang: fi
   Model_VariableTranslation_25_en:
     Model_Variable: Model_Variable_25
@@ -1581,6 +1771,310 @@ Model_VariableTranslation:
   Model_VariableTranslation_81_fi:
     Model_Variable: Model_Variable_81
     value: 'Add Category fi'
+    lang: fi
+  Model_VariableTranslation_82_en:
+    Model_Variable: Model_Variable_82
+    value: 'Edit City'
+    lang: en
+  Model_VariableTranslation_82_fi:
+    Model_Variable: Model_Variable_82
+    value: 'Edit City fi'
+    lang: fi
+  Model_VariableTranslation_83_en:
+    Model_Variable: Model_Variable_83
+    value: 'Edit language'
+    lang: en
+  Model_VariableTranslation_83_fi:
+    Model_Variable: Model_Variable_83
+    value: 'Edit language fi'
+    lang: fi
+  Model_VariableTranslation_85_en:
+    Model_Variable: Model_Variable_85
+    value: 'Edit Variable'
+    lang: en
+  Model_VariableTranslation_85_fi:
+    Model_Variable: Model_Variable_85
+    value: 'Edit Variable fi'
+    lang: fi
+  Model_VariableTranslation_86_en:
+    Model_Variable: Model_Variable_86
+    value: 'Pages title required'
+    lang: en
+  Model_VariableTranslation_86_fi:
+    Model_Variable: Model_Variable_86
+    value: 'Pages title required fi'
+    lang: fi
+  Model_VariableTranslation_87_en:
+    Model_Variable: Model_Variable_87
+    value: 'Pages menu name required'
+    lang: en
+  Model_VariableTranslation_87_fi:
+    Model_Variable: Model_Variable_87
+    value: 'Pages menu name required fi'
+    lang: fi
+  Model_VariableTranslation_88_en:
+    Model_Variable: Model_Variable_88
+    value: 'Pages url required'
+    lang: en
+  Model_VariableTranslation_88_fi:
+    Model_Variable: Model_Variable_88
+    value: 'Pages url required fi'
+    lang: fi
+  Model_VariableTranslation_89_en:
+    Model_Variable: Model_Variable_89
+    value: 'Change Password'
+    lang: en
+  Model_VariableTranslation_89_fi:
+    Model_Variable: Model_Variable_89
+    value: 'Change Password fi'
+    lang: fi
+  Model_VariableTranslation_90_en:
+    Model_Variable: Model_Variable_90
+    value: 'Old Password'
+    lang: en
+  Model_VariableTranslation_90_fi:
+    Model_Variable: Model_Variable_90
+    value: 'Old Password fi'
+    lang: fi
+  Model_VariableTranslation_91_en:
+    Model_Variable: Model_Variable_91
+    value: 'New Password'
+    lang: en
+  Model_VariableTranslation_91_fi:
+    Model_Variable: Model_Variable_91
+    value: 'New Password fi'
+    lang: fi
+  Model_VariableTranslation_92_en:
+    Model_Variable: Model_Variable_92
+    value: 'Confirm Password'
+    lang: en
+  Model_VariableTranslation_92_fi:
+    Model_Variable: Model_Variable_92
+    value: 'Confirm Password fi'
+    lang: fi
+  Model_VariableTranslation_93_en:
+    Model_Variable: Model_Variable_93
+    value: 'Change Password'
+    lang: en
+  Model_VariableTranslation_93_fi:
+    Model_Variable: Model_Variable_93
+    value: 'Change Password fi'
+    lang: fi
+  Model_VariableTranslation_94_en:
+    Model_Variable: Model_Variable_94
+    value: 'Old password requiered'
+    lang: en
+  Model_VariableTranslation_94_fi:
+    Model_Variable: Model_Variable_94
+    value: 'Old password requiered fi'
+    lang: fi
+  Model_VariableTranslation_95_en:
+    Model_Variable: Model_Variable_95
+    value: 'New password requiered'
+    lang: en
+  Model_VariableTranslation_95_fi:
+    Model_Variable: Model_Variable_95
+    value: 'New password requiered fi'
+    lang: fi
+  Model_VariableTranslation_96_en:
+    Model_Variable: Model_Variable_96
+    value: 'Confirm password required'
+    lang: en
+  Model_VariableTranslation_96_fi:
+    Model_Variable: Model_Variable_96
+    value: 'Confirm password required fi'
+    lang: fi
+  Model_VariableTranslation_97_en:
+    Model_Variable: Model_Variable_97
+    value: 'Your password changed successfully'
+    lang: en
+  Model_VariableTranslation_97_fi:
+    Model_Variable: Model_Variable_97
+    value: 'Your password changed successfully fi'
+    lang: fi
+  Model_VariableTranslation_98_en:
+    Model_Variable: Model_Variable_98
+    value: "Passwprd must be a 6 characters long\r\n"
+    lang: en
+  Model_VariableTranslation_98_fi:
+    Model_Variable: Model_Variable_98
+    value: 'Passwprd must be a 6 characters long fi'
+    lang: fi
+  Model_VariableTranslation_99_en:
+    Model_Variable: Model_Variable_99
+    value: 'Password and confirmation do not match. '
+    lang: en
+  Model_VariableTranslation_99_fi:
+    Model_Variable: Model_Variable_99
+    value: 'Password and confirmation do not match fi'
+    lang: fi
+  Model_VariableTranslation_100_en:
+    Model_Variable: Model_Variable_100
+    value: Welcome
+    lang: en
+  Model_VariableTranslation_100_fi:
+    Model_Variable: Model_Variable_100
+    value: 'Welcome fi'
+    lang: fi
+  Model_VariableTranslation_101_en:
+    Model_Variable: Model_Variable_101
+    value: "Logout\r\n"
+    lang: en
+  Model_VariableTranslation_101_fi:
+    Model_Variable: Model_Variable_101
+    value: 'Logout fi'
+    lang: fi
+  Model_VariableTranslation_102_en:
+    Model_Variable: Model_Variable_102
+    value: Home
+    lang: en
+  Model_VariableTranslation_102_fi:
+    Model_Variable: Model_Variable_102
+    value: 'Home fi'
+    lang: fi
+  Model_VariableTranslation_103_en:
+    Model_Variable: Model_Variable_103
+    value: Country
+    lang: en
+  Model_VariableTranslation_103_fi:
+    Model_Variable: Model_Variable_103
+    value: 'Country fi'
+    lang: fi
+  Model_VariableTranslation_104_en:
+    Model_Variable: Model_Variable_104
+    value: City
+    lang: en
+  Model_VariableTranslation_104_fi:
+    Model_Variable: Model_Variable_104
+    value: 'City fi'
+    lang: fi
+  Model_VariableTranslation_105_10:
+    Model_Variable: Model_Variable_105
+    value: Category
+    lang: '10'
+  Model_VariableTranslation_105_en:
+    Model_Variable: Model_Variable_105
+    value: Category
+    lang: en
+  Model_VariableTranslation_106_en:
+    Model_Variable: Model_Variable_106
+    value: Variable
+    lang: en
+  Model_VariableTranslation_106_fi:
+    Model_Variable: Model_Variable_106
+    value: 'Variable fi'
+    lang: fi
+  Model_VariableTranslation_107_en:
+    Model_Variable: Model_Variable_107
+    value: Pages
+    lang: en
+  Model_VariableTranslation_107_fi:
+    Model_Variable: Model_Variable_107
+    value: 'Pages fi'
+    lang: fi
+  Model_VariableTranslation_108_en:
+    Model_Variable: Model_Variable_108
+    value: 'Reset Password'
+    lang: en
+  Model_VariableTranslation_108_fi:
+    Model_Variable: Model_Variable_108
+    value: 'Reset Password fi'
+    lang: fi
+  Model_VariableTranslation_109_en:
+    Model_Variable: Model_Variable_109
+    value: 'Copyright by : Virtue Info-2011 All right Reserved.'
+    lang: en
+  Model_VariableTranslation_109_fi:
+    Model_Variable: Model_Variable_109
+    value: 'Copyright by : Virtue Info-2011 All right Reserved fi.'
+    lang: fi
+  Model_VariableTranslation_110_en:
+    Model_Variable: Model_Variable_110
+    value: 'Created by : Bhaskar Joshi'
+    lang: en
+  Model_VariableTranslation_110_fi:
+    Model_Variable: Model_Variable_110
+    value: 'Created by : Bhaskar Joshi fi'
+    lang: fi
+  Model_VariableTranslation_111_en:
+    Model_Variable: Model_Variable_111
+    value: 'Successfully generate languages files'
+    lang: en
+  Model_VariableTranslation_111_fi:
+    Model_Variable: Model_Variable_111
+    value: 'Successfully generate languages files fi'
+    lang: fi
+  Model_VariableTranslation_112_en:
+    Model_Variable: Model_Variable_112
+    value: 'Admin Login'
+    lang: en
+  Model_VariableTranslation_112_fi:
+    Model_Variable: Model_Variable_112
+    value: 'Admin Login fi'
+    lang: fi
+  Model_VariableTranslation_113_en:
+    Model_Variable: Model_Variable_113
+    value: Email
+    lang: en
+  Model_VariableTranslation_113_fi:
+    Model_Variable: Model_Variable_113
+    value: 'Email fi'
+    lang: fi
+  Model_VariableTranslation_114_en:
+    Model_Variable: Model_Variable_114
+    value: "Password 	\r\n"
+    lang: en
+  Model_VariableTranslation_114_fi:
+    Model_Variable: Model_Variable_114
+    value: "Password fi\r\n"
+    lang: fi
+  Model_VariableTranslation_115_en:
+    Model_Variable: Model_Variable_115
+    value: Login
+    lang: en
+  Model_VariableTranslation_115_fi:
+    Model_Variable: Model_Variable_115
+    value: 'Login fi'
+    lang: fi
+  Model_VariableTranslation_116_en:
+    Model_Variable: Model_Variable_116
+    value: 'Email is required'
+    lang: en
+  Model_VariableTranslation_116_fi:
+    Model_Variable: Model_Variable_116
+    value: 'Email is required fi'
+    lang: fi
+  Model_VariableTranslation_117_en:
+    Model_Variable: Model_Variable_117
+    value: "Password is required\r\n"
+    lang: en
+  Model_VariableTranslation_117_fi:
+    Model_Variable: Model_Variable_117
+    value: 'Password is required fi'
+    lang: fi
+  Model_VariableTranslation_118_en:
+    Model_Variable: Model_Variable_118
+    value: 'Invalid Email or password '
+    lang: en
+  Model_VariableTranslation_118_fi:
+    Model_Variable: Model_Variable_118
+    value: 'Invalid Email or password fi'
+    lang: fi
+  Model_VariableTranslation_119_en:
+    Model_Variable: Model_Variable_119
+    value: 'Export Csv'
+    lang: en
+  Model_VariableTranslation_119_fi:
+    Model_Variable: Model_Variable_119
+    value: 'Export Csv'
+    lang: fi
+  Model_VariableTranslation_120_en:
+    Model_Variable: Model_Variable_120
+    value: 'Import Csv'
+    lang: en
+  Model_VariableTranslation_120_fi:
+    Model_Variable: Model_Variable_120
+    value: 'Import Csv fi'
     lang: fi
 Model_CategoryTranslation:
   Model_CategoryTranslation_1_en:
