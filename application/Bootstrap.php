@@ -26,7 +26,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		// Get all doctrine options from application.ini
 		$asDoctrineConfig = $this->getOption('doctrine');
 
-		date_default_timezone_set("America/Los_Angeles");
+		date_default_timezone_set("Asia/Kolkata");
 		
 		// Create instance of  Doctrine_Manager
 		$oManager = Doctrine_Manager::getInstance();

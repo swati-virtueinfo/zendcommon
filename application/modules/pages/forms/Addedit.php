@@ -75,7 +75,6 @@ class Pages_Form_Addedit extends Zend_Form
 			
 			array_push($asElementArray, $oPagesTitleLang[$amLanguage['lang']],$oPagesMenuNameLang[$amLanguage['lang']],$oPagesMetaTitleLang[$amLanguage['lang']],$oPagesMetaKeywordLang[$amLanguage['lang']],$oPagesContent[$amLanguage['lang']],$oPagesMetaDescription[$amLanguage['lang']]);
     	}
-    	
     	//Set Url textBox
     	$oSitePageUrl = $this->createElement('text','url', array('label' => $this->getTranslator()->_('lbl_Url')));
 		$oSitePageUrl->addValidator('NotEmpty', true, array('messages' => array('isEmpty' => $this->getTranslator()->_('msg_pages_url_required'))));

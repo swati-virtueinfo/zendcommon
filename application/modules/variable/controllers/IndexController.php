@@ -11,7 +11,10 @@
  * @subpackage admin
  * @author     Bhaskar Joshi
  * @uses       Zend_Controller_Action
+ *
+ *
  */
+
 class Variable_IndexController extends Zend_Controller_Action
 {
 
@@ -57,8 +60,6 @@ class Variable_IndexController extends Zend_Controller_Action
 		//Fetch Zend_Locale to used in fetch Record 
 		$ssCurrentLocale = Zend_Registry::get('Zend_Locale')->toString();
 
-		//Fetch All Data From Language Table
-
 		$amVariableList = Doctrine::getTable('Model_Variable')->getVariableList($this->ssSortOn,$this->ssSortBy,$this->ssSearchField,$this->ssSearchKeyword,Zend_Registry::get('Zend_Locale'));
 
 		$amVariableList = Doctrine::getTable('Model_Variable')->getVariableList($ssSortOn, $ssSortBy, $ssSearchField, $ssSearchKeyword,Zend_Registry::get('Zend_Locale'));
@@ -70,6 +71,7 @@ class Variable_IndexController extends Zend_Controller_Action
 		$this->view->asColumnWidth = array("40%", "30%", "10%", "20%");
 		$this->view->asColumnAlign = array("left", "center", "center", "center");	
 		$this->view->asSearchOption = array('name' => 'Variable','value' => 'Value');	
+		
 		
 		//For Edit/Delete Link In Listing
 		foreach($amVariableList  as $snKey => $amVariable)
@@ -106,8 +108,10 @@ class Variable_IndexController extends Zend_Controller_Action
 					$this->_redirect('/variable/index');
 				} else {
 					$amAddLanguageData = $oForm->getValues();
+					
 					// Insert Variable Record
 					Doctrine::getTable('Model_Variable')->InsertVariable($oForm->getValues());
+					
 					// For assigning success massage to flashMessenger
 					$this->_helper->flashMessenger->addMessage(array('msg_record_added_successfully'));
 					//Redirect to variable-Index Page
@@ -144,7 +148,7 @@ class Variable_IndexController extends Zend_Controller_Action
 			$this->_helper->flashMessenger->addMessage(array('msg_record_deleted_successfully'));
 			// Redirectes to Variale listing Page
 			$this->_redirect('/variable/index');
-		}
+        }
     }
 
     public function changeactiveAction()
@@ -167,6 +171,7 @@ class Variable_IndexController extends Zend_Controller_Action
 			$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
 		}		
     }
+
     public function generatefileAction()
     {
    		$ssLanguageDir = LANGUAGE_PATH.'/';
@@ -196,7 +201,190 @@ class Variable_IndexController extends Zend_Controller_Action
 			chmod($ssLogfile,0777);
 			$amLanguageList[$snKey]['lang'];
     	}
+    	
     	$this->_helper->flashMessenger->addMessage(array('msg_successfully_generate_languages_files'));
     	$this->_redirect('/variable/index');
     }
+
+    public function exportcsvAction()
+    {
+        $ssCsvHeader =  $amFieldList = '';
+    	$amFieldlist = $amFieldFinalData = $finalData = array();
+    	
+    	//Fetch Language Table Data 
+    	$amLanguageList = Doctrine::getTable('Model_Language')->getLanguageList();   
+    	
+    	//Fetch Variable Table Data
+        $asExportCsvdata = Doctrine::getTable('Model_Variable')->getAllVariableData();
+		
+		//Set exported file Name		
+        $ssFilename = APPLICATION_PATH . "/tmp/Data-" . date( "m-d-Y-H-i-s" ) . ".csv";
+		
+        $realPath = realpath( $ssFilename );
+		
+		//Checking the Real path of file & change file mode
+        if ( false === $realPath ){
+            touch( $ssFilename );
+            chmod( $ssFilename, 0777 );
+        }
+        
+        //Open File for Writing
+        $handle = fopen( $ssFilename, "w" );
+        
+        //........................Writing Heading start........................
+        $amFieldList[] .= 'name';
+		foreach($amLanguageList as $key => $amLanguage){
+			$amFieldList[] .= $amLanguage['lang'];
+		}
+		
+		$amFieldFinalData[] = $amFieldList;
+        foreach ( $amFieldFinalData AS $FirstRow ){
+            fputcsv( $handle , $FirstRow , ";" );
+        }
+        //........................Writing Heading End........................
+         
+        //........................Writing Values Start........................ 
+        foreach ($asExportCsvdata  as $key => $row){
+	    	 $Data[] = utf8_decode($row["name"]);
+	         foreach($amLanguageList as $key => $amLanguage){
+	    		$Data[] = utf8_decode($row['Translation'][$amLanguage['lang']]['value']);
+	    		}
+    		$finalData[]=$Data;
+    		unset($Data);
+        }
+
+        foreach ( $finalData AS $finalRow ){
+            fputcsv( $handle, $finalRow, ";" );
+        }
+        //........................Writing Values End........................ 
+
+		//Close File
+        fclose( $handle );
+
+        $this->getResponse()->setRawHeader( "Content-Type: application/vnd.ms-excel; charset=UTF-8" )
+            ->setRawHeader( "Content-Disposition: csv; filename=Data.csv" )
+            ->setRawHeader( "Content-Transfer-Encoding: binary" )
+            ->setRawHeader( "Expires: 0" )
+            ->setRawHeader( "Cache-Control: must-revalidate, post-check=0, pre-check=0" )
+            ->setRawHeader( "Pragma: public" )
+            ->setRawHeader( "Content-Length: " . filesize( $ssFilename ) )
+            ->sendResponse();
+
+        readfile( $ssFilename ); exit();
+    }
+
+    public function importcsvAction()
+    {
+    	$this->view->form = $oForm = new Variable_Form_Importcsv();
+    	//Fetch Language Table Data 
+    	$amLanguageList = Doctrine::getTable('Model_Language')->getLanguageList(); 	
+	   
+	    $oRequest = $this->getRequest();
+      	
+		// Checking request method is post
+		if( $oRequest->isPost() )
+		{
+			// Checking post values are valid
+			if( $oForm->isValid( $oRequest->getPost() ) )
+			{
+				$snFileSize = 0;
+				$ssFieldValue =  $sm__fieldValue = $sn__countField =  $sn__toalFail = '';
+				$data = $ss__fields = $amFieldList = array();
+				$sn__totalRowFail =  $sn__totalRowInsert = 1;  
+				
+				$asFormData = $oForm->getValues();				
+			    $filename = APPLICATION_PATH.'/tmp/import/'.$_FILES['importcsv']['name'];
+			    
+			    $sn__fileSize = filesize($filename);
+		        $ssFileOpen = fopen($filename,"r");		        
+				$sm__csvContent = fread($ssFileOpen,$sn__fileSize);
+				
+				$sn__dataLine  = explode("\n",$sm__csvContent); 
+				$sn__totalRow = count($sn__dataLine);
+				$sn__lastRow = $sn__totalRow-1;
+				$inserRow=1;
+				$errorInserRow=1;
+				
+				foreach($sn__dataLine as $sn__key => $ss__value){
+					if($sn__key !== $sn__lastRow){
+						if($sn__key==0){
+							$ss__field = explode(';',$ss__value);
+							$sn__countField = count($ss__field);
+							$ss__fields[] = $ss__field;
+							
+							//Create language wise array for check Field Value
+							$ssNameField = "name";
+							$amFieldList[] = '"'.$ssNameField.'"';
+							foreach($amLanguageList as $key => $amLanguage){
+								$amFieldList[] .= '"'.$amLanguage['lang'].'"';
+							}
+							
+							//check field value with language array
+							$result =($ss__fields[0] === $amFieldList);
+							if(!$result){
+								$this->_helper->flashMessenger->addMessage(array('msg_field_name_not_proper'));
+								$this->_redirect($this->getRequest()->getServer('HTTP_REFERER'));
+								exit;
+							}
+						} else {
+							$sm__fieldvalue = explode(";",$ss__value);
+							$sn__countValue =count($sm__fieldvalue);
+							$sm__fieldvalues[] =  $sm__fieldvalue;
+							
+							if($sn__countField == $sn__countValue){
+							
+							}
+							else{
+								$sn__toalFail = $sn__totalRowFail++;
+							}
+						}	
+					}		
+				}
+				
+					echo "<pre>";
+				/*	print_r($ss__fields);
+					print_r($sm__fieldvalues);*/
+					
+				
+				foreach($ss__fields as $keydata => $Fieldvalue)	
+				{
+					
+					foreach($sm__fieldvalues as $keydata => $value)	
+					{
+						$keydata[$keydata][$Fieldvalue] = $value;
+					}	
+					
+				}
+				
+				print_r($data);exit;
+							//if($sm__fieldvalue[0]!=='' && $sm__fieldvalue[1]!=='' && $sm__fieldvalue[2]!=='' && $sm__fieldvalue[3]!=='' && $sm__fieldvalue[4]!=='' && $sm__fieldvalue[5]!=='' && $sm__fieldvalue[6]!=='' && $sm__fieldvalue[7]!=='' && $sm__fieldvalue[8]!=='' &&  $sm__fieldvalue[9]!==''){
+				/*if(($handle = )fopen($filename, 'r')) !== FALSE) {
+				            // necessary if a large csv file
+				            set_time_limit(0);
+				
+				            $row = 0;
+				
+				            while(($data = fgetcsv($handle, 1000, ';')) !== FALSE) {
+				                // number of fields in the csv
+				                $num = count($data);
+				
+				                // get the values from the csv
+				                $csv[$row]['name'] = $data[0];
+				                $csv[$row][] = $data[1];
+				
+				                // inc the row
+				                $row++;
+				            }
+			            fclose($handle);
+	        	}
+	        	echo"<pre>";
+				print_r($csv);exit;*/
+				
+			
+			}	
+		}	
+    }
+
+	
 }
+

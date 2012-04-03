@@ -23,8 +23,10 @@
 		<!--Header File -->
 		<?php echo $this->partial('partials/_header.phtml'); ?>
 	</div>
+		<?php $oSession = new Zend_Session_Namespace('sess_admin'); ?>	
+		<?php $ssSessionName =  $oSession->__get('admin_name'); ?>
 	 <div id="breadcrumb">
-     	<div id="breadcrumb-inner"><?php echo $this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render(); ?></div>
+     	<div id="breadcrumb-inner"><?php echo ($ssSessionName ? $this->navigation()->breadcrumbs()->setLinkLast(false)->setMinDepth(0)->render() : ""); ?></div>
     </div>
 	<div id="cnt-main" align="center">
 		<h1><?php echo $this->escape($this->title); ?></h1>

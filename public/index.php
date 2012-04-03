@@ -20,7 +20,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 defined('UPLOAD_DIR_PATH')
     || define('UPLOAD_DIR_PATH', 'upload/');
-
+    
 /** Zend_Application */
 require_once 'Zend/Application.php';
 

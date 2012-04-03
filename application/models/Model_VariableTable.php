@@ -44,7 +44,7 @@ class Model_VariableTable extends Doctrine_Table
 	* @access public
 	* @return boolean | array of Variable table records 
 	*/
-	public function getAllVariableList($ssLang = '')
+	public function getAllVariableList($ssLang = '') 
 	{
 		if(empty($ssLang) || is_numeric($ssLang) || is_array($ssLang) ) return false;
 		
@@ -55,6 +55,32 @@ class Model_VariableTable extends Doctrine_Table
 			$oSelectQuery->from("Model_Variable v " );
 			$oSelectQuery->leftjoin("v.Translation T");
 			$oSelectQuery->andwhere("T.lang = ?", $ssLang);
+			$oSelectQuery->orderBy('v.name ASC');
+			
+			return $oSelectQuery->fetchArray();
+		}
+		catch( Exception $oException )
+		{
+			echo $oException->getMessage();
+			return false;
+		}	
+	}
+	
+	/**
+	* For Fetch All Record From Variable Table For export csv
+	*
+	* @author Bhaskar Joshi
+	* @access public
+	* @return array of Variable table records 
+	*/
+	public function getAllVariableData() 
+	{
+		try
+		{
+			$oSelectQuery = Doctrine_Query::create();
+			$oSelectQuery->select('v.id, v.name, T.*');
+			$oSelectQuery->from("Model_Variable v " );
+			$oSelectQuery->leftjoin("v.Translation T");
 			$oSelectQuery->orderBy('v.name ASC');
 			
 			return $oSelectQuery->fetchArray();
@@ -105,6 +131,8 @@ class Model_VariableTable extends Doctrine_Table
 	*/
 	public function InsertVariable($asVariableData = array())
 	{
+		echo "<pre>";
+		print_r($asVariableData);exit;
 		if(!is_array($asVariableData) || empty($asVariableData)) return false;
 		
 		try

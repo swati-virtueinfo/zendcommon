@@ -1,0 +1,20 @@
+<form name="importcsvfile"  method="post" enctype="multipart/form-data">
+	<fieldset>
+		<legend><?php echo  $this->translate("lbl_import_file"); ?></legend>
+		<table align="center">
+			<tr>
+				<td colspan="3"></td>
+			</tr>	
+			<tr>
+				<td><?php echo strip_tags($this->form->importcsv->renderLabel()); ?> <span id="error">*</span>&nbsp;&nbsp;</td>
+				<td>
+					<div id="error"><?php echo $this->translate(strip_tags($this->form->importcsv->renderErrors()));?></div>
+					<?php echo $this->form->importcsv->renderfile();?></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="submitcsv" value="Import" class="subut" /></td>
+			</tr>
+		</table>
+	</fieldset>
+</form>
+		
