@@ -112,10 +112,13 @@
               <actionMethod actionName="generatefile"/>
               <actionMethod actionName="delete"/>
               <actionMethod actionName="changeactive"/>
+              <actionMethod actionName="exportcsv"/>
+              <actionMethod actionName="importcsv"/>
             </controllerFile>
           </controllersDirectory>
           <formsDirectory>
             <formFile formName="Addedit"/>
+            <formFile formName="Importcsv"/>
           </formsDirectory>
           <layoutsDirectory enabled="false">
             <layoutScriptsDirectory enabled="false"/>
@@ -135,6 +138,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">
                 <viewScriptFile forActionName="changeactive"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="exportcsv"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="importcsv"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -358,6 +367,9 @@
                 <testApplicationActionMethod forActionName="index"/>
                 <testApplicationActionMethod forActionName="addedit"/>
                 <testApplicationActionMethod forActionName="generatefile"/>
+				<testApplicationActionMethod forActionName="delete"/>
+				<testApplicationActionMethod forActionName="importcsv"/>
+				<testApplicationActionMethod forActionName="exportcsv"/>
               </testApplicationControllerFile>
             </testApplicationControllerDirectory>
           </testApplicationModuleDirectory>

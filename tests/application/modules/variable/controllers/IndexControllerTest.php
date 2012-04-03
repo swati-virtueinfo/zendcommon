@@ -36,6 +36,16 @@ class Variable_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
             );
     }
 
+	public function testImportcsvAction()
+    {
+		
+    }
+
+	public function testExportcsvAction()
+    {
+		
+    }
+
 
 }
 
